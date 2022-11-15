@@ -36,14 +36,10 @@
   <!-- Template Main CSS File -->
   <link href="../../BizLand/assets/css/style.css" rel="stylesheet">
 
-
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 </head>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" style="border: 0;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,19 +115,6 @@
   </div>
 </header><!-- End Header -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <body style="display: block; margin: 0; ">
 
   <!-- Modal -->
@@ -159,8 +142,6 @@
 
 
   <!-- ======= Header ======= -->
-
-
 
   <style>
 
@@ -195,9 +176,28 @@
             </div>
 
             <?php if (isset($_SESSION['erro-session'])) { ?>
-              <!-- <p style="background-color: red;">Email ou senha incorretos</p> -->
               <label for="">Email ou senha incorretos</label>
             <?php } ?>
+
+            <!-- <div class="alert" id="alert" role="alert"></div>
+
+            <script type="text/javascript">
+
+              $(document).ready(function(){
+                $('#submit').click(function(){
+                  var email = $('#txtEmail').val();
+                  var senha = $('txtSenha').val();
+                  
+                  $('#alert').html('');
+                  if(email == '') {
+                    $('#alert').html('Preencher email');
+                    $('#alert').addClass("alert-danger");
+                    return false;
+                  }
+                })
+              })
+
+            </script> -->
 
 
 

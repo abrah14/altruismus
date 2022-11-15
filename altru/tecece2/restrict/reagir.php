@@ -1,36 +1,35 @@
 <?php
 
-    session_start();
     require_once("../model/Reacao.php");
+    require_once("../model/Conexao.php");
     date_default_timezone_set('America/Sao_Paulo');
 
     $reacao = new Reacao();
+    $conexao = Conexao::conectar();
 
-    if(isset($_SESSION['jaReagiu'])) {
-        unset($_SESSION['jaReagiu']);
-        $reacao->deletar($idReacao);
-    }
-    else {
-        $_SESSION['jaReagiu'] = true;
-        $data = date('Y/m/d H:i:s');
-        $tipo = "curtida";
-        $idPost = $_POST['idPost'];
+    if($reacao->verificar($_POST['idpost'],$_POST['tipoperfil'],$_POST['idperfil']) == "curtiu") {
+        $reacao->deletar($_POST['idpost'],$_POST['idperfil'],$_POST['tipoperfil']);
+    }else {
+        $data = [
+            'tipo' => $_POST['tipo'],
+            'tipoperfil' => $_POST['tipoperfil'],
+            'idperfil' => $_POST['idperfil'],
+            'idpost' => $_POST['idpost'],
+            'datacurtida' => $dataCurtida = date('Y-m-d H:i:s')
+        ];
     
-        $reacao->setDtReacao($data);
-        $reacao->setTipoReacao($tipo);
-        $reacao->setIdPost($idPost);
+        $stmt = $conexao->prepare("INSERT INTO tbreacao(tiporeacao,datareacao,idpost,idperfil,tipoperfil) VALUES(:tipo, :datacurtida, :idpost, :idperfil, :tipoperfil)");
     
-        if(isset($_SESSION['iddoador'])) {
-            $reacao->setTipoPerfil("tbdoador");
-            $reacao->setIdPerfil($_SESSION['iddoador']);
+        try{
+            $conexao->beginTransaction();
+            $stmt->execute($data);
+            $conexao->commit();
+        }catch (Exception $e) {
+            $conexao->rollBack();
+            throw $e;
         }
-        else if(isset($_SESSION['idong'])) {
-            $reacao->setTipoPerfil("tbong");
-            $reacao->setIdPerfil($_SESSION['idong']);
-        }
-    
-        $reacao->reagir($reacao);
     }
+
 
 
 ?>

@@ -3,16 +3,25 @@
 session_start();
 require_once("../model/Ong.php");
 require_once("../model/Post.php");
+require_once("../model/Reacao.php");
 include_once("valida-permanencia.php");
 
 try {
   $ong = new Ong();
-
   $post = new Post();
+  $reacao = new Reacao();
+
+  if(isset($_SESSION['iddoador'])) {
+    header("Location: ../../BizLand/index.php");
+    unset($_SESSION['idong']);
+    session_destroy();
+  }
+  else if(isset($_SESSION['idong'])) {
+    $tipoPerfil = "ong";
+    $idPerfil = $_SESSION['idong'];
+  }
 
   unset($_SESSION['idOngListar']);
-
-
 
   $listapost = $post->listarTd();
 } catch (Exception $e) {
@@ -174,11 +183,6 @@ try {
             <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
           </section> -->
 
-
-
-
-
-
           <script>
             //const h1 = document.getElementById('asideEsquerdo')
 
@@ -213,19 +217,9 @@ try {
     </section>
   </aside>
 
-
-
-
-
-
   <main id="elemento-chave" style="border: none;">
 
     <section style="border: 1px solid #E6ECF0;">
-
-
-
-
-
 
       <script>
         const teste = () => {
@@ -282,24 +276,30 @@ try {
           </section>
         </section>
 
-
-
-        <?php if(isset($_SESSION['iddoador'])) {?>
-
           <form action="./reagir.php" method="post">
 
-            <button type="submit">
-              <img src="./coracao.png" alt="">
+            <button type="submit" name="idPost" value="<?php echo $idPost?>">
+
+              <?php
+                if($reacao->verificar($idPost,$tipoPerfil,$idPerfil) == "curtiu") {
+              ?>
+                <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;">
+              <?php } else{ ?>
+                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;">
+              <?php } ?>
             </button>
 
           </form>
-          
 
+          <br>
+          
           <form action="./tela-comentario.php" method="post">
             <button type="submit" value="<?php echo $idPost?>" name="btnComentar">COMENTAR</button>
           </form>
 
-        <?php } ?>
+          <br>
+
+     
 
       <?php } ?>
 

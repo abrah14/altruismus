@@ -1,6 +1,6 @@
 <?php
 
-    header('Location: perfil.php');
+    header('Location: perfil-doador.php');
     require_once('../model/Doador.php');
 
     session_start();

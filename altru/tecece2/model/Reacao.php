@@ -58,50 +58,65 @@
             $this->tipoPerfil = $tipoPerfil;
         }
 
-        // public function verificarCurtida($idPerfil,$tipoPerfil) {
-        //     $conexao = Conexao::conectar();
-        //     if($tipoPerfil == "ong") {
-
-        //     }
-        //     $verificacao = "SELECT * FROM tbreacao WHERE EXISTS(SELECT * FROM tbreacao INNER JOIN tb WHERE idperfil = $idPerfil AND tbong.idong = $idPerfil)";
-        // }
-
         public function reagir($reagir) {
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("INSERT INTO tbreacao(idreacao,tiporeacao,datareacao,idpost,atividade, idperfil,tipoperfil) VALUES(?,?,?,?,?,?,?) ");
+            $stmt = $conexao->prepare("INSERT INTO tbreacao(idreacao,tiporeacao,datareacao,idpost,idperfil,tipoperfil) VALUES(?,?,?,?,?,?) ");
 
             $stmt->bindValue(1,$reagir->getIdReacao());
             $stmt->bindValue(2,$reagir->getTipoReacao());
             $stmt->bindValue(3,$reagir->getDtReacao());
             $stmt->bindValue(4,$reagir->getIdPost());
-            $stmt->bindValue(5,1);
-            $stmt->bindValue(6,$reagir->getIdPerfil());
-            $stmt->bindValue(7,$reagir->getTipoPerfil());
+            $stmt->bindValue(5,$reagir->getIdPerfil());
+            $stmt->bindValue(6,$reagir->getTipoPerfil());
 
             $stmt->execute();
         }
 
-        public function deletar($idReacao) {
+        public function deletar($idPost,$idPerfil,$tipoPerfil) {
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("UPDATE tbreacao SET atividade = ? WHERE idreacao = ?");
+            $sql = "DELETE FROM tbreacao WHERE idperfil = ? AND tipoperfil = ? AND idpost = ?";
 
-            $stmt->bindParam(1,0);
-            $stmt->bindParam(1,$idReacao);
-
-            $stmt->execute();
+            $stmt = $conexao->prepare($sql);
+            $stmt->execute([ $idPerfil, $tipoPerfil, $idPost]);
         }
 
-        public function listar($idPost) {
+        public function verificar($idPost,$tipoPerfil,$idPerfil) {
             $conexao = Conexao::conectar();
-            $stmt_1 = $conexao->prepare("SELECT * FROM tbreacao WHERE EXISTS(SELECT * FROM tbreacao WHERE idperfil = ? AND tipoperfil = ?");
-            if($stmt_1->rowCount() <= 0) {
+            
+            $stmt = $conexao->prepare(
+                "SELECT idreacao FROM tbreacao WHERE idperfil = ? AND tipoperfil = ? AND idpost = ?"
+            );
+
+            $stmt->bindParam(1,$idPerfil);
+            $stmt->bindParam(2,$tipoPerfil);
+            $stmt->bindParam(3,$idPost);
+
+            $stmt->execute();
+
+            if($tipoPerfil == "ong") {
+
+                if($stmt->rowCount() > 0) {
+                    return "curtiu";
+                }
+                else {
+                    return false;
+                }
+
+            }
+            else if($tipoPerfil == "doador") {
+
+                if($stmt->rowCount() > 0) {
+                    return "curtiu";
+                }
+                else {
+                    return false;
+                }
+
+            }
+            else {
                 return false;
             }
-            else if($stmt_1->rowCount() > 0) {
-                //VERIFICA SE É ONG//
-                $stmt_2 = $conexao->prepare("SELECT * FROM tbong WHERE idong = ?");
-                if($stmt_2->rowCount() > 0)
-            }
+
         }
 
     }

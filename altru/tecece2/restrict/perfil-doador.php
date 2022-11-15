@@ -12,9 +12,7 @@ try {
   $ong = new Ong();
 
   if (isset($_SESSION['iddoador'])) {
-    header("Location: ../../BizLand/index.php");
-    unset($_SESSION['iddoador']);
-    session_destroy();
+    $perfilDoador = $doador->getDoador($_SESSION['iddoador']);
   }
 } catch (Exception $e) {
   echo $e->getMessage();
@@ -22,10 +20,16 @@ try {
 ?>
 
 <?php
-if (isset($_SESSION['idong'])) {
-  $listapost = $post->listar($_SESSION['idong']);
-  $perfilOng = $ong->getOng($_SESSION['idong']);
-?>
+
+  try {
+
+
+    $perfilDoador = $doador->getDoador($_SESSION['iddoador']);
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+  ?>
+
   <!DOCTYPE html>
   <html lang="en">
 
@@ -48,13 +52,9 @@ if (isset($_SESSION['idong'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js">
 
-
     <!-- Favicons -->
     <link class="logo1" href="../../BizLand/../../BizLand/assets/img/logo1.png" rel="icon">
     <link href="../../BizLand/../../BizLand/assets/img/apple-touch-icon.png" rel="">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
     <link rel="stylesheet" href="../css/social.css">
 
@@ -67,6 +67,7 @@ if (isset($_SESSION['idong'])) {
         max-width: 90%;
         width: 1100px;
       }
+
 
       img.logo {
         max-width: 100%;
@@ -98,13 +99,10 @@ if (isset($_SESSION['idong'])) {
         <section class="itens-p">
           <div class="section-logo" id="logo">
             <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
-
-
           </div>
 
-
           <section class="letras-aside" style="border: none;">
-            <!-- <section class="banana" id="home1" id="home1">
+            <section class="banana" id="home1" id="home1">
 
               <a href="">
 
@@ -112,14 +110,15 @@ if (isset($_SESSION['idong'])) {
               </a>
               <a class="home" onclick="teste()" href="./social2.php">Home</a>
 
-            </section> -->
+            </section>
             <section class="banana" id="home1">
               <a href="">
 
                 <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
               </a>
-              <a class="home" href="./explorar.php">Explorar</a>
+              <a class="home" href="./explorar-doador.php">Explorar</a>
             </section>
+
             <!-- <section class="banana" id="home1">
               <a href="">
 
@@ -143,7 +142,7 @@ if (isset($_SESSION['idong'])) {
 
                 <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
               </a>
-              <a class="home" href="./perfil.php">Perfil</a>
+              <a class="home" href="./perfil-doador.php">Perfil</a>
             </section>
 
             <section class="banana" id="home12">
@@ -175,6 +174,8 @@ if (isset($_SESSION['idong'])) {
               // nav.style.display = 'flex'                         
             </script>
 
+
+
             <section>
 
             </section>
@@ -189,45 +190,22 @@ if (isset($_SESSION['idong'])) {
       </section>
     </aside>
 
+
     <main id="elemento-chave" style="border: none;">
-
       <section class="issopq" style="border: 1px solid #E6ECF0;">
-
         <section id="teste" class="pai-titulo">
           <?php
-          foreach ($perfilOng as $perfil) {
-            $nomeOng = $perfilOng['nomeong'];
-            $telefoneOng = $perfilOng['telefoneong'];
-            $emailOng = $perfilOng['emailong'];
-            $fotoOng = $perfilOng['fotoong'];
-            $nomeOng = $perfilOng['nomeong'];
-            $dtNasc = $perfilOng['datanascong'];
-            $cepOng = $perfilOng['cepong'];
-            $estadoOng = $perfilOng['estadoong'];
-            $cidadeOng = $perfilOng['cidadeong'];
-            $bairroOng = $perfilOng['bairroong'];
-            $ruaOng = $perfilOng['ruaong'];
-            $complementoOng = $perfilOng['complementoong'];
-            $emailOng = $perfilOng['emailong'];
-            $senhaOng = $perfilOng['senhaong'];
-            $logradouroOng = $perfilOng['lugradouroong'];
-            $telefone = $perfilOng['telefoneong'];
-            $dtFundacao = implode("/", array_reverse(explode("-", $dtNasc)));
+          foreach ($perfilDoador as $perfil) {
+            $nomeDoador = $perfilDoador['nomedoador'];
+            $telefoneDoador = $perfilDoador['telefonedoador'];
+            $emailDoador = $perfilDoador['emaildoador'];
+            $fotoDoador = $perfilDoador['fotodoador'];
           }
 
-          // $verificacao = $seguindo->verificarSeguir($_SESSION['iddoador'],$idOng);
-          // if($verificacao <= 0) {
-          //   unset($_SESSION['seguindo']);
-          // }
 
-          // foreach($listaid as $id) {
-          //   $idOng = $id['idong'];
-          // }
           ?>
-
-
-          <img class="img-agencia" src="./foto-perfil-ong/<?php echo $fotoOng ?>" height="50px" width="50px" alt="">
-          <p class="titulo"><?php echo $nomeOng ?></p>
+          <img class="img-agencia" src="./foto-perfil-doador/<?php echo $fotoDoador ?>" height="50px" width="50px" alt="">
+          <p class="titulo"><?php echo $nomeDoador ?></p>
 
 
         </section>
@@ -238,36 +216,20 @@ if (isset($_SESSION['idong'])) {
           <section class="img-section">
 
             <section class="imagm">
-              <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%;">
-
+              <img src="./foto-perfil-doador/<?php echo $fotoDoador ?>" alt="" style="border-radius: 50%; width: 300px; height: 300px;">
+              <p>
+              <h3><?php echo $nomeDoador ?></h3>
+              </p>
             </section>
             <section class="agrvai">
-              <p>
-              <h3><?php echo $nomeOng ?></h3>
-              </p>
               <!-- Button trigger modal -->
-              <!-- <button type="button" class="btn btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Doar
-              </button> -->
-
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarOng" name="linha" id="linha" data-whatever="<?php echo $_SESSION['idong'] ?>" data-whatevernome="<?php echo $nomeOng ?>" data-whatevertelefone="<?php echo $telefone ?>" data-whateveremail="<?php echo $emailOng ?>" data-whatevercep="<?php echo $cepOng ?>" data-whateverestado="<?php echo $estadoOng ?>" data-whatevercidade="<?php echo $cidadeOng ?>" data-whateverbairro="<?php echo $bairroOng ?>" data-whateverrua="<?php echo $ruaOng ?>" data-whatevercomplemento="<?php echo $complementoOng ?>" data-whateverlogradouro="<?php echo $logradouroOng ?>" data-whateversenha="<?php echo $senhaOng ?>" data-whateverfundacao="<?php echo $dtNasc ?>">
+              <br>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" data-whatever="<?php echo $_SESSION['iddoador'] ?>" data-whatevernome="<?php echo $perfilDoador['nomedoador'] ?>" data-whateveremail="<?php echo $perfilDoador['emaildoador'] ?>" data-whatevercpf="<?php echo $perfilDoador['cpfdoador'] ?>" data-whatevernasc="<?php echo $perfilDoador['datanascdoador'] ?>" data-whatevercidade="<?php echo $perfilDoador['cidadedoador'] ?>" data-whateverestado="<?php echo $perfilDoador['estadodoador'] ?>" data-whateverbairro="<?php echo $perfilDoador['bairrodoador'] ?>" data-whateverrua="<?php echo $perfilDoador['ruadoador'] ?>" data-whatevercep="<?php echo $perfilDoador['cepdoador'] ?>" data-whatevercomplemento="<?php echo $perfilDoador['complementodoador'] ?>" data-whateverlogradouro="<?php echo $perfilDoador['lugradourodoador'] ?>" data-whateversenha="<?php echo $perfilDoador['senhadoador'] ?>" data-whatevertel="<?php echo $perfilDoador['telefonedoador'] ?>" data-whateverfoto="<?php echo $perfilDoador['fotodoador'] ?>">
                 Editar Perfil
               </button>
-
-              <br>
               <br>
 
-
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postar" style="background-color: #5A56E9;border: none;">Publicar</button>
-              <br>
-              <label for=""><?php echo "EMAIL: " . $emailOng ?></label>
-              <br>
-              <label for="">TELEFONE: <?php echo $telefone ?></label>
-              <br>
-              <label for="">FUNDAÇÃO: <?php echo $dtFundacao ?></label>
-              <br>
-
-              <div class="modal fade" id="editarOng" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+              <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -277,19 +239,22 @@ if (isset($_SESSION['idong'])) {
                       </button>
                     </div>
                     <div class="modal-body">
-                      <form action="./editar-perfil-ong.php" method="post">
-
+                      <form action="./editar-perfil-doador.php" method="post">
                         <div class="form-group">
-                          <label for="recipient-name" class="col-form-label">NOME DA ONG</label>
+                          <label for="recipient-name" class="col-form-label">NOME</label>
                           <input type="text" class="form-control" id="recipient-name" name="nomeEditar">
-                        </div>
-                        <div class="form-group">
-                          <label for="recipient-fundacao" class="col-form-label">FUNDAÇÃO</label>
-                          <input type="date" class="form-control" id="recipient-fundacao" name="dtNasc">
                         </div>
                         <div class="form-group">
                           <label for="recipient-email" class="col-form-label">EMAIL</label>
                           <input type="text" class="form-control" id="recipient-email" name="emailEditar">
+                        </div>
+                        <div class="form-group">
+                          <label for="recipient-cpf" class="col-form-label">CPF</label>
+                          <input type="text" class="form-control" id="recipient-cpf" name="cpfEditar">
+                        </div>
+                        <div class="form-group">
+                          <label for="recipient-nasc" class="col-form-label">DT.NASCIMENTO</label>
+                          <input type="text" class="form-control" id="recipient-nasc" name="dtNasc">
                         </div>
                         <div class="form-group">
                           <label for="recipient-cep" class="col-form-label">CEP</label>
@@ -320,54 +285,87 @@ if (isset($_SESSION['idong'])) {
                           <input type="text" class="form-control" id="recipient-logradouro" name="logradouroEditar">
                         </div>
                         <div class="form-group">
-                          <label for="recipient-telefone" class="col-form-label">TELEFONE</label>
-                          <input type="text" class="form-control" id="recipient-telefone" name="telefoneEditar">
-                        </div>
-                        <div class="form-group">
                           <label for="recipient-senha" class="col-form-label">SENHA</label>
-                          <input type="text" class="form-control" id="recipient-senha" name="senhaOng">
+                          <input type="text" class="form-control" id="recipient-senha" name="senhaEditar">
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="recipient-telefone" class="col-form-label">Telefone</label>
+                          <input type="text" class="form-control" id="recipient-telefone" name="telefoneEditar" readonly>
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
-                      <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">SALVAR</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">CANCELAR</button>
+                      <button type="submit" class="btn btn-danger">SALVAR</button>
                     </div>
                     </form>
                   </div>
                 </div>
               </div>
 
-              <div class="modal fade" id="postar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+
+
+
+
+              <label for="">E-mail: <?php echo $emailDoador ?></label>
+              <br>
+              <label for="">Telefone: <?php echo $telefoneDoador ?></label>
+
+
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Fazer postagem</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                      <form action="./postar.php" method="post" enctype="multipart/form-data">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src="../image/donate.png">
+                      </div>
+                      <div class="form-box">
+                        <form method="post" action="../restrita/cadastra-doacao.php">
+                          <div class="input-group">
+                            <label for="data">Data da Doação</label>
+                            <input type="date" id="txtDataDoacao" name="txtDataDoacao" placeholder="Digite a data da doação" required>
+                          </div>
 
-                        <div class="form-group">
-                          <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
-                          <input type="text" class="form-control" id="recipient-fundacao" name="msg">
-                        </div>
-                        <div class="form-group">
-                          <label for="recipient-email" class="col-form-label">Foto</label>
-                          <input type="file" class="form-control" id="recipient-email" name="imagem">
-                        </div>
+                          <div class="input-group">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" id="txtDescDoacao" name="txtDescDoacao" placeholder="Digite a descrição" required>
+                          </div>
 
+                          <label>Ong:</label>
+                          <select name="ong">
+                            <option value="0">Selecione</option>
+                            <?php foreach ($listaong as $listar) { ?>
+                              <option value="<?php echo $listar['idong'] ?>">
+                                <?php echo $listar['nomeong'] ?>
+                              </option>
+                            <?php } ?>
+                          </select>
+
+                          <div class="input-group">
+                            <button type="submit">Doe</a></button>
+                          </div>
+                          <p class="temConta">Já tem uma conta? <a href="login-user.php">LOGIN</a></p>
+                        </form>
+                      </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
-                      <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">ENVIAR</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                     </div>
-                    </form>
                   </div>
                 </div>
               </div>
+              <label for="">E-mail: <?php echo $emailDoador ?></label>
+              <br>
+              <label for="">Telefone: <?php echo $telefoneDoador ?></label>
 
             </section>
 
@@ -397,105 +395,25 @@ if (isset($_SESSION['idong'])) {
         </style>
 
       </section>
-      <section style="border: 2px solid #E6ECF0;">
+      <section id="portfolio" class="portfolio">
+        <div class="container" style="justify-content: center;" data-aos="fade-up">
 
 
 
 
-        <section id="portfolio" class="portfolio">
-          <div class="container" style="justify-content: center;" data-aos="fade-up">
-
-            <div class="row" data-aos="fade-low" data-aos-delay="100">
-              <div class="col-lg-12 ">
-                <ul id="portfolio-flters" id="tentando" style="display: flex; border: 1px solid; justify-content: space-around; ">
-
-                  <!-- <li id="testando" data-filter=".filter-app" style="padding: 15px;">Pedidos</li> -->
-                  <li id="testando" data-filter=".filter-web" style="padding: 15px;">Pedidos</li>
+          <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
 
-                </ul>
-              </div>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+
+              <!-- Imgem fica aq-->
+
             </div>
 
+          </div>
+      </section><!-- End Portfolio Section -->
 
-
-            <style>
-              #testando:hover {
-                border-bottom: #5A56E9 solid 5px;
-
-              }
-            </style>
-
-            <!-- ======= Portfolio Section ======= -->
-
-            <section style="border: 2px solid #E6ECF0;">
-
-
-
-
-              <section id="portfolio" class="portfolio">
-                <div class="container" data-aos="fade-up">
-
-
-
-
-                  <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-sla">
-                      <div class="portfolio-wrap">
-                        <img src="assets/img/Altruismus.png" class="img-fluid" alt="">
-                        <div class="portfolio-info">
-
-
-                          <div class="portfolio-links">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                      <div class="portfolio-wrap">
-
-                        <div class="portfolio-info">
-
-                          <?php
-                          foreach ($listapost as $post) { ?>
-
-
-                            <div style="justify-content: center; border-bottom: #5A56E9 2px solid;">
-                              <section class="mensagens" style="display: flex;">
-                                <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-                                <p><?php echo $post['nomeong'] ?></p>
-
-                              </section>
-                              <section>
-                                <p><?php echo $post['dtpost'] ?></p>
-                              </section>
-
-                              <section class="mensagens2">
-
-                                <p><?php echo $post['msgpost'] ?></p>
-
-
-                                <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
-
-
-                              </section>
-
-                            </div>
-                        </div>
-                      </div>
-
-                    <?php } ?>
-                    </div>
-
-                  </div>
-              </section><!-- End Portfolio Section -->
-            </section>
-
-
-
-            <!-- ======= Team Section ======= -->
+      <!-- ======= Team Section ======= -->
 
     </main>
 
@@ -531,6 +449,7 @@ if (isset($_SESSION['idong'])) {
       </section>
 
     </aside>
+
     <script src="../../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="../../BizLand/assets/vendor/aos/aos.js"></script>
     <script src="../../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -545,8 +464,10 @@ if (isset($_SESSION['idong'])) {
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
-      $('#editarOng').on('show.bs.modal', function(event) {
+      $('#editar').on('show.bs.modal', function(event) {
         // Button that triggered the modal
         var button = $(event.relatedTarget)
 
@@ -556,6 +477,8 @@ if (isset($_SESSION['idong'])) {
         var recipient = button.data('whatever')
         var recipientNome = button.data('whatevernome')
         var recipientEmail = button.data('whateveremail')
+        var recipientCpf = button.data('whatevercpf')
+        var recipientNasc = button.data('whatevernasc')
         var recipientEstado = button.data('whateverestado')
         var recipientCidade = button.data('whatevercidade')
         var recipientBairro = button.data('whateverbairro')
@@ -563,14 +486,16 @@ if (isset($_SESSION['idong'])) {
         var recipientCep = button.data('whatevercep')
         var recipientComplemento = button.data('whatevercomplemento')
         var recipientLogradouro = button.data('whateverlogradouro')
-        var telefone = button.data('whatevertelefone')
-        var fundacao = button.data('whateverfundacao')
+        var recipientInscricao = button.data('whateverinscricao')
+        var recipientTel = button.data('whatevertel')
 
         var modal = $(this)
-        modal.find('.modal-title').text('EDITAR INFORMAÇÕES')
+        modal.find('.modal-title').text('EDITAR PERFIL')
         modal.find('#recipient-id').val(recipient)
         modal.find('#recipient-name').val(recipientNome)
         modal.find('#recipient-email').val(recipientEmail)
+        modal.find('#recipient-nasc').val(recipientNasc)
+        modal.find('#recipient-cpf').val(recipientCpf)
         modal.find('#recipient-estado').val(recipientEstado)
         modal.find('#recipient-cidade').val(recipientCidade)
         modal.find('#recipient-bairro').val(recipientBairro)
@@ -578,8 +503,8 @@ if (isset($_SESSION['idong'])) {
         modal.find('#recipient-cep').val(recipientCep)
         modal.find('#recipient-complemento').val(recipientComplemento)
         modal.find('#recipient-logradouro').val(recipientLogradouro)
-        modal.find('#recipient-telefone').val(telefone)
-        modal.find('#recipient-fundacao').val(fundacao)
+        modal.find('#recipient-inscricao').val(recipientInscricao)
+        modal.find('#recipient-telefone').val(recipientTel)
       })
 
       //MODAL DE EXCLUIR//
@@ -590,7 +515,7 @@ if (isset($_SESSION['idong'])) {
         var modal = $(this)
 
         modal.find('.modal-title').text('EXCLUIR INFORMAÇÕES DO ID ' + recipient)
-        modal.find('#idOng').val(recipient)
+        modal.find('#iddoador').val(recipient)
 
       })
     </script>
@@ -601,6 +526,3 @@ if (isset($_SESSION['idong'])) {
   </body>
 
   </html>
-
-
-<?php } ?>

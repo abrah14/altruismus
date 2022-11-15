@@ -1,23 +1,34 @@
 <?php
 
 session_start();
-require_once("../model/Post.php");
 require_once("../model/Ong.php");
+require_once("../model/Post.php");
 require_once("../model/Reacao.php");
 include_once("valida-permanencia.php");
 
-$post = new Post();
-$ong = new Ong();
-$reacao = new Reacao();
+try {
+    $ong = new Ong();
+    $post = new Post();
+    $reacao = new Reacao();
 
-$texto = $_POST['buscar'];
+    if (isset($_SESSION['iddoador'])) {
+        $tipoPerfil = "doador";
+        $idPerfil = $_SESSION['iddoador'];
+    } else if (isset($_SESSION['idong'])) {
+        header("Location: ../../BizLand/index.php");
+        unset($_SESSION['idong']);
+        session_destroy();
+    } else if (isset($_SESSION['idadmin'])) {
+        header("Location: ../../BizLand/index.php");
+        unset($_SESSION['idadmin']);
+        session_destroy();
+    }
 
-$pesquisar = $ong->pesquisaNomeOng($texto);
-$quantidadeOng = count($pesquisar);
+    unset($_SESSION['idOngListar']);
 
-if ($quantidadeOng <= 0) {
-    $pesquisar = $post->pesquisaPost($texto);
-    $quant = count($pesquisar);
+    $listapost = $post->listarTd();
+} catch (Exception $e) {
+    echo $e->getMessage();
 }
 
 ?>
@@ -30,15 +41,15 @@ if ($quantidadeOng <= 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altruismus</title>
-    <link rel="stylesheet" href="../css/social2.css">
+    <link rel="stylesheet" href="../css/social.css">
     <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-    <script src="../JS/social2.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -48,6 +59,7 @@ if ($quantidadeOng <= 0) {
             max-width: 90%;
             width: 1100px;
         }
+
 
         img.img-pub {
             max-width: 100%;
@@ -88,10 +100,8 @@ if ($quantidadeOng <= 0) {
         <nav>
             <section class="postar">
 
-                <li>
-                    <a id="cor-button" class="nav-link scrollto" href="#services">
-                        <button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Sua pesquisa:
+                <li><a id="cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Qual é a boa?
 
                         </button>
 
@@ -101,68 +111,58 @@ if ($quantidadeOng <= 0) {
 
     </header>
 
+
     <aside class="aside-esquerdo" style="border: none;" id="asideEsquerdo">
         <section class="letras" style="border: none;">
             <section class="itens-p">
                 <div class="section-logo" id="logo">
                     <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
+
+
                 </div>
 
+
                 <section class="letras-aside" style="border: none;">
-                    <?php if (isset($_SESSION['iddoador']) && !empty($_SESSION['iddoador'])) { ?>
-                        <section class="banana" id="home1" id="home1">
+                    <section class="banana" id="home1" id="home1">
 
-                            <a href="">
+                        <a href="">
 
-                                <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
-                            </a>
-                            <a class="home" onclick="teste()" href="./social2.php">Home</a>
+                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
+                        </a>
+                        <a class="home" onclick="teste()" href="./social2.php">Home</a>
 
-                        </section>
-                    <?php } ?>
+                    </section>
                     <section class="banana" id="home1">
                         <a href="">
 
                             <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
                         </a>
-                        <?php if (isset($_SESSION['iddoador'])) { ?>
-                            <a class="home" href="./explorar-doador.php">Explorar</a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION['idong'])) { ?>
-                            <a class="home" href="./explorar.php">Explorar</a>
-                        <?php } ?>
+                        <a class="home" href="./explorar-doador.php">Explorar</a>
                     </section>
                     <!-- <section class="banana" id="home1">
-                        <a href="">
+              <a href="">
 
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-                        </a>
-                        <a href="" class="home">Notificações
-                            <p class="algumaCoisa" onclick="teste()" id="algumaCoisa">
-                                    dsads
-                                </p>
-                        </a>
+                <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
+              </a>
+              <a href="" class="home">Notificações
+
+              </a>
 
 
-                    </section> -->
+            </section> -->
                     <!-- <section class="banana" id="home1">
-                        <a href="">
-                            <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
+              <a href="">
+                <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
 
-                        </a>
-                        <a class="home" href="">Mensagens</a>
-                    </section> -->
+              </a>
+              <a class="home" href="">Mensagens</a>
+            </section> -->
                     <section class="banana" id="home1" id="home12">
                         <a href="">
 
                             <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
                         </a>
-                        <?php if (isset($_SESSION['iddoador'])) { ?>
-                            <a class="home" href="./perfil-doador.php">Perfil</a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION['idong'])) { ?>
-                            <a class="home" href="./perfil.php">Perfil</a>
-                        <?php } ?>
+                        <a class="home" href="./perfil-doador.php">Perfil</a>
                     </section>
 
                     <section class="banana" id="home12">
@@ -173,15 +173,42 @@ if ($quantidadeOng <= 0) {
                     </section>
 
                     <!-- <section class="banana-button">
-                        <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
-                    </section> -->
+            <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
+          </section> -->
 
+                    <script>
+                        //const h1 = document.getElementById('asideEsquerdo')
+
+                        //console.log(h1)
+
+                        // aq ele remove o elemento h1.innerHTML = ''
+
+                        // const main = document.getElementById('elemento-chave')
+
+                        // main.style.padding = 0
+                        // console.log(main)
+
+                        // const nav = document.getElementById('nav-mobile')
+
+
+                        // nav.style.display = 'flex'                         
+                    </script>
+
+
+
+                    <section>
+
+                    </section>
 
                 </section>
+
+
             </section>
+
+
+
         </section>
     </aside>
-
 
     <main id="elemento-chave" style="border: none;">
 
@@ -210,69 +237,68 @@ if ($quantidadeOng <= 0) {
                 }
             </script>
 
-            <?php foreach ($pesquisar as $pesquisa) { ?>
+            <?php
+            foreach ($listapost as $post) {
+
+                $idOng = $post['idong'];
+                $idPost = $post['idpost'];
+            ?>
 
                 <section class="frase-do-img">
-
-                    <img src="./foto-perfil-ong/<?php echo $pesquisa['fotoong'] ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-                    <p class="nome-ong"><?php echo $pesquisa['nomeong'] ?></p>
+                    <form action="./social-doador.php" method="post">
+                        <button type="submit" name="idOng" value="<?php echo $idOng ?>">
+                            <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px;" alt="">
+                        </button>
+                    </form>
+                    <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
                     <!-- <p> @ADB</p> -->
                     <img class="img-pub-v" src="../img-social/tweet/Vector (1).png" alt="">
-                    <p><?php echo $pesquisa['dtpost'] ?></p>
+                    <p><?php echo $post['dtpost'] ?></p>
                 </section>
 
                 <section class="">
                     <section class="frase">
                         <section class="juncao">
-                            <p class="desc">
-                                <?php echo $pesquisa['msgpost'] ?>
-                            </p>
+                            <p class="desc"><?php echo $post['msgpost'] ?></p>
                         </section>
 
                         <section>
-                            <img class="img-responsive" src="./social-img/<?php echo $pesquisa['imagempost'] ?>" alt="">
+                            <img class="img-responsive" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
                         </section>
 
                     </section>
                 </section>
 
-                <?php
-                if (isset($_SESSION['iddoador'])) {
-                    $idPost = $pesquisa['idpost'];
-                    $idPerfil = $_SESSION['iddoador'];
-                    $tipoPerfil = "doador";
-                } else if (isset($_SESSION['idong'])) {
-                    $idPost = $pesquisa['idpost'];
-                    $idPerfil = $_SESSION['idong'];
-                    $tipoPerfil = "ong";
-                }
-                ?>
-
                 <form action="" method="" id="form-curtir">
                     <?php
-                    if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+                        if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
                     ?>
-                        <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+                        <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+                    
+                        <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+                    <?php }else{ ?>
 
-                            <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
-                        <?php } else { ?>
+                        <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
 
-                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
-
-                                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
-                            <?php } ?>
-                            </button>
+                        <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
+                    <?php } ?>
+                    </button>
 
                 </form>
 
                 <?php
-                $dataCurtida = date('Y-m-d H:i:s');
+                    $dataCurtida = date('Y-m-d H:i:s');
                 ?>
 
+                <br>
 
                 <form action="./tela-comentario.php" method="post">
-                    <button type="submit" value="<?php echo $pesquisa['idpost'] ?>" name="btnComentar">COMENTAR</button>
+                    <button type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
                 </form>
+
+                <br>
+
+
 
             <?php } ?>
 
@@ -280,27 +306,41 @@ if ($quantidadeOng <= 0) {
 
     </main>
 
+
     <aside class="aside-direito">
 
         <section class="aside-class" style="background-color: white; border: none;">
 
+
             <section style="background-color: white;border: none; ">
                 <form action="./pesquisa-altruismus.php" method="post">
 
-                    <input type="search" placeholder="Buscar por Altruismus" name="buscar">
-                    <button type="submit">Buscar</button>
+                    <input type="search" style="border: 1px solid #5A56E9;" class="busca" id="busca" placeholder="Busque por Ongs" name="buscar">
+                    <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px;">
+                        <i class="fa fa-search" style="color: white; padding: 10px;"></i>
 
+
+
+                    </button>
+
+                    <style>
+                        input:focus {
+                            box-shadow: 0 0 0 0;
+                            outline: 0;
+
+                        }
+                    </style>
                 </form>
             </section>
-
 
 
         </section>
 
     </aside>
 
+
     <script type="text/javascript">
-        function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
+        function valorBotao(postagem, reacao, perfil, iddoador,imagem) {
 
             idPost = postagem;
             tipoReacao = reacao;
@@ -309,17 +349,17 @@ if ($quantidadeOng <= 0) {
 
             var img = imagem;
 
-            if (img == 0) {
-                img = img + 1;
-                document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
-                // document.location.reload(true);
-            } else if (img > 0) {
-                document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
-                // document.location.reload(true);
+            if(img == 0) {
+                img = img+1;
+                document.getElementById("imagem-coracao").src="./coracao-vermelho.png";
+                document.location.reload(true);
+            }
+            else if(img > 0) {
+                document.getElementById("imagem-coracao-vermelho").src="./coracao.png";
+                document.location.reload(true);
             }
 
             event.preventDefault();
-            // document.location.reload(true);
 
             $.ajax({
                 type: "POST",
