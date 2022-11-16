@@ -11,12 +11,11 @@ try {
   $post = new Post();
   $reacao = new Reacao();
 
-  if(isset($_SESSION['iddoador'])) {
+  if (isset($_SESSION['iddoador'])) {
     header("Location: ../../BizLand/index.php");
     unset($_SESSION['idong']);
     session_destroy();
-  }
-  else if(isset($_SESSION['idong'])) {
+  } else if (isset($_SESSION['idong'])) {
     $tipoPerfil = "ong";
     $idPerfil = $_SESSION['idong'];
   }
@@ -142,28 +141,7 @@ try {
             </a>
             <a class="home" href="./explorar.php">Explorar</a>
           </section>
-          <?php if (isset($_SESSION['iddoador'])) { ?>
-            <!-- <section class="banana" id="home1">
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-              </a>
-              <a href="" class="home">Notificações
-
-              </a>
-
-
-            </section> -->
-          <?php } ?>
-          <?php if (isset($_SESSION['iddoador'])) { ?>
-            <!-- <section class="banana" id="home1">
-              <a href="">
-                <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
-
-              </a>
-              <a class="home" href="">Mensagens</a>
-            </section> -->
-          <?php } ?>
+          
           <section class="banana" id="home1" id="home12">
             <a href="">
 
@@ -276,30 +254,36 @@ try {
           </section>
         </section>
 
-          <form action="./reagir.php" method="post">
+        <form action="" method="" id="form-curtir">
+          <?php
+          if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+          ?>
+            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
 
-            <button type="submit" name="idPost" value="<?php echo $idPost?>">
+              <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+            <?php } else { ?>
 
-              <?php
-                if($reacao->verificar($idPost,$tipoPerfil,$idPerfil) == "curtiu") {
-              ?>
-                <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;">
-              <?php } else{ ?>
-                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;">
+              <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+
+                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
               <?php } ?>
-            </button>
+              </button>
 
-          </form>
+        </form>
 
-          <br>
-          
-          <form action="./tela-comentario.php" method="post">
-            <button type="submit" value="<?php echo $idPost?>" name="btnComentar">COMENTAR</button>
-          </form>
+        <?php
+        $dataCurtida = date('Y-m-d H:i:s');
+        ?>
 
-          <br>
+        <br>
 
-     
+        <form action="./tela-comentario.php" method="post">
+          <button type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
+        </form>
+
+        <br>
+
+
 
       <?php } ?>
 
@@ -342,7 +326,45 @@ try {
   </aside>
 
 
+  <script type="text/javascript">
+    function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
 
+      idPost = postagem;
+      tipoReacao = reacao;
+      tipoPerfil = perfil;
+      idDoador = iddoador;
+
+      var img = imagem;
+
+      if (img == 0) {
+        img = img + 1;
+        document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
+        document.location.reload(false);
+      } else if (img > 0) {
+        document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
+        document.location.reload(false);
+      }
+
+      event.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "reagir.php",
+        data: {
+          tipo: tipoReacao,
+          tipoperfil: tipoPerfil,
+          idperfil: idDoador,
+          idpost: idPost
+        },
+        success: function(data) {
+          console.log("curtiu");
+
+        }
+      });
+
+
+    }
+  </script>
 
 
 </body>

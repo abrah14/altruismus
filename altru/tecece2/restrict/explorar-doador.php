@@ -352,11 +352,11 @@ try {
             if(img == 0) {
                 img = img+1;
                 document.getElementById("imagem-coracao").src="./coracao-vermelho.png";
-                document.location.reload(true);
+                document.location.reload(false);
             }
             else if(img > 0) {
                 document.getElementById("imagem-coracao-vermelho").src="./coracao.png";
-                document.location.reload(true);
+                document.location.reload(false);
             }
 
             event.preventDefault();

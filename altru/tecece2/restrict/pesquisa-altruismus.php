@@ -257,7 +257,7 @@ if ($quantidadeOng <= 0) {
                             <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
                         <?php } else { ?>
 
-                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
 
                                 <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
                             <?php } ?>
@@ -266,7 +266,7 @@ if ($quantidadeOng <= 0) {
                 </form>
 
                 <?php
-                $dataCurtida = date('Y-m-d H:i:s');
+                    $dataCurtida = date('Y-m-d H:i:s');
                 ?>
 
 
@@ -300,6 +300,21 @@ if ($quantidadeOng <= 0) {
     </aside>
 
     <script type="text/javascript">
+
+        var posicao = localStorage.getItem('posicaoScroll');
+
+        if (posicao) {
+            /* Timeout necessário para funcionar no Chrome */
+            setTimeout(function() {
+                window.scrollTo(0, posicao);
+            }, 1);
+        }
+
+        window.onscroll = function(e) {
+            posicao = window.scrollY;
+            localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
+        }
+
         function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
 
             idPost = postagem;
@@ -312,14 +327,13 @@ if ($quantidadeOng <= 0) {
             if (img == 0) {
                 img = img + 1;
                 document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
-                // document.location.reload(true);
+                document.location.reload(true);
             } else if (img > 0) {
                 document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
-                // document.location.reload(true);
+                document.location.reload(true);
             }
 
             event.preventDefault();
-            // document.location.reload(true);
 
             $.ajax({
                 type: "POST",
