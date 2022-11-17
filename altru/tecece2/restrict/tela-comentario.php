@@ -1,23 +1,23 @@
 <?php
 
-    session_start();
-    require_once("../model/Post.php");
-    require_once("../model/Comentario.php");
+session_start();
+require_once("../model/Post.php");
+require_once("../model/Comentario.php");
+require_once("../model/Reacao.php");
 
-    $postagem = new Post();
-    $coment = new Comentario();
+$postagem = new Post();
+$coment = new Comentario();
+$reacao = new Reacao();
 
-    if(isset($_POST['btnComentar'])) {
-        $idPost = $_POST['btnComentar'];
-        $_SESSION['post'] = $idPost;
-        $listarcomentario = $coment->listar($idPost);
-        $listarpostagem = $postagem->listarPostId($idPost);
-    }
-
-    else if(isset($_SESSION['post'])) {
-        $listarcomentario = $coment->listar($_SESSION['post']);
-        $listarpostagem = $postagem->listarPostId($_SESSION['post']);
-    }
+if (isset($_POST['btnComentar'])) {
+    $idPost = $_POST['btnComentar'];
+    $_SESSION['post'] = $idPost;
+    $listarcomentario = $coment->listar($idPost);
+    $listarpostagem = $postagem->listarPostId($idPost);
+} else if (isset($_SESSION['post'])) {
+    $listarcomentario = $coment->listar($_SESSION['post']);
+    $listarpostagem = $postagem->listarPostId($_SESSION['post']);
+}
 
 ?>
 
@@ -94,14 +94,10 @@
                             Qual é a boa?
 
                         </button>
-
             </section>
         </nav>
 
-
     </header>
-
-
 
 
     <aside class="aside-esquerdo" style="border: none;" id="asideEsquerdo">
@@ -109,10 +105,7 @@
             <section class="itens-p">
                 <div class="section-logo" id="logo">
                     <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
-
-
                 </div>
-
 
                 <section class="letras-aside" style="border: none;">
                     <?php if (isset($_SESSION['iddoador'])) { ?>
@@ -131,36 +124,33 @@
 
                             <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
                         </a>
-                        <a class="home" href="./explorar.php">Explorar</a>
+                        <?php
+                        if (isset($_SESSION['iddoador'])) {
+                            $tipoPerfil = 'doador';
+                            $idPerfil = $_SESSION['iddoador'];
+                        ?>
+                            <a class="home" href="./explorar-doador.php">Explorar</a>
+                        <?php
+                        }
+                        if (isset($_SESSION['idong'])) {
+                            $tipoPerfil = 'ong';
+                            $idPerfil = $_SESSION['idong'];
+                        ?>
+                            <a class="home" href="./explorar.php">Explorar</a>
+                        <?php } ?>
                     </section>
-                    <?php if (isset($_SESSION['iddoador'])) { ?>
-                        <!-- <section class="banana" id="home1">
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-              </a>
-              <a href="" class="home">Notificações
-
-              </a>
 
 
-            </section> -->
-                    <?php } ?>
-                    <?php if (isset($_SESSION['iddoador'])) { ?>
-                        <!-- <section class="banana" id="home1">
-              <a href="">
-                <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
-
-              </a>
-              <a class="home" href="">Mensagens</a>
-            </section> -->
-                    <?php } ?>
                     <section class="banana" id="home1" id="home12">
                         <a href="">
 
                             <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
                         </a>
-                        <a class="home" href="./perfil.php">Perfil</a>
+                        <?php if (isset($_SESSION['iddoador'])) { ?>
+                            <a class="home" href="./perfil-doador.php">Perfil</a>
+                        <?php } else if (isset($_SESSION['idong'])) { ?>
+                            <a class="home" href="./perfil.php">Perfil</a>
+                        <?php } ?>
                     </section>
 
                     <section class="banana" id="home12">
@@ -170,38 +160,7 @@
                         <a class="home" href="./logout.php">Encerrar</a>
                     </section>
 
-                    <!-- <section class="banana-button">
-            <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
-          </section> -->
 
-
-
-
-
-
-                    <script>
-                        //const h1 = document.getElementById('asideEsquerdo')
-
-                        //console.log(h1)
-
-                        // aq ele remove o elemento h1.innerHTML = ''
-
-                        // const main = document.getElementById('elemento-chave')
-
-                        // main.style.padding = 0
-                        // console.log(main)
-
-                        // const nav = document.getElementById('nav-mobile')
-
-
-                        // nav.style.display = 'flex'                         
-                    </script>
-
-
-
-                    <section>
-
-                    </section>
 
                 </section>
 
@@ -209,23 +168,12 @@
             </section>
 
 
-
         </section>
     </aside>
-
-
-
-
-
 
     <main id="elemento-chave" style="border: none;">
 
         <section style="border: 1px solid #E6ECF0;">
-
-
-
-
-
 
             <script>
                 const teste = () => {
@@ -282,6 +230,29 @@
                     </section>
                 </section>
 
+
+
+                <form action="" method="" id="form-curtir">
+                    <?php
+                    if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+                    ?>
+                        <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+
+                            <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+                        <?php } else { ?>
+
+                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+
+                                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
+                            <?php } ?>
+                            </button>
+
+                </form>
+
+                <?php
+                $dataCurtida = date('Y-m-d H:i:s');
+                ?>
+
                 <?php if (isset($_SESSION['iddoador'])) { ?>
 
                     <form action="./comentar.php" method="post">
@@ -295,110 +266,112 @@
                         <button type="submit" value="<?php echo $idPost ?>" name="idPost">COMENTAR</button>
                     </form>
 
-                    <br>
+                <?php } ?>
 
-                    Comentários
+                <br>
 
-                    <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                Comentários
+
+                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
 
-                        <?php foreach ($listarcomentario as $comentario) { ?>
-
-                            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-                                <section class="mensagens">
-                                    <img src="./foto-perfil-doador/<?php echo $comentario['fotodoador'] ?>" style="border-radius: 50%; width: 50px; height: 50px;" alt="">
-                                    <p><?php echo $comentario['nomedoador'] ?></p>
-                                    <p><?php echo $comentario['datacomentario'] ?></p>
-                                </section>
-                                <section>
-                                    <p><?php echo $comentario['comentario'] ?></p>
-                                </section>
-
-                                <div class="portfolio-info">
-                                    <a href="../../BizLand/assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-                                    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                                </div>
-                            </div>
-
-                        <?php } ?>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-
-                            <!-- Imgem fica aq-->
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
+                    <?php foreach ($listarcomentario as $comentario) { ?>
 
                         <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                            <section class="mensagens">
+                                <img src="./foto-perfil-doador/<?php echo $comentario['fotodoador'] ?>" style="border-radius: 50%; width: 50px; height: 50px;" alt="">
+                                <p><?php echo $comentario['nomedoador'] ?></p>
+                                <p><?php echo $comentario['datacomentario'] ?></p>
+                            </section>
+                            <section>
+                                <p><?php echo $comentario['comentario'] ?></p>
+                            </section>
 
                             <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+                                <a href="../../BizLand/assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
                                 <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                    <?php } ?>
 
-                            <div class="portfolio-info">
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
 
-                                <!-- os H´s ficam aq-->
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
+                        <!-- Imgem fica aq-->
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                         </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-
-                            <div class="portfolio-info">
-
-                                <a href="../../BizLand/assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-                                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                            </div>
-                        </div>
-
                     </div>
 
-                <?php } ?>
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+
+                        <div class="portfolio-info">
+
+                            <!-- os H´s ficam aq-->
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+
+                        <div class="portfolio-info">
+
+                            <a href="../../BizLand/assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+
 
             <?php } ?>
 
@@ -445,7 +418,59 @@
     </aside>
 
 
+    <script type="text/javascript">
+        var posicao = localStorage.getItem('posicaoScroll');
 
+        if (posicao) {
+            /* Timeout necessário para funcionar no Chrome */
+            setTimeout(function() {
+                window.scrollTo(0, posicao);
+            }, 1);
+        }
+
+        window.onscroll = function(e) {
+            posicao = window.scrollY;
+            localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
+        }
+
+        function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
+
+            idPost = postagem;
+            tipoReacao = reacao;
+            tipoPerfil = perfil;
+            idDoador = iddoador;
+
+            var img = imagem;
+
+            if (img == 0) {
+                img = img + 1;
+                document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
+                document.location.reload(true);
+            } else if (img > 0) {
+                document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
+                document.location.reload(true);
+            }
+
+            // event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "reagir.php",
+                data: {
+                    tipo: tipoReacao,
+                    tipoperfil: tipoPerfil,
+                    idperfil: idDoador,
+                    idpost: idPost
+                },
+                success: function(data) {
+                    console.log("curtiu");
+
+                }
+            });
+
+
+        }
+    </script>
 
 
 </body>

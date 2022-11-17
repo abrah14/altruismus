@@ -1,35 +1,35 @@
 <?php
 
-session_start();
-require_once("../model/Ong.php");
-require_once("../model/Post.php");
-require_once("../model/Reacao.php");
-include_once("valida-permanencia.php");
+    session_start();
+    require_once("../model/Ong.php");
+    require_once("../model/Post.php");
+    require_once("../model/Reacao.php");
+    include_once("valida-permanencia.php");
 
-try {
-    $ong = new Ong();
-    $post = new Post();
-    $reacao = new Reacao();
+    try {
+        $ong = new Ong();
+        $post = new Post();
+        $reacao = new Reacao();
 
-    if (isset($_SESSION['iddoador'])) {
-        $tipoPerfil = "doador";
-        $idPerfil = $_SESSION['iddoador'];
-    } else if (isset($_SESSION['idong'])) {
-        header("Location: ../../BizLand/index.php");
-        unset($_SESSION['idong']);
-        session_destroy();
-    } else if (isset($_SESSION['idadmin'])) {
-        header("Location: ../../BizLand/index.php");
-        unset($_SESSION['idadmin']);
-        session_destroy();
+        if (isset($_SESSION['iddoador'])) {
+            $tipoPerfil = "doador";
+            $idPerfil = $_SESSION['iddoador'];
+        } else if (isset($_SESSION['idong'])) {
+            header("Location: ../../BizLand/index.php");
+            unset($_SESSION['idong']);
+            session_destroy();
+        } else if (isset($_SESSION['idadmin'])) {
+            header("Location: ../../BizLand/index.php");
+            unset($_SESSION['idadmin']);
+            session_destroy();
+        }
+
+        unset($_SESSION['idOngListar']);
+
+        $listapost = $post->listarTd();
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
-
-    unset($_SESSION['idOngListar']);
-
-    $listapost = $post->listarTd();
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
 
 ?>
 
@@ -60,12 +60,10 @@ try {
             width: 1100px;
         }
 
-
         img.img-pub {
             max-width: 100%;
             width: 800px;
         }
-
 
         img.logo {
             max-width: 100%;
@@ -318,8 +316,6 @@ try {
                     <input type="search" style="border: 1px solid #5A56E9;" class="busca" id="busca" placeholder="Busque por Ongs" name="buscar">
                     <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px;">
                         <i class="fa fa-search" style="color: white; padding: 10px;"></i>
-
-
 
                     </button>
 

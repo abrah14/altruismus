@@ -141,7 +141,7 @@ try {
             </a>
             <a class="home" href="./explorar.php">Explorar</a>
           </section>
-          
+
           <section class="banana" id="home1" id="home12">
             <a href="">
 
@@ -229,6 +229,8 @@ try {
         $idPost = $post['idpost'];
       ?>
 
+
+
         <section class="frase-do-img">
           <form action="./social.php" method="post">
             <button type="submit" name="idOng" value="<?php echo $idOng ?>">
@@ -244,7 +246,11 @@ try {
         <section class="">
           <section class="frase">
             <section class="juncao">
-              <p class="desc"><?php echo $post['msgpost'] ?></p>
+              <form action="./tela-comentario.php" method="post">
+                <button type="submit" value="<?php echo $idPost ?>" name="btnComentar">
+                  <p class="desc"><?php echo $post['msgpost'] ?></p>
+                </button>
+              </form>
             </section>
 
             <section>
@@ -277,9 +283,7 @@ try {
 
         <br>
 
-        <form action="./tela-comentario.php" method="post">
-          <button type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
-        </form>
+
 
         <br>
 

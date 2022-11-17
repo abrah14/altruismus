@@ -1,24 +1,24 @@
 <?php
 
-session_start();
-require_once("../model/Post.php");
-require_once("../model/Ong.php");
-require_once("../model/Reacao.php");
-include_once("valida-permanencia.php");
+    session_start();
+    require_once("../model/Post.php");
+    require_once("../model/Ong.php");
+    require_once("../model/Reacao.php");
+    include_once("valida-permanencia.php");
 
-$post = new Post();
-$ong = new Ong();
-$reacao = new Reacao();
+    $post = new Post();
+    $ong = new Ong();
+    $reacao = new Reacao();
 
-$texto = $_POST['buscar'];
+    $texto = $_POST['buscar'];
 
-$pesquisar = $ong->pesquisaNomeOng($texto);
-$quantidadeOng = count($pesquisar);
+    $pesquisar = $ong->pesquisaNomeOng($texto);
+    $quantidadeOng = count($pesquisar);
 
-if ($quantidadeOng <= 0) {
-    $pesquisar = $post->pesquisaPost($texto);
-    $quant = count($pesquisar);
-}
+    if ($quantidadeOng <= 0) {
+        $pesquisar = $post->pesquisaPost($texto);
+        $quant = count($pesquisar);
+    }
 
 ?>
 
@@ -113,7 +113,6 @@ if ($quantidadeOng <= 0) {
                         <section class="banana" id="home1" id="home1">
 
                             <a href="">
-
                                 <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
                             </a>
                             <a class="home" onclick="teste()" href="./social2.php">Home</a>
@@ -132,26 +131,7 @@ if ($quantidadeOng <= 0) {
                             <a class="home" href="./explorar.php">Explorar</a>
                         <?php } ?>
                     </section>
-                    <!-- <section class="banana" id="home1">
-                        <a href="">
-
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-                        </a>
-                        <a href="" class="home">Notificações
-                            <p class="algumaCoisa" onclick="teste()" id="algumaCoisa">
-                                    dsads
-                                </p>
-                        </a>
-
-
-                    </section> -->
-                    <!-- <section class="banana" id="home1">
-                        <a href="">
-                            <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
-
-                        </a>
-                        <a class="home" href="">Mensagens</a>
-                    </section> -->
+                    
                     <section class="banana" id="home1" id="home12">
                         <a href="">
 
