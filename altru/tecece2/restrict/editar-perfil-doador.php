@@ -32,4 +32,17 @@
                         $estado, $bairro, $rua, $cep, $comp, $logradouro,
                         $senha);
 
+    if(isset($_FILES['imagem'])){
+
+        $extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
+        $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+        $diretorio = "./foto-perfil-doador/"; //define o diretorio para onde enviaremos o arquivo
+    
+        move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
+    
+        // $doador->setFotoDoador($novo_nome);
+        $doador->editarImg($novo_nome, $_SESSION['iddoador']);
+    
+    }
+
 ?>

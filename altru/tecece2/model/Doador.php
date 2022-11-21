@@ -389,6 +389,29 @@
             return $lista;
         }
         
+        public function editarImg($imagem, $id) {
+            $conexao = Conexao::conectar();
+
+            $stmt = $conexao->prepare("SELECT fotodoador FROM tbdoador WHERE iddoador = ? AND fotodoador LIKE '%?%'");
+
+            $stmt->bindParam(1,$id);
+            $stmt->bindParam(2,$imagem);
+
+            if($stmt->rowCount() == 0) {
+                $stmt = $conexao->prepare("UPDATE tbdoador SET fotodoador = ? WHERE iddoador = ?");
+
+                $stmt->bindParam(1,$imagem);
+                $stmt->bindParam(2,$id);
+            }
+
+            $stmt->execute();
+
+            // $querySelect = "SELECT fotodoador FROM tbdoador WHERE iddoador = $id";
+
+            // $resultado = $conexao->query($querySelect);
+            // $lista = $resultado->fetch();
+            // return $lista;
+        }
  
     }
      

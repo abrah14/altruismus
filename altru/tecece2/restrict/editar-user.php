@@ -1,6 +1,6 @@
 <?php
 
-    header('Location: doador-restrita.php');
+    // header('Location: doador-restrita.php');
     require_once('../model/Doador.php');
 
     $doador = new Doador();
@@ -18,9 +18,19 @@
     $comp = $_POST['complementoEditar'];
     $logradouro = $_POST['logradouroEditar'];
     $senha = $_POST['senhaEditar'];
+    $imagem = $_FILES['imagem'];
+
+    if(isset($imagem)){
+
+        $extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
+        $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
+        $diretorio = "../restrict/foto-perfil-doador/"; //define o diretorio para onde enviaremos o arquivo
+    
+        move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$novo_nome); //efetua o upload    
+      }
 
     $doador->alterar($linha, $nome, $email, $cpf, $dtNasc, $cidade, 
                         $estado, $bairro, $rua, $cep, $comp, $logradouro,
-                        $senha);
+                        $senha, $imagem);
 
 ?>
