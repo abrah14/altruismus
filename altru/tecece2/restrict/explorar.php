@@ -4,12 +4,19 @@ session_start();
 require_once("../model/Ong.php");
 require_once("../model/Post.php");
 require_once("../model/Reacao.php");
+require_once("../model/PrestacaoContasOng.php");
+require_once("../model/ReacaoPrestacao.php");
+
 include_once("valida-permanencia.php");
 
 try {
   $ong = new Ong();
   $post = new Post();
   $reacao = new Reacao();
+  $presta = new PrestacaoContasOng();
+  $reacaoPresta = new ReacaoPrestacao();
+
+  $_SESSION['explorar'] = true;
 
   if (isset($_SESSION['iddoador'])) {
     header("Location: ../../BizLand/index.php");
@@ -22,6 +29,7 @@ try {
 
   unset($_SESSION['idOngListar']);
 
+  $listaPresta = $presta->listarTD();
   $listapost = $post->listarTd();
 } catch (Exception $e) {
   echo $e->getMessage();
@@ -118,22 +126,10 @@ try {
         <div class="section-logo" id="logo">
           <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
 
-
         </div>
 
-
         <section class="letras-aside" style="border: none;">
-          <?php if (isset($_SESSION['iddoador'])) { ?>
-            <section class="banana" id="home1" id="home1">
-
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
-              </a>
-              <a class="home" onclick="teste()" href="./social2.php">Home</a>
-
-            </section>
-          <?php } ?>
+          
           <section class="banana" id="home1">
             <a href="">
 
@@ -283,16 +279,72 @@ try {
 
         <br>
 
+        <?php
+        foreach ($listaPresta as $presta) {
+          $idOng = $presta['idong'];
+          $idPresta = $presta['idPrestacaoContasOng'];
+        ?>
 
+          <section class="frase-do-img">
+            <form action="./social.php" method="post">
+              <button type="submit" name="idOng" value="<?php echo $idOng ?>">
+                <img src="./foto-perfil-ong/<?php echo $presta['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px;" alt="">
+              </button>
+            </form>
+            <p class="nome-ong"><?php echo $nomeOng = $presta['nomeong'] ?></p>
+            <!-- <p> @ADB</p> -->
+            <img class="img-pub-v" src="../img-social/tweet/Vector (1).png" alt="">
+            <p><?php echo $presta['dataRecebimento'] ?></p>
+          </section>
 
-        <br>
+          <section class="">
+            <section class="frase">
+              <section class="juncao">
+                <p class="desc"><?php echo $presta['descProdutosRecebidos'] ?></p>
+              </section>
+              <p class="desc"><?php echo $presta['quantidadeItensRecebido'] ?></p>
 
+              <section>
+                <img class="img-responsive" src="./social-img/<?php echo $presta['fotoOng'] ?>" alt="">
+              </section>
 
+              <section>
+                <img class="img-responsive" src="./social-img/<?php echo $presta['fotoDoador'] ?>" alt="">
+              </section>
 
-      <?php } ?>
+            </section>
+          </section>
+
+          <form action="./reagirPresta.php" method="post">
+
+            <button type="submit" name="idPrestacao" value="<?php echo $idPresta ?>">
+
+              <?php
+              if ($reacaoPresta->verificar($idPresta, $tipoPerfil, $idPerfil) == "curtiu") {
+              ?>
+                <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;">
+              <?php } else { ?>
+                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;">
+              <?php } ?>
+            </button>
+
+          </form>
+
+        <?php } ?>
 
 
     </section>
+
+
+
+    <br>
+
+
+
+  <?php } ?>
+
+
+  </section>
 
   </main>
 

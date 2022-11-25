@@ -397,15 +397,8 @@ try {
                   <!-- data-bs-toggle="modal" data-bs-target="#editar" -->
 
 
-                  <td>
-                    <button class="btn btn-primary" value="<?php echo $idDoacao ?>" data-bs-toggle="modal" data-bs-target="#editar" name="botao" id="botao" data-whatever="<?php echo $idDoacao ?>" data-whateverong="<?php echo $nomeOng ?>" data-whateverdata="<?php echo $dataDoacao ?>">
-                      ANALISAR
-                    </button>
-                  </td>
-
-                  <td>
-                    <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idDoacao ?>" class="btn btn-danger">EXCLUIR</button>
-                  </td>
+                
+               
 
                   <div class="modal fade" id="excluir" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                     <div class="modal-dialog" role="document">

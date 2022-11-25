@@ -1,6 +1,6 @@
 <?php
-     
-    require_once("Ong.php");
+    
+    require_once("Conexao.php");
 
     class PrestacaoContasOng{
         private $idPrestacaoContasOng;
@@ -10,7 +10,6 @@
         private $fotoOng;
         private $fotoDoador;
         private $idOng;
-        private $ong;
 
         public function getIdPrestacaoContasOng(){
             return $this->idPrestacaoContasOng;
@@ -33,13 +32,9 @@
         public function getIdOng(){
             return $this->idOng;
         }
-        public function getOng(){
-            return $this->ong;
-        }
 
-
-        public function setIdOngDoador($idOngDoador){
-            $this->idOngDoador = $idOngDoador;
+        public function setIdPrestacaoContasOng($idPrestacaoContasOng){
+            $this->idPrestacaoContasOng = $idPrestacaoContasOng;
         }
         public function setQuantidadeItensRecebido($quantidadeItensRecebido){
             $this->quantidadeItensRecebido = $quantidadeItensRecebido;
@@ -59,9 +54,6 @@
         public function setIdOng($idOng){
             $this->idOng = $idOng;
         }
-        public function setOng($ong){
-            $this->ong = $ong;
-        }
 
         public function cadastrar($prestacaoContasOng){
             $conexao = Conexao::conectar();
@@ -76,17 +68,30 @@
             $stmt->bindValue(4, $prestacaoContasOng->getDataRecebimento());
             $stmt->bindValue(5, $prestacaoContasOng->getFotoOng());
             $stmt->bindValue(6, $prestacaoContasOng->getFotoDoador());
-            $stmt->bindValue(7, $prestacaoContasOng->getOng()->getIdOng());
+            $stmt->bindValue(7, $prestacaoContasOng->getIdOng());
             
             $stmt->execute();
         }
 
-        public function listar(){
+        public function listarTD(){
             $conexao = Conexao::conectar();
-            $querySelect = "SELECT idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-            datarecebimento,tbong.fotoong,nomeong
+            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,tbong.idong
                             FROM tbprestacaocontasong
-                            INNER JOIN tbong ON tbong.idong = tbprestacaocontasong.idong";
+                            INNER JOIN tbong 
+                            ON tbong.idong = tbprestacaocontasong.idong
+                            ORDER BY idPrestacaoContasOng DESC";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;   
+        }
+
+        public function listar($id){
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng
+                            FROM tbprestacaocontasong
+                            INNER JOIN tbong 
+                            ON tbong.idong = tbprestacaocontasong.idong
+                            WHERE tbong.idong = $id";
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;   
@@ -192,7 +197,6 @@
                 }
             }
             
-
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;

@@ -409,11 +409,10 @@ try {
               <th scope="col">Rua</th>
               <th scope="col">Complemento</th>
               <th scope="col">E-mail</th>
-              <th scope="col">Senha</th>
+             
               <th scope="col">Logradouro</th>
               <th>Telefone</th>
-              <th scope="col">Excluir</th>
-              <th scope="col">Editar</th>
+             
             </tr>
           </thead>
           <tbody>
@@ -430,19 +429,12 @@ try {
                 <td><?php echo $ruaOng = $listar['ruaong'] ?></td>
                 <td><?php echo $complementoOng = $listar['complementoong'] ?></td>
                 <td><?php echo $emailOng = $listar['emailong'] ?></td>
-                <td><?php echo $senhaOng = $listar['senhaong'] ?></td>
+               
                 <td><?php echo $logradouroOng = $listar['lugradouroong'] ?></td>
                 <td><?php echo $telefone = $listar['telefoneong'] ?></td>
                 <!-- <td><?php echo $listar['datainscricao'] ?></td> -->
 
-                <td>
-                  <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idOng ?>" class="btn btn-danger">EXCLUIR</button>
-                </td>
-
-                <td>
-                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" name="linha" id="linha" data-whatever="<?php echo $idOng ?>" data-whatevernome="<?php echo $nomeOng ?>" data-whatevertelefone="<?php echo $telefone ?>" data-whateveremail="<?php echo $emailOng ?>" data-whatevercep="<?php echo $cepOng ?>" data-whateverestado="<?php echo $estadoOng ?>" data-whatevercidade="<?php echo $cidadeOng ?>" data-whateverbairro="<?php echo $bairroOng ?>" data-whateverrua="<?php echo $ruaOng ?>" data-whatevercomplemento="<?php echo $complementoOng ?>" data-whateverlogradouro="<?php echo $logradouroOng ?>" data-whateversenha="<?php echo $senhaOng ?>" data-whateverfundacao="<?php echo $dtNasc?>">Editar
-                  </button>
-                </td>
+               
 
                 </td>
               </tr>

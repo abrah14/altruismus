@@ -13,7 +13,7 @@
     
 
     $ong->setIdOng($_POST['ong']);
-    $prestacaoContasOng->setOng($ong);
+    $prestacaoContasOng->setIdOng($ong);
 
     $foto = $_FILES['txtFotoDoador'];
 

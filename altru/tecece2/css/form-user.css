@@ -22,7 +22,7 @@ select {
 
 
 .w50 {
-    width: 50%;
+    width: 40%;
     float: left;
 
 }
@@ -40,11 +40,11 @@ main {
     margin-bottom: 10px;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
+    background-color: #5A56E9;
 }
 
 
 .img-box {
-    background-color: #5A56E9;
 
     width: 50%;
     display: flex;
@@ -54,7 +54,9 @@ main {
 }
 
 .img-box img {
-    width: 100%;
+    width: 230%;
+
+    
 }
 
 .form-box {
@@ -97,7 +99,7 @@ form .input-group label {
 }
 
 form .input-group input {
-    width: 100%;
+    width: 95%;
     height: 47px;
     background-color: #EDEDED;
     border-radius: 20px;

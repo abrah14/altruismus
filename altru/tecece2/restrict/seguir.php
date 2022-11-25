@@ -26,6 +26,7 @@
         $_SESSION['seguindo'] = true;
 
     }
-
+    
+    $_SESSION['recarregar'] == true;
 
 ?>

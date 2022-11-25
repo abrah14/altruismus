@@ -404,10 +404,9 @@ try {
               <th>Número</th>
               <th>Lugradouro</th>
               <th>Senha</th>
-              <th>Entrada</th>
+            
               <th>Telefone</th>
-              <th>Editar</th>
-              <th>Excluir</th>
+       
             </tr>
           </thead>
 
@@ -435,75 +434,7 @@ try {
             </tbody>
 
                     
-                      <div class="modal-body">
-                        <form action="./editar-user.php" method="post">
-                          <div class="form-group">
-                            <label for="recipient-id" class="col-form-label">ID</label>
-                            <input type="text" class="form-control" id="recipient-id" name="linha" readonly>
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">NOME</label>
-                            <input type="text" class="form-control" id="recipient-name" name="nomeEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-email" class="col-form-label">EMAIL</label>
-                            <input type="text" class="form-control" id="recipient-email" name="emailEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-cpf" class="col-form-label">CPF</label>
-                            <input type="text" class="form-control" id="recipient-cpf" name="cpfEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-nasc" class="col-form-label">DT.NASCIMENTO</label>
-                            <input type="text" class="form-control" id="recipient-nasc" name="dtNasc">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-cep" class="col-form-label">CEP</label>
-                            <input type="text" class="form-control" id="recipient-cep" name="cepEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-estado" class="col-form-label">ESTADO</label>
-                            <input type="text" class="form-control" id="recipient-estado" name="estadoEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-cidade" class="col-form-label">CIDADE</label>
-                            <input type="text" class="form-control" id="recipient-cidade" name="cidadeEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-bairro" class="col-form-label">BAIRRO</label>
-                            <input type="text" class="form-control" id="recipient-bairro" name="bairroEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-rua" class="col-form-label">RUA</label>
-                            <input type="text" class="form-control" id="recipient-rua" name="ruaEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-complemento" class="col-form-label">COMPLEMENTO</label>
-                            <input type="text" class="form-control" id="recipient-complemento" name="complementoEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-logradouro" class="col-form-label">LOGRADOURO</label>
-                            <input type="text" class="form-control" id="recipient-logradouro" name="logradouroEditar">
-                          </div>
-                          <div class="form-group">
-                            <label for="recipient-inscricao" class="col-form-label">DT.INSCRIÇÃO</label>
-                            <input type="text" class="form-control" id="recipient-inscricao" name="dtInscricao" disabled="">
-                          </div>
-
-                          <div class="form-group">
-                            <label for="recipient-telefone" class="col-form-label">Telefone</label>
-                            <input type="text" class="form-control" id="recipient-telefone" name="telefoneEditar" readonly>
-                          </div>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">CANCELAR</button>
-                        <button type="submit" class="btn btn-danger">SALVAR</button>
-                      </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+                    
 
       </div>
 
@@ -540,95 +471,7 @@ try {
 
 
 
-<h2>Gráficos a segir em js</h2>
 
-  <canvas id="primeiroGrafico">
-          
-          2d
-</canvas>
-
-<script>
-  let primeiroGrafico = document.getElementById('primeiroGrafico').getContext('2d');
-
-                  
-  let chart = new Chart(primeiroGrafico, {});
-
-  let chart1 = new Chart(primeiroGrafico, {
-      type: 'line'             
-  });
-
-  chart1 = new Chart(primeiroGrafico, {
-      type: 'line',
-                          
-      data: {
-          labels: ['2000', '2001', '2002', '2003', '2004', '2005'],
-                      
-          datasets: [
-              {
-                  label: 'Crecimento Populacional',
-                  data: [173448346, 175885229, 178276128, 180619108, 182911487, 185150806]
-              }
-          ]
-      }
-  });
-
-  //cores
-
-  chart1 = new Chart(primeiroGrafico, {
-      type: 'line',
-
-      data: {
-          labels: ['2000', '2001', '2002', '2003', '2004', '2005'],
-
-          datasets: [{
-              label: 'Crecimento Populacional',
-              data: [173448346, 175885229, 178276128, 180619108, 182911487, 185150806],
-              backgroundColor: "#ff2200"
-          }]
-      }
-  });
-
-  //cor da linha
-   chart1 = new Chart(primeiroGrafico, {
-      type: 'line',
-
-      data: {
-          labels: ['2000', '2001', '2002', '2003', '2004', '2005'],
-
-          datasets: [{
-              label: 'Crecimento Populacional',
-              data: [173448346, 175885229, 178276128, 180619108, 182911487, 185150806],
-              backgroundColor: "#ff2200",
-              borderColor: "#0000ff"
-          }]
-      }
-  });
-
-  //comparação
-   chart1 = new Chart(primeiroGrafico, {
-      type: 'line',
-
-      data: {
-          labels: ['2000', '2001', '2002', '2003', '2004', '2005'],
-
-          datasets: [{
-                  label: 'Crecimento Populacional',
-                  data: [173448346, 175885229, 178276128, 180619108, 182911487, 185150806],
-                  backgroundColor: "rgba(255, 34, 0, 0.3)",
-                  borderColor: "#0000ff"
-              },
-              {
-                  label: 'Exemplo de Gráfico Comparativo',
-                  data: [173448346, 185150806, 175885229, 182911487, 178276128, 180619108],
-                  backgroundColor: "rgba(0, 255, 0, 0.3)",
-                  borderColor: "#002200"
-              }
-          ]
-      }
-
-  });
-  
-  </script> -->
 
   </main><!-- End #main -->
 

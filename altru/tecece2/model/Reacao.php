@@ -119,6 +119,19 @@
 
         }
 
+        public function countReacao($id, $tipo) {
+            $conexao = Conexao::conectar();
+            $query = 
+                "SELECT
+                    COUNT(idreacao)
+                FROM tbreacao
+                WHERE idperfil = $id AND tipoperfil = '$tipo'";
+
+            $resultado = $conexao->query($query);
+            $lista = $resultado->fetch();
+            return $lista[0];
+        }
+
     }
 
 ?>

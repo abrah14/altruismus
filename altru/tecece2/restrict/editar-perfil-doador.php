@@ -20,6 +20,8 @@
     $comp = $_POST['complementoEditar'];
     $logradouro = $_POST['logradouroEditar'];
 
+    $imagem = $_FILES['imagem'];
+
     if(isset($_POST['senhaEditar']) && !empty($_POST['senhaEditar'])) {
         $senha = $_POST['senhaEditar'];
         $senha = md5($senha);
@@ -27,22 +29,21 @@
     else {
         $senha =  $getDoador['senhadoador'];
     }
-    
-    $doador->alterar($linha, $nome, $email, $cpf, $dtNasc, $cidade, 
-                        $estado, $bairro, $rua, $cep, $comp, $logradouro,
-                        $senha);
 
-    if(isset($_FILES['imagem'])){
+    $novo_nome = "";
+
+    if(isset($_FILES['imagem']) && $imagem['size'] != 0){
 
         $extensao = strtolower(substr($_FILES['imagem']['name'], -4)); //pega a extensao do arquivo
         $novo_nome = md5(time()) . $extensao; //define o nome do arquivo
         $diretorio = "./foto-perfil-doador/"; //define o diretorio para onde enviaremos o arquivo
     
         move_uploaded_file($_FILES['imagem']['tmp_name'], $diretorio.$novo_nome); //efetua o upload
-    
-        // $doador->setFotoDoador($novo_nome);
-        $doador->editarImg($novo_nome, $_SESSION['iddoador']);
-    
     }
+
+
+    $doador->alterar($linha, $nome, $email, $cpf, $dtNasc, $cidade, 
+                        $estado, $bairro, $rua, $cep, $comp, $logradouro,
+                        $senha,$novo_nome);
 
 ?>

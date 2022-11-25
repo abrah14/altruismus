@@ -1,48 +1,201 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
 
 
 body{
     display: grid;
     height: 100vh;
+    background-color: #a0a9fa;
     grid-template-areas: 
-    "aside1 header aside2"
+    
+
+    "header header header"
     "aside1 main aside2";
     
+    grid-template-columns: 1fr 900px ; /* tamanho das colunas também*/
+    grid-template-rows: 45px 100px; /*tamnaho das colunas*/
+    
+
+}
+
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+    background: #7885f4;
+    
+    
+    transition: all 0.5s;
+    z-index: 997;
+ 
+  }
+  
+  #header .logo {
+    font-size: 30px;
     margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  #header .logo a {
+    color: #2d405f;
+  }
+  
 
-}
-
-
-header{
-    grid-area: header;
+  
+  /*--------------------------------------------------------------
+  # Navigation Menu
+  --------------------------------------------------------------*/
+  /**
+  * Desktop Navigation 
+  */
+  .navbar {
+    padding: 0;
+  }
+  
+  .navbar ul {
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: center;
-    
-}
-
-header nav section{
-    position: fixed;
-
-    
-}
-
-
-.aside-class{
-    position: fixed;
-}
-
-
-li{
     list-style: none;
-}
+    align-items: center;
+  }
+  
+  .navbar li {
+    position: relative;
+  }
+  
+  .navbar a,
+  .navbar a:focus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+    font-family: "Krub", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2d405f;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+  
+  .navbar a i,
+  .navbar a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+  }
+  
+  .navbar a:hover,
+  .navbar .active,
+  .navbar .active:focus,
+  .navbar li:hover>a {
+    color: #3b4ef8;
+  }
+  
+  .navbar .getstarted,
+  .navbar .getstarted:focus {
+    background: #e2e5fe;
+    padding: 9px 25px;
+    margin-left: 30px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #fff;
+    color: #3b4ef8;
+  }
+  
+  .navbar .getstarted:hover,
+  .navbar .getstarted:focus:hover {
+    color: #fff;
+    background: #3b4ef8;
+  }
+  
+  .navbar .dropdown ul {
+    display: block;
+    position: absolute;
+    left: 14px;
+    top: calc(100% + 30px);
+    margin: 0;
+    
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    background: #fff;
+    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    transition: 0.3s;
+    border-radius: 4px;
+  }
+  
+  .navbar .dropdown ul li {
+    min-width: 0px;
+  }
+  
+  .navbar .dropdown ul a {
+    
+    text-transform: none;
+    font-weight: 500;
+  }
+  
+  .navbar .dropdown ul a i {
+    
+  }
+  
+  .navbar .dropdown ul a:hover,
+  .navbar .dropdown ul .active:hover,
+  .navbar .dropdown ul li:hover>a {
+    color: #3b4ef8;
+  }
+  
+  .navbar .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+  
+  .navbar .dropdown .dropdown ul {
+    top: 0;
+    left: calc(100% - 30px);
+    visibility: hidden;
+  }
+  
+  .navbar .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: 100%;
+    visibility: visible;
+  }
+  
+  @media (max-width: 1366px) {
+    .navbar .dropdown .dropdown ul {
+      left: -90%;
+    }
+  
+    .navbar .dropdown .dropdown:hover>ul {
+      left: -100%;
+    }
+  }
+  
+
+
 
 
 main{
     background-color: white;
     grid-area: main;
-    border: 1px solid #E6ECF0;
-    padding-left: 140px;
-    
+    border: 2px solid white!important;
+    padding: 0;
+
 }
 
 .frase-do-img{
@@ -72,6 +225,10 @@ main{
     justify-content: space-evenly;
 } */
 
+#fotoCapa{
+    background-image: url('../image/rosa-roxao.png');
+    
+}
 
 
 @media only screen and (max-width: 200px) {
@@ -103,16 +260,58 @@ main{
     img.img-agencia {
       width: 100%;
     }
+  
+
+  }
+
+  @media only screen and (max-width: 1000px) {
+  
+    .img-violino{
+        max-width: 90%;
+        width: 100%;
+
+    }
+
   }
 
 
-  @media only screen and (max-width: 100px) {
+
+
+
+  @media only screen and (min-width: 1000px) {
     img.icones-side {
       width: 100%;
     }
 
+    @media only screen and (max-width: 100px) {
+    .imagem img{
+        max-width: 90%;
+        width: 1100px;
+    }
     
+
+    }
+    
+    
+
   
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    img.icones-side {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: 100px) {
+    .imagem img{
+        max-width: 90%;
+        width: 1100px;
+    }
+    }
+    
+    
 
   
 }
@@ -129,39 +328,6 @@ main{
 }
 
 
-
-@media only screen and (max-width: 990px) {
-    .home {
-        opacity: 0; /* Esconde no desktop. */
-        height: 0;
-        padding-left: 1px;
-        width: 10px;
-        align-items: center;
-        
-    }
-
-    main {
-      padding-left: 100px;
-        
-    }
-
-    .aside-direito{
-        opacity: 0; /* Esconde no desktop. */
-        
-        display: none;
-    }
-    
-
-    .amplo{
-        font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
-        color: #000000;
-        padding-right: 3px;
-    }
-
-    
-
-    
-}
 
 
 @media only screen and (max-width: 420px) {
@@ -249,11 +415,17 @@ main{
         
     }
 
-    .aside-esquerdo{
+    .aside-direito, .aside-class form {
         opacity: 0; /* Esconde no desktop. */
         display: none;
+        padding: 0;
+        width: 0vw;
+        height: 0vh;
+        
        
     }
+
+    
 
     .amplo font{
         padding: 0;
@@ -292,6 +464,10 @@ main section{
 
 .aside-esquerdo{
     grid-area: aside1;
+    padding: 40px;
+
+    padding-bottom: 1000px;
+    padding-top: 50px;
     
     
     margin-top: 0;
@@ -300,6 +476,8 @@ main section{
     justify-content: left;
     margin-top: 0 !important;
     position: fixed;
+
+    background-color: #a0a9fa !important;
    
     font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
     display: flex;
@@ -314,42 +492,129 @@ main section{
 
 
 *{
-    font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+    font-size: clamp(16em, 0.6em + 1vw, 1.0em);
 }
 
 .aside-esquerdo, .letras{
-    background-color: white;
+    background-color: #a0a9fa;
     grid-area: aside1;
-    border: 1px solid #E6ECF0;
+    border: 2px solid white;
     display: flex;
     flex-flow: column;
     align-items: center;
+    
 }
 
 
-.pai-titulo{
-  
+.imagm{
+
+background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas-plana-dos-desenhos-animados-dao-coracoes-fazer-cari-removebg-preview.png');
+  width: 100%;
   border: 1px solid #EDECFF;
   display: flex;
+  flex-direction: column;
   font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+  align-items: center;
 
   
 }
 
 
 .frase-do-img {
-    display: flex;
-    
+    display: flex;   
+}
+
+.aside-class{
+    position: fixed;
 }
 
 
+/*--------------------------------------------------------------
+# Team
+--------------------------------------------------------------*/
+.team .member {
+   
+    overflow: hidden;
+    text-align: center;
+    border-radius: 4px;
+    
+  }
+  
+  .team .member .member-img {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .team .member .social {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  
+    opacity: 0;
+    transition: ease-in-out 0.3s;
+    text-align: center;
 
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .team .member .social a {
+    transition: color 0.3s;
+    color: #124265;
+    
+    display: inline-block;
+  }
+  
+  .team .member .social a:hover {
+    color: #2487ce;
+  }
+  
+  .team .member .social i {
+    font-size: 18px;
+    margin: 0 2px;
+    line-height: 0;
+  }
+  
+  .team .member .member-info {
+   
+  }
+  
+  .team .member .member-info h4 {
+    font-weight: 700;
+   
+    color: #124265;
+  }
+  
+  .team .member .member-info span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #aaaaaa;
+  }
+  
+  .team .member .member-info p {
+    font-style: italic;
+    font-size: 14px;
+   
+    color: #777777;
+  }
+  
+  .team .member:hover .social {
+    opacity: 1;
+
+  }
+  
 
 .aside-direito{
-    background-color: white;
+    background-color: #a0a9fa;
     grid-area: aside2;  
     width: 40vh;
+    height: 50vh;
+    
     padding: 10px;
+    border: 5px solid white;
+
     
 }
 
@@ -466,9 +731,7 @@ button{
     height: 10px;
 }
 
-body{
-    margin: 23px;
-}
+
 
 .logo{
     width: 42px;
@@ -743,10 +1006,54 @@ color: #14171A;
    
 }
 
+.imagem{
+    background-image: url('../img-social/tweet/cover-photo.png');
+    height: 150px;
+    width: 850px;
 
-.img-violino{
-    display: flex;
+    border: 2px solid;
 }
+
+.fluxo {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+   
+    border-bottom: 2px solid #EDECFF ;
+
+}
+
+
+#teste{
+    font-weight: 900;
+    color: gray;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+.nome-ong-main{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.info-basic{
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    
+    align-items: center;
+}
+
+.info-basic button{
+    background-color: white;
+    border: 1px solid #5A56E9;
+    border-radius: 24.5px;
+    padding: 15px;
+}
+
+
+
 
 .acabo-os-nome{
     display: flex;
@@ -780,6 +1087,7 @@ color: #14171A;
     box-shadow: 1px 1px 1px 1px #36346A;
     -webkit-box-shadow: 10px 10px 5px 0px rgba (0,0,0,0,75);
 -moz-box-shadow: 10px 10px 5px 0px rgba (0,0,0,0,75);
+color: #3b4ef8;
  
 }
 
@@ -788,4 +1096,31 @@ color: #14171A;
 
 .icones-side{
     padding-inline: 5px ;
+}
+
+.mensagens{
+    display: flex;
+    align-items: left;
+    justify-content: space-around;
+    height: 50px;
+    justify-content: center;
+
+}
+
+
+.mensagens2{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+    flex-direction: column;
+    
+}
+
+.mensagens2 img{
+    height: 100px;
+    width: 100px;
+    
+   
+
 }

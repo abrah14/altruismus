@@ -1,17 +1,47 @@
 <?php
+
 session_start();
+
 require_once("../model/Ong.php");
 require_once("../model/Post.php");
+require_once("../model/Reacao.php");
+require_once("../model/Seguindo.php");
+
 include_once("valida-permanencia.php");
 
 try {
   $ong = new Ong();
-
   $post = new Post();
+  $seguindo = new Seguindo();
+  $reacao = new Reacao();
 
+  $_SESSION['social'] = true;
 
+  if (isset($_SESSION['idOng'])) {
+    $idListar = $_POST['idOng'];
+    $verificacao = $seguindo->verificarSeguir($_SESSION['idong'], $_SESSION['idOng']);
+    if ($_SESSION['idOng'] == $_SESSION['idong']) {
+      header("Location: perfil.php");
+    }
+  } else {
+    $idListar = $_POST['idOng'];
+    $verificacao = $seguindo->verificarSeguir($_SESSION['idong'], $idListar);
+    if ($idListar == $_SESSION['idong']) {
+      header("Location: perfil.php");
+    }
+  }
 
-  $listaong = $ong->listar();
+  if ($verificacao[0] <= 0) {
+    // unset($_SESSION['seguindo']);
+    $segue = false;
+  } else {
+    // $_SESSION['seguindo'] == true;
+    $segue = true;
+  }
+
+  $listapost = $post->listar($idListar);
+
+  // $listaong = $ong->listar();
 } catch (Exception $e) {
   echo $e->getMessage();
 }
@@ -19,7 +49,6 @@ try {
 
 <?php
 if (isset($_SESSION['idong'])) {
-  $listapost = $post->listar($_SESSION['idong']);
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -151,11 +180,6 @@ if (isset($_SESSION['idong'])) {
               <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
             </section>
 
-
-
-
-
-
             <script>
               //const h1 = document.getElementById('asideEsquerdo')
 
@@ -174,12 +198,6 @@ if (isset($_SESSION['idong'])) {
               // nav.style.display = 'flex'                         
             </script>
 
-
-
-            <section>
-
-            </section>
-
           </section>
 
 
@@ -196,14 +214,37 @@ if (isset($_SESSION['idong'])) {
 
         <section id="teste" class="pai-titulo">
 
+          <?php
 
+          foreach ($listapost as $postagem) {
+            $idOng = $postagem['idong'];
+            $nomeOng = $postagem['nomeong'];
+            $msg = $postagem['msgpost'];
+            $dtPost = $postagem['dtpost'];
+            $idOng = $postagem['idong'];
+            $fotoOng = $postagem['fotoong'];
+            $idPost = $postagem['idpost'];
+            if ($_SESSION['idong']) {
+              $tipoPerfil = "ong";
+              $idPerfil = $_SESSION['idong'];
+            }
+          }
+
+          ?>
+
+          <style>
+            .img-agencio {
+              background-image: url('./foto-perfil-ong/<?php echo $fotoOng ?>');
+              border: 2px solid white;
+              border-radius: 1000px;
+              margin: 30px;
+              height: 250px;
+              width: 250px;
+            }
+          </style>
 
 
           <div class="img-agencio" height="50px" width="50px" alt="">
-
-            <div class="vigia">
-
-            </div>
 
             <script>
               const remove = document.getElementById('remove2')
@@ -213,8 +254,6 @@ if (isset($_SESSION['idong'])) {
 
           </div>
 
-
-
         </section>
 
 
@@ -223,11 +262,8 @@ if (isset($_SESSION['idong'])) {
           <section class="img-section">
 
             <section class="agrvai">
-              Agencia do bem
-              <!-- Button trigger modal -->
-              <!-- <button type="button" class="btn btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Doar
-              </button> -->
+              <p class="titulo"><?php echo $nomeOng ?></p>
+
 
               <br>
 
@@ -265,59 +301,17 @@ if (isset($_SESSION['idong'])) {
               </div>
 
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="box">
-                      <div class="img-box">
-                        <img src="../image/donate.png">
-                      </div>
-                      <div class="form-box">
-                        <form method="post" action="../restrita/cadastra-doacao.php">
-                          <div class="input-group">
-                            <label for="data">Data da Doação</label>
-                            <input type="date" id="txtDataDoacao" name="txtDataDoacao" placeholder="Digite a data da doação" required>
-                          </div>
 
-                          <div class="input-group">
-                            <label for="descricao">Descrição</label>
-                            <input type="text" id="txtDescDoacao" name="txtDescDoacao" placeholder="Digite a descrição" required>
-                          </div>
+              <!-- <p>
+                Design and development agency that promotes 
+                innovation through elevated websites, applications, 
+                and eCommerce solutions
+              </p> -->
 
-                          <label>Ong:</label>
-                          <select name="ong">
-                            <option value="0">Selecione</option>
-                            <?php foreach ($listaong as $listar) { ?>
-                              <option value="<?php echo $listar['idong'] ?>">
-                                <?php echo $listar['nomeong'] ?>
-                              </option>
-                            <?php } ?>
-                          </select>
 
-                          <div class="input-group">
-                            <button type="submit">Doe</a></button>
-                          </div>
-                          <p class="temConta">Já tem uma conta? <a href="login-user.php">LOGIN</a></p>
-                        </form>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <p>Design and development agency that promotes innovation through elevated websites, applications, and eCommerce solutions</p>
-              <p>Translate bio</p>
-              <p>Joined November 2019</p>
 
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" style="background-color: #5A56E9;border: none;">Publicar</button>
+              <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" style="background-color: #5A56E9;border: none;">Publicar</button> -->
 
 
 
@@ -384,9 +378,6 @@ if (isset($_SESSION['idong'])) {
             <section id="portfolio" class="portfolio">
               <div class="container" data-aos="fade-up">
 
-
-
-
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
 
                   <div class="col-lg-4 col-md-6 portfolio-item filter-sla">
@@ -412,24 +403,57 @@ if (isset($_SESSION['idong'])) {
                           <div style="justify-content: center; border-bottom: #5A56E9 2px solid;">
                             <section class="mensagens" style="display: flex;">
 
+                              <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="">
                               <p><?php echo $post['nomeong'] ?></p>
-
-                              <p>ADB </p>
-
                               <p><?php echo $post['dtpost'] ?></p>
+
                             </section>
 
                             <section class="mensagens2">
 
                               <p><?php echo $post['msgpost'] ?></p>
 
+                              <?php
+                              if (isset($_SESSION['iddoador'])) {
+                                $idPost = $post['idpost'];
+                                $idPerfil = $_SESSION['iddoador'];
+                                $tipoPerfil = "doador";
+                              } else if (isset($_SESSION['idong'])) {
+                                $idPost = $post['idpost'];
+                                $idPerfil = $_SESSION['idong'];
+                                $tipoPerfil = "ong";
+                              }
+                              ?>
 
                               <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
 
+                              <form action="" method="" id="form-curtir">
+                                <?php
+                                if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+                                ?>
+                                  <button type="submit" id="idPost" onclick="valorBotao(<?php echo $post['idpost'] ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $post['idpost'] ?>">
+
+                                    <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+                                  <?php } else { ?>
+
+                                    <button type="submit" id="idPost" onclick="valorBotao(<?php echo $post['idpost'] ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $post['idpost'] ?>">
+
+                                      <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
+                                    <?php } ?>
+                                    </button>
+
+                              </form>
+
+                              <?php
+                              $dataCurtida = date('Y-m-d H:i:s');
+                              ?>
+
+
+                              <form action="./tela-comentario.php" method="post">
+                                <button type="submit" value="<?php echo $post['idpost'] ?>" name="btnComentar">COMENTAR</button>
+                              </form>
 
                             </section>
-
-
 
                           </div>
                       </div>
@@ -441,9 +465,6 @@ if (isset($_SESSION['idong'])) {
                 </div>
             </section><!-- End Portfolio Section -->
           </section>
-
-
-
 
 
 
@@ -483,6 +504,60 @@ if (isset($_SESSION['idong'])) {
       </section>
 
     </aside>
+
+    <script type="text/javascript">
+      var posicao = localStorage.getItem('posicaoScroll');
+
+      if (posicao) {
+        /* Timeout necessário para funcionar no Chrome */
+        setTimeout(function() {
+          window.scrollTo(0, posicao);
+        }, 1);
+      }
+
+      window.onscroll = function(e) {
+        posicao = window.scrollY;
+        localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
+      }
+
+      function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
+
+        idPost = postagem;
+        tipoReacao = reacao;
+        tipoPerfil = perfil;
+        idDoador = iddoador;
+
+        var img = imagem;
+
+        if (img == 0) {
+          img = img + 1;
+          document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
+          document.location.reload(true);
+        } else if (img > 0) {
+          document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
+          document.location.reload(true);
+        }
+
+        event.preventDefault();
+
+        $.ajax({
+          type: "POST",
+          url: "reagir.php",
+          data: {
+            tipo: tipoReacao,
+            tipoperfil: tipoPerfil,
+            idperfil: idDoador,
+            idpost: idPost
+          },
+          success: function(data) {
+            console.log("curtiu");
+
+          }
+        });
+
+
+      }
+    </script>
 
     <script src="../../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="../../BizLand/assets/vendor/aos/aos.js"></script>
@@ -568,7 +643,6 @@ if (isset($_SESSION['idong'])) {
   header("Location: ../../BizLand/index.php");
   unset($_SESSION['idadmin']);
   session_destroy();
-
 } else if (isset($_SESSION['iddoador'])) {
   header("Location: ../../BizLand/index.php");
   unset($_SESSION['iddoador']);

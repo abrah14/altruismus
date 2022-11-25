@@ -1,24 +1,24 @@
 <?php
 
-    session_start();
-    require_once("../model/Post.php");
-    require_once("../model/Ong.php");
-    require_once("../model/Reacao.php");
-    include_once("valida-permanencia.php");
+session_start();
+require_once("../model/Post.php");
+require_once("../model/Ong.php");
+require_once("../model/Reacao.php");
+include_once("valida-permanencia.php");
 
-    $post = new Post();
-    $ong = new Ong();
-    $reacao = new Reacao();
+$post = new Post();
+$ong = new Ong();
+$reacao = new Reacao();
 
-    $texto = $_POST['buscar'];
+$texto = $_POST['buscar'];
 
-    $pesquisar = $ong->pesquisaNomeOng($texto);
-    $quantidadeOng = count($pesquisar);
+$pesquisar = $ong->pesquisaNomeOng($texto);
+$quantidadeOng = count($pesquisar);
 
-    if ($quantidadeOng <= 0) {
-        $pesquisar = $post->pesquisaPost($texto);
-        $quant = count($pesquisar);
-    }
+if ($quantidadeOng <= 0) {
+  $pesquisar = $post->pesquisaPost($texto);
+  $quant = count($pesquisar);
+}
 
 ?>
 
@@ -26,313 +26,339 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altruismus</title>
-    <link rel="stylesheet" href="../css/social2.css">
-    <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Altruismus</title>
+  <link rel="stylesheet" href="../css/social2.css">
+  <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+  <link rel="stylesheet" href="../css/explorar-doador.css">
+  <script src="../JS/social2.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="../JS/social2.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
 </head>
 
 <body>
 
-    <style>
-        img.img-responsive {
-            max-width: 90%;
-            width: 1100px;
-        }
-
-        img.img-pub {
-            max-width: 100%;
-            width: 800px;
-        }
 
 
-        img.logo {
-            max-width: 100%;
-            width: 40px;
-        }
+<header class="header1">
 
-        img.img-agencia {
-            max-width: 100%;
-            width: 40px;
-        }
+<style>
+  #headerletter {
+    font-size: clamp(0.9em, 0.9em + 1vw, 3em);
+  }
+</style>
 
-        img .icones-side {
-            max-width: 100%;
-            width: 40px;
-        }
+<nav>
+<div class="img-logo2">
 
-        img .img-pub-v {
-            max-width: 100%;
-            width: 200px;
-        }
-    </style>
+  <section>
+    <img class="img-logo" src="../../BizLand/assets/img/logo21.png" alt="">
+    <p id="headerletter" style="color: white;font-weight: 600; margin-top: 10px; margin-left: 10px; ">Altruismus</p>
+  </section>
+</div>
 
 
-    <script>
-        const aside = document.getElementsByClassName('aside-esquerdo')
-
-        console.log(aside)
-    </script>
+</nav>
 
 
-    <header>
-        <nav>
-            <section class="postar">
+</header>
 
-                <li>
-                    <a id="cor-button" class="nav-link scrollto" href="#services">
-                        <button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Sua pesquisa:
 
-                        </button>
+<style>
+.home {
+font-size: clamp(1em, 1em + 1vw, 1.0em);
+color: #5A56E9;
+
+-webkit-text-stroke-width: 1px;
+
+
+}
+
+.home:hover {
+color: #5A56E9;
+
+}
+
+.letras-aside a {
+align-items: center;
+
+}
+</style>
+
+
+    <aside class="aside-esquerdo" style="justify-content: right;">
+
+      <section class="letras" style="justify-content: right;border-radius: 0;">
+        <section class="itens-p" style="justify-content: left;">
+
+          <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
+            <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left; margin-top: 50px;">
+
+              
 
             </section>
-        </nav>
+            <section class="banana" id="home1" style="display: flex; justify-content: left; ">
 
-
-    </header>
-
-    <aside class="aside-esquerdo" style="border: none;" id="asideEsquerdo">
-        <section class="letras" style="border: none;">
-            <section class="itens-p">
-                <div class="section-logo" id="logo">
-                    <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
-                </div>
-
-                <section class="letras-aside" style="border: none;">
-                    <?php if (isset($_SESSION['iddoador']) && !empty($_SESSION['iddoador'])) { ?>
-                        <section class="banana" id="home1" id="home1">
-
-                            <a href="">
-                                <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
-                            </a>
-                            <a class="home" onclick="teste()" href="./social2.php">Home</a>
-
-                        </section>
-                    <?php } ?>
-                    <section class="banana" id="home1">
-                        <a href="">
-
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
-                        </a>
-                        <?php if (isset($_SESSION['iddoador'])) { ?>
-                            <a class="home" href="./explorar-doador.php">Explorar</a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION['idong'])) { ?>
-                            <a class="home" href="./explorar.php">Explorar</a>
-                        <?php } ?>
-                    </section>
-                    
-                    <section class="banana" id="home1" id="home12">
-                        <a href="">
-
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
-                        </a>
-                        <?php if (isset($_SESSION['iddoador'])) { ?>
-                            <a class="home" href="./perfil-doador.php">Perfil</a>
-                        <?php } ?>
-                        <?php if (isset($_SESSION['idong'])) { ?>
-                            <a class="home" href="./perfil.php">Perfil</a>
-                        <?php } ?>
-                    </section>
-
-                    <section class="banana" id="home12">
-                        <a href="">
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/more.png" alt="">
-                        </a>
-                        <a class="home" href="./logout.php">Encerrar</a>
-                    </section>
-
-                    <!-- <section class="banana-button">
-                        <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
-                    </section> -->
-
-
-                </section>
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+              </a>
+                <a class="home" href="./explorar.php">Explorar</a>
             </section>
-        </section>
-    </aside>
+
+            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
+              </a>
+                <a class="home" href="./perfil.php">Perfil</a>
+            </section>
+
+            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
-    <main id="elemento-chave" style="border: none;">
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
+              </a>
+              <a class="home" href="./logout.php">Encerrar</a>
+            </section>
 
-        <section style="border: 1px solid #E6ECF0;">
+            <section class="banana" id="home18" style="display: flex; justify-content: left;">
+              <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
 
-            <script>
-                const teste = () => {
-                    const imagem = document.getElementById('coracao-img')
 
-                    const coracao2 = document.getElementById('numero-reacao-coracao')
+                <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
+                  <i class="fa fa-search" style="color: white; padding: 10px;"></i>
 
-                    const coracao = document.getElementById('coracao')
+                  <style>
+                    input:focus {
+                      box-shadow: 0 0 0 0;
+                      outline: 0;
 
-                    coracao.style.border = 'none'
-                    imagem.style.backgroundColor = '#5A56E9'
-
-                    coracao2.innerHTML = '1'
-
-                    const retirada = document.getElementById('retirada')
-
-                    if (retirada.classList.contains('open')) {
-                        retirada.classList.remove('open')
                     }
 
-
-                }
-            </script>
-
-            <?php foreach ($pesquisar as $pesquisa) { ?>
-
-                <section class="frase-do-img">
-
-                    <img src="./foto-perfil-ong/<?php echo $pesquisa['fotoong'] ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-                    <p class="nome-ong"><?php echo $pesquisa['nomeong'] ?></p>
-                    <!-- <p> @ADB</p> -->
-                    <img class="img-pub-v" src="../img-social/tweet/Vector (1).png" alt="">
-                    <p><?php echo $pesquisa['dtpost'] ?></p>
-                </section>
-
-                <section class="">
-                    <section class="frase">
-                        <section class="juncao">
-                            <p class="desc">
-                                <?php echo $pesquisa['msgpost'] ?>
-                            </p>
-                        </section>
-
-                        <section>
-                            <img class="img-responsive" src="./social-img/<?php echo $pesquisa['imagempost'] ?>" alt="">
-                        </section>
-
-                    </section>
-                </section>
-
-                <?php
-                if (isset($_SESSION['iddoador'])) {
-                    $idPost = $pesquisa['idpost'];
-                    $idPerfil = $_SESSION['iddoador'];
-                    $tipoPerfil = "doador";
-                } else if (isset($_SESSION['idong'])) {
-                    $idPost = $pesquisa['idpost'];
-                    $idPerfil = $_SESSION['idong'];
-                    $tipoPerfil = "ong";
-                }
-                ?>
-
-                <form action="" method="" id="form-curtir">
-                    <?php
-                    if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
-                    ?>
-                        <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
-
-                            <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
-                        <?php } else { ?>
-
-                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
-
-                                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
-                            <?php } ?>
-                            </button>
-
-                </form>
-
-                <?php
-                    $dataCurtida = date('Y-m-d H:i:s');
-                ?>
+                    ::placeholder {
+                      font-weight: 700;
+                    }
+                  </style>
 
 
-                <form action="./tela-comentario.php" method="post">
-                    <button type="submit" value="<?php echo $pesquisa['idpost'] ?>" name="btnComentar">COMENTAR</button>
-                </form>
+                </button>
 
-            <?php } ?>
 
-        </section>
+              </form>
 
-    </main>
 
-    <aside class="aside-direito">
-
-        <section class="aside-class" style="background-color: white; border: none;">
-
-            <section style="background-color: white;border: none; ">
-                <form action="./pesquisa-altruismus.php" method="post">
-
-                    <input type="search" placeholder="Buscar por Altruismus" name="buscar">
-                    <button type="submit">Buscar</button>
-
-                </form>
             </section>
 
 
+    </aside>
+
+
+
+  </header>
+
+  <style>
+    .home {
+      font-size: clamp(1em, 1em + 1vw, 1.0em);
+      color: #5A56E9;
+
+      -webkit-text-stroke-width: 1px;
+
+
+    }
+
+    .home:hover {
+      color: #5A56E9;
+
+    }
+
+    .letras-aside a {
+      align-items: center;
+
+    }
+  </style>
+
+
+
+
+  <main id="elemento-chave" style="border: none;margin-top: 13px;margin-left: 120px;margin-right: 120px;">
+
+    <section style="border: 1px solid #E6ECF0;">
+
+     
+
+      <?php foreach ($pesquisar as $pesquisa) { ?>
+
+        <section class="frase-do-img">
+
+          <img width="100px" src="./foto-perfil-ong/<?php echo $pesquisa['fotoong'] ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+          <p class="nome-ong"><?php echo $pesquisa['nomeong'] ?></p>
+          <!-- <p> @ADB</p> -->
+          <img class="img-pub-v" src="../img-social/tweet/Vector (1).png" alt="">
+          <p><?php echo $pesquisa['dtpost'] ?></p>
+        </section>
+
+        <section class="">
+          <section class="frase">
+            <section class="juncao">
+              <p class="desc">
+                <?php echo $pesquisa['msgpost'] ?>
+              </p>
+            </section>
+
+            <section>
+              <img style="width: 100px;" class="img-responsive" src="./social-img/<?php echo $pesquisa['imagempost'] ?>" alt="">
+            </section>
+
+          </section>
+        </section>
+
+        <?php
+        if (isset($_SESSION['iddoador'])) {
+          $idPost = $pesquisa['idpost'];
+          $idPerfil = $_SESSION['iddoador'];
+          $tipoPerfil = "doador";
+        } else if (isset($_SESSION['idong'])) {
+          $idPost = $pesquisa['idpost'];
+          $idPerfil = $_SESSION['idong'];
+          $tipoPerfil = "ong";
+        }
+        ?>
+
+        <section style="display: flex;align-items: center;justify-content: center;justify-content: space-around;">
+
+          <form action="" method="" id="form-curtir">
+            <?php
+            if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+            ?>
+              <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+  
+                <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+              <?php } else { ?>
+  
+                <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+  
+                  <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
+                <?php } ?>
+                </button>
+  
+          </form>
+  
+          <?php
+          $dataCurtida = date('Y-m-d H:i:s');
+          ?>
+  
+  
+          <form action="./tela-comentario.php" method="post">
+            <button type="submit" value="<?php echo $pesquisa['idpost'] ?>" name="btnComentar">COMENTAR</button>
+          </form>
+
+
 
         </section>
 
-    </aside>
 
-    <script type="text/javascript">
+      <?php } ?>
 
-        var posicao = localStorage.getItem('posicaoScroll');
 
-        if (posicao) {
-            /* Timeout necessário para funcionar no Chrome */
-            setTimeout(function() {
-                window.scrollTo(0, posicao);
-            }, 1);
+    </section>
+
+  </main>
+
+  <aside class="aside-direito" style="padding: 0; justify-content: right;">
+
+
+
+
+<section class="aside-class1">
+
+  <section style=" border: none; display: flex;" class="seção2">
+  <form action="./pesquisa-altruismus.php" class="busca-explorar" method="post" style="padding: 0;">
+
+<input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+<button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
+
+  <i class="fa fa-search" style="color: white; padding: 5px;"></i>
+
+</button>
+
+</form>
+
+
+
+</section>
+
+</form>
+</section>
+
+
+
+
+</section>
+
+
+
+
+
+
+</aside>
+  <script type="text/javascript">
+    var posicao = localStorage.getItem('posicaoScroll');
+
+    if (posicao) {
+      /* Timeout necessário para funcionar no Chrome */
+      setTimeout(function() {
+        window.scrollTo(0, posicao);
+      }, 1);
+    }
+
+    window.onscroll = function(e) {
+      posicao = window.scrollY;
+      localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
+    }
+
+    function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
+
+      idPost = postagem;
+      tipoReacao = reacao;
+      tipoPerfil = perfil;
+      idDoador = iddoador;
+
+      var img = imagem;
+
+      if (img == 0) {
+        img = img + 1;
+        document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
+        document.location.reload(true);
+      } else if (img > 0) {
+        document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
+        document.location.reload(true);
+      }
+
+      event.preventDefault();
+
+      $.ajax({
+        type: "POST",
+        url: "reagir.php",
+        data: {
+          tipo: tipoReacao,
+          tipoperfil: tipoPerfil,
+          idperfil: idDoador,
+          idpost: idPost
+        },
+        success: function(data) {
+          console.log("curtiu");
+
         }
-
-        window.onscroll = function(e) {
-            posicao = window.scrollY;
-            localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
-        }
-
-        function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
-
-            idPost = postagem;
-            tipoReacao = reacao;
-            tipoPerfil = perfil;
-            idDoador = iddoador;
-
-            var img = imagem;
-
-            if (img == 0) {
-                img = img + 1;
-                document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
-                document.location.reload(true);
-            } else if (img > 0) {
-                document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
-                document.location.reload(true);
-            }
-
-            event.preventDefault();
-
-            $.ajax({
-                type: "POST",
-                url: "reagir.php",
-                data: {
-                    tipo: tipoReacao,
-                    tipoperfil: tipoPerfil,
-                    idperfil: idDoador,
-                    idpost: idPost
-                },
-                success: function(data) {
-                    console.log("curtiu");
-
-                }
-            });
+      });
 
 
-        }
-    </script>
+    }
+  </script>
 
 
 </body>

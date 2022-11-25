@@ -34,30 +34,113 @@
 
 <body style="display: block; margin: 0;">
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" >Registre-se</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<script>
+    function limpa_formulário_cep() {
+      //Limpa valores do formulário de cep.
+      document.getElementById('txtRuaOng').value = ("");
+      document.getElementById('txtBairroOng').value = ("");
+      document.getElementById('txtCidadeOng').value = ("");
+      document.getElementById('txtEstadoOng').value = ("");
+    }
+
+    function meu_callback(conteudo) {
+      if (!("erro" in conteudo)) {
+        //Atualiza os campos com os valores.
+        document.getElementById('txtRuaOng').value = (conteudo.logradouro);
+        document.getElementById('txtBairroOng').value = (conteudo.bairro);
+        document.getElementById('txtCidadeOng').value = (conteudo.localidade);
+        document.getElementById('txtEstadoOng').value = (conteudo.uf);
+      } //end if.
+      else {
+        //CEP não Encontrado.
+        limpa_formulário_cep();
+        alert("CEP não encontrado.");
+      }
+    }
+
+    function pesquisacep(valor) {
+
+      //Nova variável "cep" somente com dígitos.
+      var cep = valor.replace("^[0-9]{5}-[0-9]{3}$", '');
+
+      //Verifica se campo cep possui valor informado.
+      if (cep != "") {
+
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
+
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
+
+          //Preenche os campos com "..." enquanto consulta webservice.
+          document.getElementById('txtRuaOng').value = "...";
+          document.getElementById('txtBairroOng').value = "...";
+          document.getElementById('txtCidadeOng').value = "...";
+          document.getElementById('txtEstadoOng').value = "...";
+
+          //Cria um elemento javascript.
+          var script = document.createElement('script');
+
+          //Sincroniza com o callback.
+          script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+          //Insere script no documento e carrega o conteúdo.
+          document.body.appendChild(script);
+
+        } //end if.
+        else {
+          //cep é inválido.
+          limpa_formulário_cep();
+          alert("Formato de CEP inválido retire o hifén.");
+        }
+      } //end if.
+      else {
+        //cep sem valor, limpa formulário.
+        limpa_formulário_cep();
+      }
+    };
+  </script>
+
+<div class="modal fade" style="border: 0;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="border: 0;">
+    <div class="modal-content" style="border: 0; padding: 50px;">
+      <div class="modal-header" style="border: 0;">
+
+
       </div>
-      <section class="edit-modal" style="border: none;">
-        <div class="modal-body" >
-          <a class="registre-doador" href="../../tecece2/restrict/form-user.php">Eu sou Doador</a>
+
+    
+      <section style="border: 0; " class="edit-modal" style="border: none; display: flex; background-color: white; padding: 100px;">
+        <a href="./form-user.php">
+
+
+          <div class="modal-body"  style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:20px ;">
+            <h5 class="registre-doador"  style="font-weight: 600; color: white;">Sou Doador...</h5>
+            <img src="../../BizLand/assets/img/mao14.png" style="width: 100px;" alt="">
+  
+          </div>
+        </a>
+        <div class="modal-bod" style="padding: 20px;" style="width: 50px;" disable>
+
         </div>
-        <div class="modal-body">
-          <a class="registre-doador" href="../../tecece2/restrict/form-user-ong.php">Eu sou Ong</a>
+
+        <a href="./form-user-ong.php">
+        <div class="modal-body" style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:30px ;">
+
+          <h5 class="registre-doador" style="color: white; font-weight: 600;" >Sou Ong...</h5>
+          <img src="../../BizLand/assets/img/mao13.png" style="width: 50px;" alt="">
+
+          
         </div>
+      </a>
       </section>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Entrar</button>
+      <div class="modal-footer" style="border: 0; ">
+
+
       </div>
     </div>
   </div>
 </div>
-
 
   <!-- ======= Header ======= -->
   <header id="header" class="d-flex align-items-center" style="margin: 0;">
@@ -72,35 +155,31 @@
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="../../BizLand/index.php">Home</a></li>
-          <li><a href="../../BizLand/index.php" class="nav-link scrollto"  href="#about">Sobre</a></li>
+      <ul>
+      <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="../../BizLand/index.php">Home</a></li>
+          
         </a></li>
-        <li><a href="../../BizLand/index.php" class="nav-link scrollto " href="#portfolio">Portfol</a></li>
-        <li><a href="../../BizLand/index.php" class="nav-link scrollto" href="#team">Team</a></li>
-        <li><a href="../../BizLand/index.php" class="nav-link scrollto" href="#contact">Contact</a></li>
         
-      
+        <li><a class="nav-link scrollto"  href="../../BizLand/index.php">Time</a></li>
+        <li><a class="nav-link scrollto"  href="../../BizLand/index.php">Contato</a></li>
+        <li><a class="nav-link scrollto"   href="../../BizLand/index.php" >Projetos</a></li>
         
+        <li class="dropdown"><a href="../tecece2/restrict/login-user.php"><span class="login">Login</span> <i class="bi bi-chevron"></i></a>
         
-        <li><a  id="#cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Registre-se
-        </button>
-        
-        
-        <li class="dropdown"><a  href="login-user.php"><span class="login" >Login</span> <i class="bi bi-chevron"></i></a>
-
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+        <li><a id="#cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Registre-se
+            </button>
+        </li>
+      </ul>
+      </li>
+      </ul>
+      </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
-
 
 <main>
       <div class="box">
@@ -132,13 +211,18 @@
                   </div>
   
                   <div class="input-group w50">
-                      <label for="data">Data de Fundação</label>
+                      <label for="data" style="flex: 0.7;">Data de Fundação</label>
                       <label for="lugradouro">Lugradouro</label>
                     </div>
+                    
                     
                     <div class="input-group w50" style="flex-flow: row;">
                      <input type="date" id="txtDataNascOng" name="DataNascOng" style="  border-radius: 20px ;"  placeholder="Fundação da ONG" required>
                       <input type="text" id="txtLugradouroOng" name="txtLugradouroOng" placeholder="Logradouro da ong" style="  border-radius: 20px ;"  required>
+                  </div>
+                  <div class="input-group w50">
+                      <label for="cep">CEP</label>
+                      <input type="text" id="txtCepOng" name="txtCepOng" placeholder="Digite seu CEP" required  style="  border-radius: 20px ;" required onblur="pesquisacep(this.value);" required >
                   </div>
                   <div class="input-group w50"  style="align-items: center;">
                     <label for="cidade" style="flex: 0.63;">Cidade</label>
@@ -148,36 +232,36 @@
                 <div class="input-group w50" style="display: flex; flex-flow: row;">
                  
                         <input  type="text" id="txtCidadeOng" name="txtCidadeOng" placeholder="Digite sua cidade" required style="  border-radius: 20px ;" >
-                
-                        <select  style="  border-radius: 20px ;"  name="slEstado" id="slEstado" name="slEstado"> 
-                            <option value="0">Acre</option> 
-                            <option value="1">Alagoas</option> 
-                            <option value="2">Amazonas</option> 
-                            <option value="3">Amapá</option> 
-                            <option value="4">Bahia</option> 
-                            <option value="5">Ceará</option> 
-                            <option value="6">Distrito Federal</option> 
-                            <option value="7">Espírito Santo</option> 
-                            <option value="8">Goiás</option> 
-                            <option value="9">Maranhão</option> 
-                            <option value="10">Mato Grosso</option> 
-                            <option value="11">Mato Grosso do Sul</option> 
-                            <option value="12">Minas Gerais</option> 
-                            <option value="13">Pará</option> 
-                            <option value="14">Paraíba</option> 
-                            <option value="15">Paraná</option> 
-                            <option value="16">Pernambuco</option> 
-                            <option value="17">Piauí</option> 
-                            <option value="18">Rio de Janeiro</option> 
-                            <option value="19">Rio Grande do Norte</option> 
-                            <option value="20">Rondônia</option> 
-                            <option value="22">Rio Grande do Sul</option> 
-                            <option value="23">Roraima</option> 
-                            <option value="24">Santa Catarina</option> 
-                            <option value="25">Sergipe</option> 
-                            <option value="26">São Paulo</option> 
-                            <option value="27">Tocantins</option> 
-                        </select>
+
+                        <select style="border-radius: 20px ;width: 70%; margin-left: 10px;" id="txtEstadoOng" name="txtEstadoOng" >
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                          </select>
 
                 </div>
   
@@ -195,10 +279,7 @@
                     <input style="border-radius: 20px;"  type="text" id="txtRuaOng" name="txtRuaOng" placeholder="Digite sua rua" required style="  border-radius: 20px ;" >
                     <input style="border-radius: 20px;" type="number" id="txtComplementoOng" name="txtComplementoOng" placeholder="Digite seu número de casa" required style="  border-radius: 20px ;" >
                 </div>
-                  <div class="input-group w50">
-                      <label for="cep">CEP</label>
-                      <input type="text" id="txtCepOng" name="txtCepOng" placeholder="Digite seu CEP" required  style="  border-radius: 20px ;" >
-                  </div>
+                
   
                   <div class="input-group">
                       <label for="senha">Senha</label>

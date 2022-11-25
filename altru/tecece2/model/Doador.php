@@ -185,26 +185,53 @@
             $stmt->execute();            
         }
 
-        public function alterar($idDoador, $nomeDoador, $emailDoador, $cpfDoador, $dataNascDoador, $cidadeDoador, $estadoDoador, $bairroDoador, $ruaDoador, $cepDoador, $compDoador, $lugradouroDoador, $senhaDoador ) 
+        public function alterar($idDoador, $nomeDoador, $emailDoador, $cpfDoador, $dataNascDoador, $cidadeDoador, $estadoDoador, $bairroDoador, $ruaDoador, $cepDoador, $compDoador, $lugradouroDoador, $senhaDoador, $fotoDoador ) 
         {
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("UPDATE tbdoador SET nomedoador = ?, emaildoador = ?, cpfdoador = ?, dataNascDoador = ?, 
-                                        cidadeDoador = ?, estadoDoador = ?, bairroDoador = ?, ruadoador = ?, 
-                                        cepdoador = ?, complementoDoador = ?, lugradourodoador = ?, senhadoador = ?
-                                        WHERE iddoador = ?");
-            $stmt->bindParam(1, $nomeDoador);
-            $stmt->bindParam(2,$emailDoador);
-            $stmt->bindParam(3,$cpfDoador);
-            $stmt->bindParam(4,$dataNascDoador);
-            $stmt->bindParam(5,$cidadeDoador);
-            $stmt->bindParam(6,$estadoDoador);
-            $stmt->bindParam(7,$bairroDoador);
-            $stmt->bindParam(8,$ruaDoador);
-            $stmt->bindParam(9,$cepDoador);
-            $stmt->bindParam(10,$compDoador);
-            $stmt->bindParam(11,$lugradouroDoador);
-            $stmt->bindParam(12,$senhaDoador);
-            $stmt->bindParam(13,$idDoador);
+
+            if(isset($fotoDoador) && !empty($fotoDoador)) {
+                $stmt = $conexao->prepare("UPDATE tbdoador SET nomedoador = ?, emaildoador = ?, cpfdoador = ?, dataNascDoador = ?, 
+                                            cidadeDoador = ?, estadoDoador = ?, bairroDoador = ?, ruadoador = ?, 
+                                            cepdoador = ?, complementoDoador = ?, lugradourodoador = ?, senhadoador = ?, fotodoador = ?
+                                            WHERE iddoador = ?");
+
+                $stmt->bindParam(1, $nomeDoador);
+                $stmt->bindParam(2,$emailDoador);
+                $stmt->bindParam(3,$cpfDoador);
+                $stmt->bindParam(4,$dataNascDoador);
+                $stmt->bindParam(5,$cidadeDoador);
+                $stmt->bindParam(6,$estadoDoador);
+                $stmt->bindParam(7,$bairroDoador);
+                $stmt->bindParam(8,$ruaDoador);
+                $stmt->bindParam(9,$cepDoador);
+                $stmt->bindParam(10,$compDoador);
+                $stmt->bindParam(11,$lugradouroDoador);
+                $stmt->bindParam(12,$senhaDoador);
+                $stmt->bindParam(13,$fotoDoador);
+                $stmt->bindParam(14,$idDoador);
+            
+            } else {
+                $stmt = $conexao->prepare("UPDATE tbdoador SET nomedoador = ?, emaildoador = ?, cpfdoador = ?, dataNascDoador = ?, 
+                                            cidadeDoador = ?, estadoDoador = ?, bairroDoador = ?, ruadoador = ?, 
+                                            cepdoador = ?, complementoDoador = ?, lugradourodoador = ?, senhadoador = ?
+                                            WHERE iddoador = ?");
+
+                $stmt->bindParam(1, $nomeDoador);
+                $stmt->bindParam(2,$emailDoador);
+                $stmt->bindParam(3,$cpfDoador);
+                $stmt->bindParam(4,$dataNascDoador);
+                $stmt->bindParam(5,$cidadeDoador);
+                $stmt->bindParam(6,$estadoDoador);
+                $stmt->bindParam(7,$bairroDoador);
+                $stmt->bindParam(8,$ruaDoador);
+                $stmt->bindParam(9,$cepDoador);
+                $stmt->bindParam(10,$compDoador);
+                $stmt->bindParam(11,$lugradouroDoador);
+                $stmt->bindParam(12,$senhaDoador);
+                $stmt->bindParam(13,$idDoador);
+            }
+
+            
 
             $stmt->execute();
         }
@@ -378,7 +405,7 @@
                     complementodoador,estadodoador,ruadoador,
                     cepdoador,nomedoador,lugradourodoador,datanascdoador,
                     emaildoador,senhadoador,
-                    telefonedoador,fotodoador
+                    telefonedoador,fotodoador,datainscricao
                 FROM tbdoador
                 INNER JOIN tbtelefonedoador
                     ON tbtelefonedoador.iddoador = tbdoador.iddoador 
@@ -389,29 +416,6 @@
             return $lista;
         }
         
-        public function editarImg($imagem, $id) {
-            $conexao = Conexao::conectar();
-
-            $stmt = $conexao->prepare("SELECT fotodoador FROM tbdoador WHERE iddoador = ? AND fotodoador LIKE '%?%'");
-
-            $stmt->bindParam(1,$id);
-            $stmt->bindParam(2,$imagem);
-
-            if($stmt->rowCount() == 0) {
-                $stmt = $conexao->prepare("UPDATE tbdoador SET fotodoador = ? WHERE iddoador = ?");
-
-                $stmt->bindParam(1,$imagem);
-                $stmt->bindParam(2,$id);
-            }
-
-            $stmt->execute();
-
-            // $querySelect = "SELECT fotodoador FROM tbdoador WHERE iddoador = $id";
-
-            // $resultado = $conexao->query($querySelect);
-            // $lista = $resultado->fetch();
-            // return $lista;
-        }
  
     }
      

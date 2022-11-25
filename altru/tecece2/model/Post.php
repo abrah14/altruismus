@@ -81,7 +81,7 @@
         public function listar($id){
             $conexao = Conexao::conectar();
             $querySelect = "SELECT 
-                            tbpost.idpost,msgpost,dtpost,imagempost,nomeong, tbong.idong,fotoong
+                            tbpost.idpost,msgpost,dtpost,imagempost,tbong.nomeong, tbong.idong,fotoong
                             FROM tbpost
                             INNER JOIN tbong
                             ON tbong.idong = tbpost.idong

@@ -1,0 +1,1157 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+
+body{
+    display: grid;
+    height: 100vh;
+    background-color: #e9ebf7;
+    
+    grid-template-areas: 
+
+    "header1 header2 header3"
+    "aside1 main aside2";
+    margin: 0px;
+    grid-template-columns:4f 40px; /* tamanho das colunas também*/
+    grid-template-rows: 50px 880px; /*tamnaho das colunas*/
+
+}
+
+
+
+.header1{
+    position: fixed;
+    
+    z-index: 10;
+    background-color: #5A56E9;
+    grid-area: header1;
+    width: 100vw;
+
+
+}
+
+
+.header2{
+     position: fixed;
+     
+     width: 100vw;
+
+    background-color: #5A56E9;
+    grid-area: header2;
+    
+    
+
+}
+
+
+.header3{
+    position: fixed;
+    width: 100vw;
+    background-color: #5A56E9;
+    grid-area: header3;
+
+
+}
+
+
+
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+
+  
+  /*--------------------------------------------------------------
+  # Navigation Menu
+  --------------------------------------------------------------*/
+  /**
+  * Desktop Navigation 
+  */
+  
+  
+nav{
+    display: flex;
+    
+}
+
+nav div section{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    padding: 10px;
+}
+
+.img-logo{
+    width: 70px;
+
+}
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    nav div section{
+        display: flex;
+        align-items: center;
+        margin-left: -4px;
+        padding: 10px;
+    }
+  
+}
+
+
+
+main{
+   
+    grid-area: main;
+    padding: 0;
+    height: 150vh;
+    position: sticky;
+ 
+    margin-inline: 0;
+  
+
+}
+
+.frase-do-img{
+    display: flex;
+}
+
+.reacoes{
+    display: flex;
+   
+    justify-content: center;
+    justify-content: space-evenly;
+}
+
+/* .nav-mobile a,li{
+    text-decoration: none;
+    list-style: none;
+
+}
+
+
+      
+
+.nav-mobile ul,li{
+    display: flex;
+    border: 2px solid red;
+    justify-content: center;
+    justify-content: space-evenly;
+} */
+
+#fotoCapa{
+    background-image: url('../image/rosa-roxao.png');
+    
+}
+
+
+@media only screen and (max-width: 200px) {
+    img {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 100px) {
+    img.img-agencia {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 100px) {
+    img.img-pub {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 100px) {
+    img.logo {
+      width: 100%;
+    }
+}
+
+
+  @media only screen and (max-width: 100px) {
+    img.img-agencia {
+      width: 100%;
+    }
+  
+
+  }
+
+  @media only screen and (max-width: 1000px) {
+  
+    .img-violino{
+        max-width: 90%;
+        width: 100%;
+
+    }
+
+  }
+
+
+  
+
+
+
+
+  @media only screen and (min-width: 1000px) {
+    img.icones-side {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: 100px) {
+    .imagem img{
+        max-width: 90%;
+        width: 1100px;
+    }
+    
+
+    }
+    
+    
+
+  
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    img.icones-side {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: 100px) {
+    .imagem img{
+        max-width: 90%;
+        width: 1100px;
+    }
+    }
+    
+    
+
+  
+}
+
+
+
+
+
+  
+main{
+   
+}
+.home {
+   
+    
+    
+}
+
+
+
+
+@media only screen and (max-width: 1200px) {
+
+  .aside-direito, .header3{
+    display: none;
+    opacity: 0;
+
+  }
+
+  
+  .member-img{
+    justify-content: center;
+  }
+  .testeSumi, .seguir, .seguidores, .seguir2, .rosa{
+    display: none;
+    opacity: 0;
+   
+    padding: 0;
+  }
+
+  .seguir2 button{
+  display: none;
+  opacity: 0;
+  }
+
+
+  .aside-esquerdo section{
+    padding-left: 0;
+    }
+
+
+    .aside-esquerdo{
+        background-color: white;
+    }
+
+    
+
+
+    
+}
+
+
+
+.member-im{
+    background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas-plana-dos-desenhos-animados-dao-coracoes-fazer-cari-removebg-preview.png');
+
+}
+
+
+.cortalvez{
+    background-color: #e9e9f8;
+    
+    border-bottom: 1px solid #a29ff2;
+    border-radius: 10px;
+    margin-top: 4px;
+    
+ 
+}
+
+
+#cortalvez{
+    background-color: #e9e9f8;
+    border-bottom: 1px solid #a29ff2;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+
+.col-form-label{
+    color: black;
+    font-weight: 600;
+
+}
+
+
+.rosa{
+    background-color: #fbfafa;
+}
+
+
+.seguidores{
+        
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+
+
+@media only screen and (min-width: 600px) {
+
+
+    #home18{
+        display: none;
+        opacity: 0;
+    }
+      
+      
+  }
+
+
+
+  @media only screen and (max-width: 800px) {
+
+
+    .seção3{
+        display: flex;
+        opacity: 10;
+        
+  
+    }
+    .home{
+        display: none;
+        opacity: 0;
+    }
+
+
+    .busca{
+        display: none;
+        opacity: 0;
+
+    }
+
+
+  
+      
+      
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 200px) {
+    .home {
+        opacity: 0; /* Esconde no desktop. */
+        height: 0;
+        padding-left: 1px;
+        width: 10px;
+        align-items: center;
+        
+    }
+
+    main {
+      padding-left: 80px;
+        
+    }
+
+    .aside-direito, .aside-class form {
+        opacity: 0; /* Esconde no desktop. */
+        display: none;
+        padding: 0;
+        width: 0vw;
+        height: 0vh;
+        
+       
+    }
+
+    
+
+    .amplo font{
+        padding: 0;
+    }
+
+
+
+    
+
+   
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+main section{
+    
+    
+}
+
+.aside-esquerdo{
+    grid-area: aside1;
+    background-color: #e9ebf7;
+    
+  
+    justify-content: left;
+    margin-top: 0 !important;
+    padding-right: 100px;
+    margin-left: 70px;
+
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .aside-esquerdo{
+        margin-left: 10px;
+
+
+
+    }
+
+  
+}
+
+
+
+
+
+
+*{
+    font-size: clamp(16em, 0.6em + 1vw, 1.0em);
+    
+}
+
+
+
+
+#cortalvez{
+    border: 1p solid #cac9eb;
+
+}
+
+
+.aside-esquerdo, .letras{
+    
+    grid-area: aside1;
+    
+    
+    display: flex;
+    flex-flow: column;
+    align-items: left;
+    padding: 10px;
+    
+    
+}
+
+
+.letras-aside{
+    padding-right: 60px;
+    position: fixed;
+ 
+    
+}
+
+section .busca-explorar{
+    position: fixed;
+ 
+
+}
+
+.imagm{
+
+background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas-plana-dos-desenhos-animados-dao-coracoes-fazer-cari-removebg-preview.png');
+  width: 100%;
+  border: 1px solid #EDECFF;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+  align-items: center;
+
+  
+}
+
+
+.frase-do-img {
+    display: flex;   
+}
+
+.aside-class{
+    position: fixed;
+}
+
+
+/*--------------------------------------------------------------
+# Team
+--------------------------------------------------------------*/
+.team .member {
+   
+    overflow: hidden;
+    text-align: center;
+    border-radius: 4px;
+    
+  }
+  
+  .team .member .member-img {
+   justify-content: left;
+  }
+  
+  .team .member .social {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  
+    opacity: 0;
+    transition: ease-in-out 0.3s;
+    text-align: center;
+
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .team .member .social a {
+    transition: color 0.3s;
+    color: #124265;
+    
+    display: inline-block;
+  }
+  
+  .team .member .social a:hover {
+    color: #2487ce;
+  }
+  
+  .team .member .social i {
+    font-size: 18px;
+    margin: 0 2px;
+    line-height: 0;
+  }
+  
+  .team .member .member-info {
+   
+  }
+  
+  .team .member .member-info h4 {
+    font-weight: 700;
+   
+    color: #124265;
+  }
+  
+  .team .member .member-info span {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #aaaaaa;
+  }
+  
+  .team .member .member-info p {
+    font-style: italic;
+    font-size: 14px;
+   
+    color: #777777;
+  }
+  
+  .team .member:hover .social {
+    opacity: 1;
+
+  }
+  
+
+.aside-direito{
+    background-color: white;
+    grid-area: aside2;  
+    
+
+}
+
+
+.aside-direito section{
+   display: flex;
+
+   padding: 10px;
+   justify-content: center;
+
+  
+
+    
+}
+
+.aside-direito section input{
+    height: 50px;
+    padding: 10px;
+    border: none;
+    border-radius: 100px;
+    background: #EDECFF;
+  
+    
+ }
+
+
+
+
+ 
+.aside-direito section ::placeholder{
+   background-color: #EDECFF;
+
+ }
+
+ #algo{
+    
+
+    border: none;
+    padding: 0;
+    margin: 0;
+
+ }
+
+
+.hashtag section{
+    padding: 10px;
+}
+
+.letras{
+    margin-left: 0;
+  
+   
+}
+
+*{
+    font-family: 'Raleway';
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    
+}
+
+.amplo{
+    font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+    color: #000000;
+    padding-right: 10px;
+}
+
+.text-div{
+  
+    display: flex;
+    padding-left: 50px;
+}
+
+.titulo{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #36346A;
+    margin: 0;
+    font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+}
+
+
+
+
+button{
+    border: none;
+}
+
+
+
+.itens-p, img{
+ 
+}
+
+
+.letras-aside{
+    
+   display: flex;
+   
+
+}
+
+.img-foto{
+    background-image: url("../image/cover-photo.png");
+    height: 10px;
+}
+
+
+
+
+
+
+.section-logo{
+
+    display: flex;
+    justify-content: left;
+    padding-left: 5px;
+}
+
+.letras-aside{
+   
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+}
+
+.letras-aside a{
+    
+    align-items: center;
+    text-decoration: none;
+    margin: 0;
+    
+}
+
+
+.letras-aside img{
+   align-items: center;
+  
+}
+
+
+
+*{
+   color: #5A56E9;
+}
+
+
+.doar{
+  display: flex;
+  color: #E6ECF0;
+  background-color: #5A56E9;
+  font-weight: 600;
+  height: 30px;
+  padding: 6px;
+  
+}
+
+.banana-button{
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #5A56E9;
+    align-items: center;
+    margin-top: 5px;
+    
+}
+
+
+.jogo-velha{
+   
+    display: flex;
+    flex-flow: column;
+    background-color:#EDECFF;
+    border-radius: 10px;
+}
+.jogo-velha section{
+  display: flex;
+  justify-content: left;
+  margin: 3px; 
+}
+
+
+.img-section{
+    display: flex;
+    flex-flow: column;
+    font-size: clamp(0.6em, 0.6em + 1vw, 1.0em);
+    align-items: center;
+
+
+}
+
+.icone-side-mobile{
+    display: flex;
+}
+
+
+.icones-side{
+   width: 20px;
+}
+
+.roupas{
+    
+}
+
+.usuario{
+    display: flex;
+    align-items: center;
+}
+
+span{
+    font-weight: 600;
+    text-decoration:wavy;
+}
+
+.agencia{
+    color:#36346A ;
+    width: 117px;
+height: 18px;
+
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 18px;
+
+}
+
+.text{
+    color: black;
+    width: 507px;
+height: 216px;
+
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+}
+
+.texto{
+    display: flex;
+    /*deixar no centro*/
+}
+
+.projetos{
+    color: #5A56E9;
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+#img-mensa{
+    border: none;
+
+}
+
+img{
+    border-radius: 10px;
+}
+
+.frase-do-img p{
+    margin: 0;
+ 
+}
+
+.ingles{
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    
+    color: #000000;
+}
+
+
+.roupas, .roupas1{
+    font-weight: 700;
+   
+}
+
+
+.roupas{
+    display: flex;
+}
+
+.ver{
+    background: rgba(132, 126, 255, 0.2);
+    
+border: 1px solid #5A56E9;
+border-radius: 24.5px;
+width: 100px;
+}
+
+.roupas img{
+    border-radius: 1000px;
+
+}
+
+.contato p, .contato{
+   display: flex;
+   flex-flow: column;
+   flex: 4;
+
+}
+
+.contato p{
+    display: flex;
+    flex-flow: column;
+    margin: 0;
+    flex: 4;
+ }
+ 
+ .ver-section{
+    display: flex;
+    justify-content: right;
+ }
+
+
+ .nome-ong{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 19px;
+    line-height: 22px;
+    color: #36346A;
+ }
+
+
+.demanda{
+    display: flex;
+   
+}
+
+.demanda p{
+    display: flex;
+    flex: 0.1;
+}
+
+.titulos{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #EDECFF;
+}
+
+.juncao{
+    margin: 0;
+}
+
+.desc{
+    font-family: 'Raleway';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 18px;
+
+color: #14171A;
+}
+
+.pedidos{
+    font-weight: 700;
+    color: #000000;
+   
+}
+
+.imagem{
+    background-image: url('../img-social/tweet/cover-photo.png');
+    height: 150px;
+    width: 850px;
+
+    border: 2px solid;
+}
+
+.fluxo {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+   
+    border-bottom: 2px solid #EDECFF ;
+
+}
+
+
+#teste{
+    font-weight: 900;
+    
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+
+
+.nome-ong-main{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.info-basic{
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    
+    align-items: center;
+}
+
+.info-basic button{
+    
+    border: 1px solid #5A56E9;
+    border-radius: 24.5px;
+    padding: 15px;
+}
+
+
+
+
+.acabo-os-nome{
+    display: flex;
+}
+
+
+.mini, .mini1{
+    color: #424447;
+}
+
+.aside-esquerdo img{
+    align-items: left;
+}
+
+
+.banana{
+   display: flex;
+   align-items: center;
+   padding-inline-start: 10px;
+   padding-inline-end: 5px;
+   padding-right: 10px;
+   padding: 5px; 
+  
+}
+
+#home1:hover{
+  
+    border-radius: 1000px;
+    background: #dddcf9;
+    transition: 1s;
+    box-shadow: 1px 1px 1px 1px #36346A;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba (0,0,0,0,75);
+-moz-box-shadow: 10px 10px 5px 0px rgba (0,0,0,0,75);
+color: #3b4ef8;
+ 
+}
+
+
+
+
+.seção3{
+    
+
+width: 10px;
+height: 10px;
+
+
+
+}
+
+.icones-side{
+    padding-inline: 5px ;
+}
+
+.mensagens{
+    display: flex;
+    align-items: left;
+    justify-content: space-around;
+    height: 50px;
+    justify-content: center;
+
+}
+
+
+.mensagens2{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+    flex-direction: column;
+    
+}
+
+.mensagens2 img{
+    height: 100px;
+    width: 100px;
+    
+   
+
+}
+
+
+#superteste{ 
+    display: grid;
+    grid-template-columns: 34% 34% 34%;
+}
+
+.card{
+ 
+}

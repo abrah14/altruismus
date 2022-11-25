@@ -179,28 +179,51 @@
             $stmt->execute();
         }
 
-        public function alterar($idOng, $nomeOng, $emailOng, $dtNasc, $cidadeOng, $estadoOng, $bairroOng, $ruaOng, $cepOng, $compOng, $lugradouroOng, $senhaOng ) 
+        public function alterar($idOng, $nomeOng, $emailOng, $dtNasc, $cidadeOng, $estadoOng, $bairroOng, $ruaOng, $cepOng, $compOng, $lugradouroOng, $senhaOng, $fotoOng ) 
         {
             $conexao = Conexao::conectar();
-            $stmt = $conexao->prepare("UPDATE tbong SET nomeong = ?, emailong = ?, datanascong = ?, 
-                                        cidadeong = ?, estadoong = ?, bairroong = ?, ruaong = ?, 
-                                        cepong = ?, complementoong = ?, lugradouroong = ?, senhaong = ?
-                                        WHERE idong = ?");
-            $stmt->bindParam(1, $nomeOng);
-            $stmt->bindParam(2,$emailOng);
-            $stmt->bindParam(3,$dtNasc);
-            $stmt->bindParam(4,$cidadeOng);
-            $stmt->bindParam(5,$estadoOng);
-            $stmt->bindParam(6,$bairroOng);
-            $stmt->bindParam(7,$ruaOng);
-            $stmt->bindParam(8,$cepOng);
-            $stmt->bindParam(9,$compOng);
-            $stmt->bindParam(10,$lugradouroOng);
-            $stmt->bindParam(11,$senhaOng);
-            $stmt->bindParam(12,$idOng);
+
+            if(isset($fotoOng) && !empty($fotoOng)) {
+                $stmt = $conexao->prepare("UPDATE tbong SET nomeong = ?, emailong = ?, datanascong = ?, 
+                                            cidadeong = ?, estadoong = ?, bairroong = ?, ruaong = ?, 
+                                            cepong = ?, complementoong = ?, lugradouroong = ?, senhaong = ?, fotoong = ?
+                                            WHERE idong = ?");
+                $stmt->bindParam(1, $nomeOng);
+                $stmt->bindParam(2,$emailOng);
+                $stmt->bindParam(3,$dtNasc);
+                $stmt->bindParam(4,$cidadeOng);
+                $stmt->bindParam(5,$estadoOng);
+                $stmt->bindParam(6,$bairroOng);
+                $stmt->bindParam(7,$ruaOng);
+                $stmt->bindParam(8,$cepOng);
+                $stmt->bindParam(9,$compOng);
+                $stmt->bindParam(10,$lugradouroOng);
+                $stmt->bindParam(11,$senhaOng);
+                $stmt->bindParam(12,$fotoOng);
+                $stmt->bindParam(13,$idOng);
+            } else {
+                $stmt = $conexao->prepare("UPDATE tbong SET nomeong = ?, emailong = ?, datanascong = ?, 
+                                            cidadeong = ?, estadoong = ?, bairroong = ?, ruaong = ?, 
+                                            cepong = ?, complementoong = ?, lugradouroong = ?, senhaong = ?
+                                            WHERE idong = ?");
+                $stmt->bindParam(1, $nomeOng);
+                $stmt->bindParam(2,$emailOng);
+                $stmt->bindParam(3,$dtNasc);
+                $stmt->bindParam(4,$cidadeOng);
+                $stmt->bindParam(5,$estadoOng);
+                $stmt->bindParam(6,$bairroOng);
+                $stmt->bindParam(7,$ruaOng);
+                $stmt->bindParam(8,$cepOng);
+                $stmt->bindParam(9,$compOng);
+                $stmt->bindParam(10,$lugradouroOng);
+                $stmt->bindParam(11,$senhaOng);
+                $stmt->bindParam(12,$idOng);
+            }
+
 
             $stmt->execute();
         }
+
 
         public function pesquisaOng($nomeOng) {
             $conexao = Conexao::conectar();
@@ -262,7 +285,7 @@
                             tbong.idong,cidadeong,bairroong,
                             complementoong,estadoong,ruaong,
                             cepong,nomeong,lugradouroong,datanascong,
-                            emailong,senhaong,telefoneong,fotoong
+                            emailong,senhaong,telefoneong,fotoong,datainscricao
                             FROM tbong
                             INNER JOIN tbtelefoneong
                             ON tbtelefoneong.idong = tbong.idong

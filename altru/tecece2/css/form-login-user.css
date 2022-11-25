@@ -29,6 +29,10 @@ main {
     background-color: rgb(136, 132, 248);
 }
 
+main section{
+    padding: 150px;
+}
+
 .box {
     display: flex;
     width: 650px;
@@ -43,8 +47,17 @@ main {
 .box1 {
     justify-content: center;
     display: flex;
+    background-color: red !important;
 
 }
+
+
+.modal-body:hover{
+    border: 2px solid whitesmoke;
+
+}
+
+
 
 .img-box {
 

@@ -45,71 +45,92 @@
   <!-- ======= Modais ======= -->
   <!-- Button trigger modal -->
 
+  <style>
+
+
+.modal-body:hover{
+  border: 2px solid whitesmoke;
+}
+</style>
+
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" style="border: 0;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="border: 0;">
+    <div class="modal-content" style="border: 0; padding: 50px;">
+      <div class="modal-header" style="border: 0;">
+
       </div>
-      <section class="edit-modal" style="border: none;">
-        <div class="modal-body" >
-          <a class="registre-doador" href="../tecece2/restrict/form-user.php">Eu sou Doador</a>
+
+    
+      <section style="border: 0; " class="edit-modal" style="border: none; display: flex; background-color: white; padding: 100px;">
+        <a href="../tecece2/restrict/form-user.php">
+
+
+          <div class="modal-body"  style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:20px ;">
+            <h5 class="registre-doador"  style="font-weight: 600; color: white;">Sou Doador...</h5>
+            <img src="./assets/img/mao14.png" style="width: 100px;" alt="">
+  
+          </div>
+        </a>
+        <div class="modal-bod" style="padding: 20px;" style="width: 50px;" disable>
 
         </div>
-        <div class="modal-body">
-          <a class="registre-doador" href="../tecece2/restrict/form-user-ong.php">Eu sou Ong</a>
 
+        <a href="../tecece2/restrict/form-user-ong.php">
+        <div class="modal-body" style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:30px ;">
 
+          <h5 class="registre-doador" style="color: white; font-weight: 600;" >Sou Ong...</h5>
+          <img src="./assets/img/mao13.png" style="width: 50px;" alt="">
+
+          
         </div>
+      </a>
       </section>
-      <div class="modal-footer">
-        <button type="button" class="btn-fechar" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn-entrar">Entrar</button>
+      <div class="modal-footer" style="border: 0; ">
+
+
       </div>
     </div>
   </div>
 </div>
   <!-- ======= Header ======= -->
-  <header id="header"  class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+  <header id="header" class="d-flex align-items-center" style="border: none">
+  <div class="container d-flex align-items-center justify-content-between">
 
-      <img class="img-logo" src="assets/img/logo1.PNG"  alt="">
-      <section class="logo" >
-        <h1 class="logo"><a href="index.html">Altruismus</a></h1>
+    <img class="img-logo" src="assets/img/logo1.PNG" alt="">
+    <section>
+      <h1 class="logo"><a href="../../BizLand/">Altruismus</a></h1>
 
-      </section>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+    </section>
+    <!-- Uncomment below if you prefer to use an image logo -->
+    <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
-      <nav id="navbar"   class="navbar">
-        <ul>
-          <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="#header">Home</a></li>
-          <li><a class="nav-link scrollto"  href="#about">Sobre</a></li>
+    <nav id="navbar" class="navbar">
+      <ul>
+      <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="#header">Home</a></li>
+          
         </a></li>
-        <li><a class="nav-link scrollto " href="#portfolio">Projetos</a></li>
+        
         <li><a class="nav-link scrollto" href="#team">Time</a></li>
         <li><a class="nav-link scrollto" href="#contact">Contato</a></li>
+        <li><a class="nav-link scrollto" href="#contact">Projetos</a></li>
         
+        <li class="dropdown"><a href="../tecece2/restrict/login-user.php"><span class="login">Login</span> <i class="bi bi-chevron"></i></a>
         
-        <li class="dropdown"><a  href="../tecece2/restrict/login-user.php"><span class="login" >Login</span> <i class="bi bi-chevron"></i></a>
-        <li><a  id="cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Registre-se
-        </button>
-        
-        
+        <li><a id="#cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Registre-se
+            </button>
+        </li>
+      </ul>
+      </li>
+      </ul>
+      </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
 
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <i  class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
+  </div>
+</header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
 
@@ -125,15 +146,15 @@
   <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="10000">
-      <img src="assets/img/doacao-mg.jpg" style="width: 1500px; height: 500px;" alt="...">
+      <img src="assets/img/porEnquantoEssa.jpg"  class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item" data-bs-interval="2000">
-      <img src="assets/img/Semipronto10.png" class="d-block w-100" alt="...">
+      <img src="./assets/img/sistema-img/flor3.png" class="d-block w-100" alt="...">
     </div>
-    <div class="carousel-item">
-      <img src="assets/img/criancas.jpg" class="d-block w-100" alt="...">
+    <!-- <div class="carousel-item">
+      <img src="assets/img/sistema-img/flor2.png" class="d-block w-100" alt="...">
     </div>
-  </div>
+  </div> -->
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -144,37 +165,14 @@
   </button>
 </div>
 
+
+
+
   <main id="main">
 
     <!-- ======= Featured Services Section ======= -->
    
     <!-- ======= About Section ======= -->
-    <section id="about" class="about section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Sobre</h2>
-          <h3>Empresa <span style="color: #106eea;">ASCENSION</span></h3>
-         
-        </div>
-        
-        <div class="row" >
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-            <img src="assets/img/talvez - Copia.png" class="img-fluid" alt="">
-            
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
-          
-            <p class="fst-italic">
-              <h3>Somos uma empresa especializada em Softwares de empresas de pequeno e médio porte.</h3>
-            
-            </p>
-         
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
 
     <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills">
@@ -182,6 +180,12 @@
 
         <div class="row skills-content">
 
+          <section>
+            <h2>
+
+              Usamos as seguintes tecnologias
+            </h2>
+            </section>
           <div class="col-lg-6">
 
             <div class="progress">
@@ -241,7 +245,7 @@
           <div class="col-lg-3 col-md-6">
             <div class="count-box">
               <i style="background: #5A56E9;" class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="2" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
               <p>Clientes Satisfeitos</p>
             </div>
           </div>
@@ -389,122 +393,13 @@
       </div>
     </section> End Testimonials Section-->
 
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
-          <h2>Portifólio</h2>
-          <h3>Sistema <span>Multiplataforma</span></h3>
-          <p>O sistema <span>Altruismus</span> foi desenvolvido em muitas plataformas para facilitar o acesso do usuário para com o sistema.</p>
-        </div>
 
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">App</li>
-              <li data-filter=".filter-app">Web App</li>
-              <li data-filter=".filter-web">Página Web</li>
-            </ul>
-          </div>
-        </div>
 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
+    
 
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 2</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 2</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 2</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 3</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 1</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 3</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Section -->
+ 
 
     <!-- ======= Team Section ======= -->
     <section id="team" class="team section-bg">
@@ -637,6 +532,12 @@
               
     
             </div>
+
+
+
+
+
+
 
       </div>
     </section><!-- End Team Section 
@@ -888,7 +789,9 @@
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Sobre</a></li>
+              
+
+
               <li><i class="bx bx-chevron-right"></i> <a href="#">Serviços</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Termos de serviço</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Política de privacidade</a></li>

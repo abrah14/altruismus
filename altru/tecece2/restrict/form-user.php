@@ -102,29 +102,46 @@
     };
   </script>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+<div class="modal fade" style="border: 0;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="border: 0;">
+    <div class="modal-content" style="border: 0; padding: 50px;">
+      <div class="modal-header" style="border: 0;">
 
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <section class="edit-modal" style="border: none;">
-          <div class="modal-body">
-            <a class="registre-doador" href="../tecece2/restrict/form-user.php">Eu sou Doador</a>
+
+      </div>
+
+    
+      <section style="border: 0; " class="edit-modal" style="border: none; display: flex; background-color: white; padding: 100px;">
+        <a href="./form-user.php">
+
+
+          <div class="modal-body"  style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:20px ;">
+            <h5 class="registre-doador"  style="font-weight: 600; color: white;">Sou Doador...</h5>
+            <img src="../../BizLand/assets/img/mao14.png" style="width: 100px;" alt="">
+  
           </div>
-          <div class="modal-body">
-            <a class="registre-doador" href="../tecece2/restrict/form-user-ong.php">Eu sou Ong</a>
-          </div>
-        </section>
-        <div class="modal-footer">
-          <button type="button" class="btn-fechar" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn-entrar">Entrar</button>
+        </a>
+        <div class="modal-bod" style="padding: 20px;" style="width: 50px;" disable>
+
         </div>
+
+        <a href="./form-user-ong.php">
+        <div class="modal-body" style="display: flex; background-color: #5A56E9; flex-direction: column; align-items: center;padding:30px ;">
+
+          <h5 class="registre-doador" style="color: white; font-weight: 600;" >Sou Ong...</h5>
+          <img src="../../BizLand/assets/img/mao13.png" style="width: 50px;" alt="">
+
+          
+        </div>
+      </a>
+      </section>
+      <div class="modal-footer" style="border: 0; ">
+
+
       </div>
     </div>
   </div>
+</div>
 
 
   <!-- ======= Header ======= -->
@@ -140,27 +157,28 @@
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar">
-        <ul>
-          <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Sobre</a></li>
-          </a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Projetos</a></li>
-          <li><a class="nav-link scrollto" href="#team">Time</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contato</a></li>
-          <li><a id="#cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Registre-se
-              </button>
-
-
-          <li class="dropdown"><a href="../tecece2/restrict/login-user.php"><span class="login">Login</span> <i class="bi bi-chevron"></i></a>
-
-        </ul>
+      <ul>
+      <li><a style="text-decoration: none; color: white;" class="nav-link scrollto active" href="../../BizLand/index.php">Home</a></li>
+          
+        </a></li>
+        
+        <li><a class="nav-link scrollto"  href="../../BizLand/index.php">Time</a></li>
+        <li><a class="nav-link scrollto"  href="../../BizLand/index.php">Contato</a></li>
+        <li><a class="nav-link scrollto"   href="../../BizLand/index.php" >Projetos</a></li>
+        
+        <li class="dropdown"><a href="../tecece2/restrict/login-user.php"><span class="login">Login</span> <i class="bi bi-chevron"></i></a>
+        
+        <li><a id="#cor-button" class="nav-link scrollto" href="#services"><button style="font-weight: 700;" type="button" class="btn-login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Registre-se
+            </button>
         </li>
-        </ul>
-        </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </ul>
+      </li>
+      </ul>
+      </li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
@@ -168,7 +186,7 @@
   <main>
 
     <div class="box">
-      <div class="img-box">
+      <div class="img-box" style="margin-top: 50%; margin-bottom: 50%;">
         <img src="../image/donate.png">
       </div>
       <div class="form-box">
@@ -197,12 +215,12 @@
 
           <div class="input-group" id="testando2" style="display: flex; flex-flow: column;">
             <div class="testando" style="display: flex;  " style="padding: 0;">
-              <p for="cpf" style="padding: 0; flex: 0.88 !important;">CPF</p>
+              <p for="cpf" style="padding: 0; flex: 1 !important;">CPF</p>
               <p for="data" style="padding: 0;">Data de Nascimento</p>
             </div>
-            <div class="testando2" style="display: flex;">
-              <input style="border-radius: 20px;" type="text" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite seu CPF" required>
-              <input style="border-radius: 20px;" type="date" id="txtDataNascDoador" name="txtDataNascDoador" required>
+            <div class="testando2" style="display: flex; justify-content:space-around ;">
+              <input style="border-radius: 20px; width: 100%; margin-right: 10px;" type="text" id="txtCpfDoador" name="txtCpfDoador" placeholder="Digite seu CPF" required>
+              <input style="border-radius: 20px; width: 100%;" type="date" id="txtDataNascDoador" name="txtDataNascDoador" required>
 
             </div>
 
@@ -212,15 +230,21 @@
             <label style="border-radius: 20px;" for="lugradouro">Lugradouro</label>
             <input style="border-radius: 20px;" type="text" id="txtLugradouroDoador" name="txtLugradouroDoador" placeholder="Digite seu Lugradouro" required>
           </div>
+          
+          <div class="input-group w50">
+            <label for="cep">CEP</label>
+            <input style="border-radius: 20px;" type="text" id="txtCepDoador" name="txtCepDoador" placeholder="Digite seu CEP" required onblur="pesquisacep(this.value);" required>
+          </div>
+
 
           <div class="input-group w50" style="align-items: center;">
-            <label for="cidade" style="flex: 0.63;">Cidade</label>
+            <label for="cidade" style="flex: 0.75;">Cidade</label>
             <label for="estado">Estado</label>
           </div>
 
-          <div class="input-group w50" style="display: flex; flex-flow: row;">
-            <input type="text" id="txtCidadeDoador" name="txtCidadeDoador" placeholder="Digite sua cidade" required>
-            <select style="border-radius: 20px ;" id="txtEstadoDoador" name="txtEstadoDoador">
+          <div class="input-group w50" style="display: flex; flex-flow: row; justify-content: space-between;">
+            <input type="text" id="txtCidadeDoador" name="txtCidadeDoador" placeholder="Digite sua cidade" style="border-radius: 20px;" required>
+            <select style="border-radius: 20px ;width: 70%; margin-left: 10px;" id="txtEstadoDoador" name="txtEstadoDoador" >
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
               <option value="AP">Amapá</option>
@@ -257,18 +281,13 @@
           </div>
 
           <div class="input-group" style="display: flex;">
-            <label for="rua" style=" flex: 0.6;">Rua</label>
+            <label for="rua" style=" flex: 0.7; margin-left: 10px;">Rua</label>
             <label style="border-radius: 20px;" for="numero">Número</label>
           </div>
 
           <div class="input-group w50" style="display: flex; flex-flow: row;">
-            <input style="border-radius: 20px;" type="text" id="txtRuaDoador" name="txtRuaDoador" placeholder="Digite sua rua" required>
-            <input style="border-radius: 20px;" type="number" id="txtComplementoDoador" name="txtComplementoDoador" placeholder="Digite seu número de casa" required>
-          </div>
-
-          <div class="input-group w50">
-            <label for="cep">CEP</label>
-            <input style="border-radius: 20px;" type="text" id="txtCepDoador" name="txtCepDoador" placeholder="Digite seu CEP" required onblur="pesquisacep(this.value);" required>
+            <input style="border-radius: 20px; margin-right: 10px;" type="text" id="txtRuaDoador" name="txtRuaDoador" placeholder="Digite sua rua" required>
+            <input style="border-radius: 20px; width: 70%;" type="number" id="txtComplementoDoador" name="txtComplementoDoador" placeholder="Número" required>
           </div>
 
           <div class="input-group">
@@ -279,7 +298,9 @@
           <div class="input-group">
             <button style="border-radius: 20px;" type="submit">Cadastrar</button>
           </div>
-          <p class="temConta">Já tem uma conta? <a href="login-user.php">LOGIN</a></p>
+          <p class="temConta">Já tem uma conta? <a href="login-user.php" style="color: black;"> <span>
+            Login
+          </span></a></p>
         </form>
       </div>
     </div>

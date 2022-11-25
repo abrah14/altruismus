@@ -60,7 +60,91 @@
             return $lista[0];
         }
 
-    
+        public function countSeguindo($id) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT COUNT(idong) FROM tbseguindo WHERE iddoador = $id";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetch();
+            return $lista[0];
+        }
+
+        public function countSeguidores($id) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT COUNT(iddoador) FROM tbseguindo WHERE idong = $id";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetch();
+            return $lista[0];
+        }
+
+        public function listarSeguindo($id) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT 
+                                tbong.idong,nomeong,fotoong 
+                            FROM tbseguindo
+                            INNER JOIN tbong
+                                ON tbong.idong = tbong.idong
+                            WHERE iddoador = $id AND tbong.idong = tbseguindo.idong
+                            LIMIT 3";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
+        public function listarSeguidores($idOng) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT 
+                                tbdoador.iddoador,nomedoador,fotodoador,emaildoador
+                            FROM tbong
+                            INNER JOIN tbseguindo
+                                ON tbseguindo.idong = tbong.idong
+                                INNER JOIN tbdoador
+                                    ON tbdoador.iddoador = tbdoador.iddoador
+                            WHERE tbong.idong = $idOng AND tbdoador.iddoador = tbseguindo.iddoador
+                            LIMIT 3";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
+        public function sugestao($id) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT
+                                tbong.idong,nomeong,fotoong
+                            FROM tbong
+                            INNER JOIN tbpost
+                                ON tbpost.idong = tbong.idong
+                            -- INNER JOIN tbseguindo
+                            --     ON tbseguindo.iddoador = tbdoador.iddoador
+                            --     INNER JOIN tbong
+                            --         ON tbong.idong = tbseguindo.idong
+                            --         INNER JOIN tbpost
+                            --             ON tbpost.idong = tbong.idong
+                            WHERE dtpost = (
+                                SELECT
+                                    MAX(dtpost)
+                                FROM tbpost
+                            )
+                            AND NOT EXISTS(
+                                SELECT
+                                    idong,iddoador
+                                FROM tbseguindo
+                                WHERE iddoador = $id
+                            )
+                            -- ) AND tbong.idong NOT IN(
+                            --     SELECT
+                            --         idong
+                            --     FROM tbseguindo
+                            -- ) AND tbdoador.iddoador NOT IN(
+                            --     SELECT
+                            --         iddoador
+                            --     FROM tbseguindo
+                            -- )
+                            LIMIT 3";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;
+        }
+
     }
 
 ?>

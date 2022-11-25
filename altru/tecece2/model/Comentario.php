@@ -52,7 +52,7 @@
         public function listar($idPost) {
             $conexao = Conexao::conectar();
             $querySelect = "SELECT 
-                                comentario,datacomentario,nomedoador,fotodoador 
+                                tbcomentario.idcomentario,comentario,datacomentario,nomedoador,fotodoador,tbdoador.iddoador 
                             FROM tbdoador
                             INNER JOIN tbcomentario
                                 ON tbcomentario.iddoador = tbdoador.iddoador

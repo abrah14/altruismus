@@ -4,12 +4,13 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500&display=swap');
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Raleway', sans-serif;
+
   color: #444444;
 }
 
@@ -241,10 +242,13 @@ h6 {
 }
 
 #preloader:before {
-  content: url("../img/logo1.png");
- 
+  /* content: url("../img/logo1.png");
+  */
   top: calc(50% - 300px);
   left: calc(50% - 290px);
+  
+  right: calc(50% - 300px);
+  bottom: calc(50% - 290px);
 
   border-top-color: #e2eefd;
   border-radius: 50%;

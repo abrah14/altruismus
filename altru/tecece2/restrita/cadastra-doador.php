@@ -25,6 +25,7 @@
   $emailDoador = $_POST['txtEmailDoador'];
   $senhaDoador = $_POST['txtSenhaDoador'];
   $cpfDoador = $_POST['txtCpfDoador'];
+  // $dataInscricao = date('Y-m-d H:i:s');
   $dataInscricao = date('Y-m-d');
 
   $_SESSION['telefone'] = $_POST['txtTelDoador'];

@@ -3,18 +3,23 @@ session_start();
 require_once("../model/Ong.php");
 require_once("../model/Doador.php");
 require_once("../model/Post.php");
-include_once("valida-permanencia.php");
+require_once("../model/Seguindo.php");
+require_once("../model/Reacao.php");
 
+include_once("valida-permanencia.php");
 
 try {
 
   $post = new Post();
   $doador = new Doador();
   $ong = new Ong();
+  $seguindo = new Seguindo();
+  $reacao = new Reacao();
 
   if (isset($_SESSION['iddoador'])) {
     $perfilDoador = $doador->getDoador($_SESSION['iddoador']);
   }
+
 } catch (Exception $e) {
   echo $e->getMessage();
 }
@@ -23,9 +28,8 @@ try {
 <?php
 
 try {
-
-
   $perfilDoador = $doador->getDoador($_SESSION['iddoador']);
+  $listarSeguindo = $seguindo->listarSeguindo($_SESSION['iddoador']);
 } catch (Exception $e) {
   echo $e->getMessage();
 }
@@ -39,12 +43,12 @@ try {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Altruismus</title>
-  <link rel="stylesheet" href="../css/social.css">
+
   <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <script src="../JS/social.js"></script>
+
   <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
 
   <meta content="" name="description">
@@ -54,37 +58,18 @@ try {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js">
 
   <!-- Favicons -->
-  <link class="logo1" href="../../BizLand/../../BizLand/assets/img/logo1.png" rel="icon">
+  <link class="logo1" href="../../BizLand/assets/img/logo21.png" rel="icon">
   <link href="../../BizLand/../../BizLand/assets/img/apple-touch-icon.png" rel="">
 
-  <link rel="stylesheet" href="../css/social.css">
+  <link rel="stylesheet" href="../css/perfilDoadorNovo.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <body>
 
   <style>
-    img.img-responsive {
-      max-width: 90%;
-      width: 1100px;
-    }
 
-
-    img.logo {
-      max-width: 100%;
-      width: 40px;
-    }
-
-
-    img .icones-side {
-      max-width: 100%;
-      width: 40px;
-    }
-
-    .img-violino {
-      min-width: 90%;
-      width: px;
-    }
   </style>
 
 
@@ -94,106 +79,186 @@ try {
     console.log(aside)
   </script>
 
+  <style>
+    #headerletter {
+      font-size: clamp(0.9em, 0.9em + 1vw, 3em);
+    }
+  </style>
 
-  <aside class="aside-esquerdo" style="border: none;" id="asideEsquerdo">
-    <section class="letras" style="border: none;">
+
+  <header class="header1">
+
+
+
+    <nav>
+      <div class="img-logo2">
+
+        <section>
+          <img class="img-logo" src="../../BizLand/assets/img/logo21.png" alt="">
+          <p id="headerletter" style="color: white;font-weight: 600; margin-top: 10px; margin-left: 10px; ">Altruismus</p>
+        </section>
+      </div>
+
+    </nav>
+
+  </header>
+
+  <style>
+    .home {
+      font-size: clamp(1em, 1em + 1vw, 1.0em);
+      color: #5A56E9;
+
+      -webkit-text-stroke-width: 1px;
+
+
+    }
+
+    .home:hover {
+      color: #5A56E9;
+
+    }
+
+    .letras-aside a {
+      align-items: center;
+
+    }
+  </style>
+
+
+  <aside class="aside-esquerdo">
+
+
+    <section class="letras" style="display: flex; justify-content: center;">
       <section class="itens-p">
-        <div class="section-logo" id="logo">
-          <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
-        </div>
 
-        <section class="letras-aside" style="border: none;">
+
+
+        <section class="letras-aside">
           <section class="banana" id="home1" id="home1">
 
-            <a href="">
-
-              <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
+            <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
             </a>
             <a class="home" onclick="teste()" href="./social2.php">Home</a>
 
           </section>
           <section class="banana" id="home1">
-            <a href="">
 
-              <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+            <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
             </a>
             <a class="home" href="./explorar-doador.php">Explorar</a>
           </section>
 
-          <!-- <section class="banana" id="home1">
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-              </a>
-              <a href="" class="home">Notificações
-
-              </a>
-
-
-            </section> -->
-          <!-- <section class="banana" id="home1">
-              <a href="">
-                <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
-
-              </a>
-              <a class="home" href="">Mensagens</a>
-            </section> -->
           <section class="banana" id="home1" id="home12">
-            <a href="">
-
-              <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
+            <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
             </a>
             <a class="home" href="./perfil-doador.php">Perfil</a>
           </section>
 
-          <section class="banana" id="home12">
-            <a href="">
-              <img class="icones-side" src="../img/sidedbar/sidebar/menu/more.png" alt="">
+          <section class="banana" id="home1" id="home12">
+
+
+            <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
             </a>
             <a class="home" href="./logout.php">Encerrar</a>
           </section>
 
-          <!-- <section class="banana-button">
-              <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
-            </section> -->
-
-          <script>
-            //const h1 = document.getElementById('asideEsquerdo')
-
-            //console.log(h1)
-
-            // aq ele remove o elemento h1.innerHTML = ''
-
-            // const main = document.getElementById('elemento-chave')
-
-            // main.style.padding = 0
-            // console.log(main)
-
-            // const nav = document.getElementById('nav-mobile')
+          <section class="banana" id="home18">
+            <form action="./pesquisa-altruismus-doador.php" class="form-busca" method="post">
 
 
-            // nav.style.display = 'flex'                         
-          </script>
+              <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
+                <i class="fa fa-search" style="color: white; padding: 10px;"></i>
+
+                <style>
+                  input:focus {
+                    box-shadow: 0 0 0 0;
+                    outline: 0;
+
+                  }
+
+                  ::placeholder {
+                    font-weight: 700;
+                  }
+                </style>
 
 
+              </button>
 
-          <section>
+
+            </form>
+
 
           </section>
 
+
+          <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
+
+
+            <!-- <section style="display: flex; flex-direction: column; border-radius: 10px;padding: 10px; border: 1px solid ; " class="rosa" id="rosa">
+
+              <script>
+                const rosa = document.getElementById('rosa')
+
+                rosa.style.marginBottom = '1000px'
+              </script> -->
+
+
+            <!-- <section class="seguir">
+                <p class="seguir" style="font-weight: 600; padding-left: 10px; font-size: 20px;">Seguir</p>
+              </section>
+
+              <section class="siga" id="cortalvez">
+                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
+                <section>
+
+                  <p class="seguidores"> <?php var_dump($seguindo->sugestao($_SESSION['iddoador'])) ?></p>
+                  <button class="seguindo2"> Seguir</button>
+                </section>
+
+
+              </section>
+              <section class="siga" id="cortalvez">
+                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
+                <section>
+
+                  <p class="seguidores"> alguma coisa</p>
+                  <button class="seguindo2"> Seguir</button>
+                </section>
+
+              </section> -->
+
+
+
+            <!-- </section> -->
+
+          </section>
         </section>
 
+        <style>
+          .siga {
+            display: flex;
+          }
+        </style>
 
       </section>
 
-
+      <!-- 
+                <section>
+  
+  
+                 Sugestões
+                </section> -->
 
     </section>
+
+
+
   </aside>
 
 
-  <main id="elemento-chave" style="border: none;">
-    <section class="issopq" style="border: 1px solid #E6ECF0;">
+  <main id="elemento-chave" style="margin-top: 15px; justify-content: center; border: 2pxm solid red;">
+
+    <section class="issopq" style="border: 1px solid #5A56E9; border-radius: 10px;">
       <section id="teste" class="pai-titulo">
         <?php
         foreach ($perfilDoador as $perfil) {
@@ -201,36 +266,91 @@ try {
           $telefoneDoador = $perfilDoador['telefonedoador'];
           $emailDoador = $perfilDoador['emaildoador'];
           $fotoDoador = $perfilDoador['fotodoador'];
+          $entrada = $perfilDoador['datainscricao'];
         }
 
 
         ?>
-        <img class="img-agencia" src="./foto-perfil-doador/<?php echo $fotoDoador ?>" height="50px" width="50px" alt="">
-        <p class="titulo"><?php echo $nomeDoador ?></p>
-
 
       </section>
 
+      <section class="capa" style="margin-bottom: 10px;">
+       
 
-      <section class="issopq-2">
+      </section>
 
-        <section class="img-section">
+      <!-- ======= Team Section ======= -->
+      <section id="tea" class="team section-bg">
+        <div class="container" data-aos="fad-up">
+          <div data-aos="fade-up" data-aos-delay="200">
 
-          <section class="imagm">
-            <img src="./foto-perfil-doador/<?php echo $fotoDoador ?>" alt="" style="border-radius: 50%; width: 300px; height: 300px;">
-            <p>
-            <h3><?php echo $nomeDoador ?></h3>
-            </p>
+            <div class="membr" id="nseidizer">
+              <script>
+                const teste = document.getElementById('nseidizer')
+              </script>
+
+              <div class="member-im" id="fullFoto" style="display: flex;flex-direction: column;border-radius: 10px;">
+                <div style="display: flex; justify-content: center;border-radius: 10000px; padding: 10px;">
+
+                  <img style="width: 300px; border-radius: 10px;border: 3px solid #a0a9fa;" id="teste30" src="./foto-perfil-doador/<?php echo $fotoDoador ?>" alt="">
+                </div>
+
+                
+                <button style="background-color: #5A56E9; color: white; font-weight: 600; padding: 10px;" data-bs-toggle="modal" data-bs-target="#editar" data-whatever="<?php echo $_SESSION['iddoador'] ?>" data-whatevernome="<?php echo $perfilDoador['nomedoador'] ?>" data-whateveremail="<?php echo $perfilDoador['emaildoador'] ?>" data-whatevercpf="<?php echo $perfilDoador['cpfdoador'] ?>" data-whatevernasc="<?php echo $perfilDoador['datanascdoador'] ?>" data-whatevercidade="<?php echo $perfilDoador['cidadedoador'] ?>" data-whateverestado="<?php echo $perfilDoador['estadodoador'] ?>" data-whateverbairro="<?php echo $perfilDoador['bairrodoador'] ?>" data-whateverrua="<?php echo $perfilDoador['ruadoador'] ?>" data-whatevercep="<?php echo $perfilDoador['cepdoador'] ?>" data-whatevercomplemento="<?php echo $perfilDoador['complementodoador'] ?>" data-whateverlogradouro="<?php echo $perfilDoador['lugradourodoador'] ?>" data-whateversenha="<?php echo $perfilDoador['senhadoador'] ?>" data-whatevertel="<?php echo $perfilDoador['telefonedoador'] ?>" data-whateverfoto="<?php echo $perfilDoador['fotodoador'] ?>">
+                  <section style="display: flex; justify-content: center; font-weight: 600; color: #e9ebf7;">
+                    Editar Perfil
+
+                  </section>
+                </button>
+
+              </div>
+
+
+              <p>
+              </p>
+      </section>
+      <section class="agrvai" style="background-color: #e9ebf7;">
+
+        <section style="display: flex; padding-top: 10px; padding: 5px; border: 5px solid #5A56E9;border-radius: 10px; ">
+
+          <section style="padding: 10px; display: flex; flex-direction: column; border: 10 solid white;">
+
+            <p id="slamn" style="color: black;font-weight: 600;"><?php echo $nomeDoador ?></p>
+            <p id="slamn" style="color: black;font-weight: 600; "> <?php echo $emailDoador ?></p>
+
+
+
+
           </section>
-          <section class="agrvai">
-            <!-- Button trigger modal -->
-            <br>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" data-whatever="<?php echo $_SESSION['iddoador'] ?>" data-whatevernome="<?php echo $perfilDoador['nomedoador'] ?>" data-whateveremail="<?php echo $perfilDoador['emaildoador'] ?>" data-whatevercpf="<?php echo $perfilDoador['cpfdoador'] ?>" data-whatevernasc="<?php echo $perfilDoador['datanascdoador'] ?>" data-whatevercidade="<?php echo $perfilDoador['cidadedoador'] ?>" data-whateverestado="<?php echo $perfilDoador['estadodoador'] ?>" data-whateverbairro="<?php echo $perfilDoador['bairrodoador'] ?>" data-whateverrua="<?php echo $perfilDoador['ruadoador'] ?>" data-whatevercep="<?php echo $perfilDoador['cepdoador'] ?>" data-whatevercomplemento="<?php echo $perfilDoador['complementodoador'] ?>" data-whateverlogradouro="<?php echo $perfilDoador['lugradourodoador'] ?>" data-whateversenha="<?php echo $perfilDoador['senhadoador'] ?>" data-whatevertel="<?php echo $perfilDoador['telefonedoador'] ?>" data-whateverfoto="<?php echo $perfilDoador['fotodoador'] ?>">
-              Editar Perfil
-            </button>
-            <br>
 
-            <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+          <section style="padding: 10px;">
+
+            <?php
+            $quantidade = $seguindo->countSeguindo($_SESSION['iddoador']);
+            $quantidadeReacao = $reacao->countReacao($_SESSION['iddoador'], 'doador');
+            ?>
+
+            <p id="slamn" style="color: black;font-weight: 600; ">Seguindo: <?php echo $quantidade ?> </p>
+            <p id="slamn" style="color: black;font-weight: 600; ">Reações: <?php echo $quantidadeReacao ?> </p>
+          </section>
+
+          <section style="padding: 10px;">
+
+            <p id="slamn" style="color: black;font-weight: 600;" for=""><?php echo $telefoneDoador ?></p>
+            <p id="slamn" style="color: black;font-weight: 600;"> Data de entrada: <?php $inscricao = implode("/", array_reverse(explode("-", $entrada)));
+                                                                                    echo $inscricao ?> </p>
+          </section>
+
+          <style>
+            #slamn {
+              font-size: clamp(0.5em, 0.5em + 1vw, 3em);
+            }
+          </style>
+
+        </section>
+        <!-- Button trigger modal -->
+
+        <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -310,96 +430,96 @@ try {
                   </form>
                 </div>
               </div>
-            </div>
+          </div>
+        </div>
+
+        </div>
+      </section>
+      <!-- End Team Section -->
+
+
+      <section class="issopq-2">
 
 
 
 
-
-            <label for="">E-mail: <?php echo $emailDoador ?></label>
-            <br>
-            <label for="">Telefone: <?php echo $telefoneDoador ?></label>
-
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="box">
-                    <div class="img-box">
-                      <img src="../image/donate.png">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="box">
+                <div class="img-box">
+                  <img src="../image/donate.png">
+                </div>
+                <div class="form-box">
+                  <form method="post" action="../restrita/cadastra-doacao.php">
+                    <div class="input-group">
+                      <label for="data">Data da Doação</label>
+                      <input type="date" id="txtDataDoacao" name="txtDataDoacao" placeholder="Digite a data da doação" required>
                     </div>
-                    <div class="form-box">
-                      <form method="post" action="../restrita/cadastra-doacao.php">
-                        <div class="input-group">
-                          <label for="data">Data da Doação</label>
-                          <input type="date" id="txtDataDoacao" name="txtDataDoacao" placeholder="Digite a data da doação" required>
-                        </div>
 
-                        <div class="input-group">
-                          <label for="descricao">Descrição</label>
-                          <input type="text" id="txtDescDoacao" name="txtDescDoacao" placeholder="Digite a descrição" required>
-                        </div>
-
-                        <label>Ong:</label>
-                        <select name="ong">
-                          <option value="0">Selecione</option>
-                          <?php foreach ($listaong as $listar) { ?>
-                            <option value="<?php echo $listar['idong'] ?>">
-                              <?php echo $listar['nomeong'] ?>
-                            </option>
-                          <?php } ?>
-                        </select>
-
-                        <div class="input-group">
-                          <button type="submit">Doe</a></button>
-                        </div>
-                        <p class="temConta">Já tem uma conta? <a href="login-user.php">LOGIN</a></p>
-                      </form>
+                    <div class="input-group">
+                      <label for="descricao">Descrição</label>
+                      <input type="text" id="txtDescDoacao" name="txtDescDoacao" placeholder="Digite a descrição" required>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                  </div>
+                    <label>Ong:</label>
+                    <select name="ong">
+                      <option value="0">Selecione</option>
+                      <?php foreach ($listaong as $listar) { ?>
+                        <option value="<?php echo $listar['idong'] ?>">
+                          <?php echo $listar['nomeong'] ?>
+                        </option>
+                      <?php } ?>
+                    </select>
+
+                    <div class="input-group">
+                      <button type="submit">Doe</a></button>
+                    </div>
+                    <p class="temConta">Já tem uma conta? <a href="login-user.php">LOGIN</a></p>
+                  </form>
                 </div>
               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+              </div>
             </div>
-            <label for="">E-mail: <?php echo $emailDoador ?></label>
-            <br>
-            <label for="">Telefone: <?php echo $telefoneDoador ?></label>
+          </div>
+        </div>
 
-          </section>
-
-        </section>
-        <section class="redonda">
-          <img class="img-top" src="img/img-social2/upwork-pp.png" alt="">
-        </section>
 
       </section>
 
-      <script>
-        const teste = () => {
-          const imagem = document.getElementById('coracao-img')
+    </section>
+    <section class="redonda">
+      <img class="img-top" src="img/img-social2/upwork-pp.png" alt="">
+    </section>
 
-          const coracao = document.getElementById('coracao')
-
-
-
-        }
-      </script>
+    </section>
 
 
-      <style>
-        li {
-          list-style: none;
-        }
-      </style>
+    <script>
+      const teste = () => {
+        const imagem = document.getElementById('coracao-img')
+
+        const coracao = document.getElementById('coracao')
+
+
+
+      }
+    </script>
+
+
+    <style>
+      li {
+        list-style: none;
+      }
+    </style>
 
     </section>
     <section id="portfolio" class="portfolio">
@@ -426,36 +546,100 @@ try {
 
 
 
-  <aside class="aside-direito">
+  <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7; ">
 
-    <section class="aside-class" style="background-color: white; border: none;">
+    <section class="aside-class1">
 
 
-      <section style="background-color: white;border: none; ">
-        <form action="./pesquisa-altruismus.php" method="post">
+      <section style=" border: none; display: flex;margin-top: 18px;" class="seção2">
+        <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
 
-          <input type="search" style="border: 1px solid #5A56E9;" class="busca" id="busca" placeholder="Busque por Ongs" name="buscar">
-          <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px;">
-            <i class="fa fa-search" style="color: white; padding: 10px;"></i>
+          <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+          <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
 
-            <style>
-              input:focus {
-                box-shadow: 0 0 0 0;
-                outline: 0;
-
-              }
-            </style>
-
+            <i class="fa fa-search" style="color: white; padding: 5px;"></i>
 
           </button>
-
         </form>
+
+          <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+
+
+            <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;padding: 10px;">
+              <section style="display: flex; justify-content: center; padding: 10px;">
+
+
+
+                <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
+
+                <style>
+                  .maior {
+
+                    font-size: clamp(0.7em, 0.7em + 1vw, 3em);
+                  }
+                </style>
+              </section>
+
+              <?php
+
+              foreach ($listarSeguindo as $listar) {
+                $idOng = $listar['idong'];
+              ?>
+
+                <section style="display: flex;padding: 0;margin-top: 5px;border: 1px solid #a0a9fa;" class="cortalvez">
+                  <img style="width: 50px; height: 50px; border-radius: 100px;border: 2px solid #5A56E9;" src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
+                  <section style="display: flex; flex-direction: column;margin: 5px;">
+                    <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
+                    <form action="./social-doador.php" method="post">
+                      <button style="padding: 3px;" name="idOng" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
+                    </form>
+
+                  </section>
+
+                </section>
+
+              <?php } ?>
+
+            </section>
+
+          </section>
+
+
+          <style>
+            .seguindo2 {
+              background-color: #5A56E9;
+              color: #e9ebf7;
+              font-weight: 600;
+              border-radius: 10px;
+            }
+          </style>
+
+
+
+
       </section>
+
 
 
     </section>
 
+    </form>
+
+    
+    </section>
+
+
+
+
+    </section>
+
+
+
+
+
+
   </aside>
+
 
   <script src="../../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="../../BizLand/assets/vendor/aos/aos.js"></script>
