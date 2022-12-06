@@ -3,6 +3,7 @@
   header("Location: ../restrict/Social/index.php");
 
   require_once("../model/Admin.php");
+  date_default_timezone_set('America/Sao_Paulo');
 
   $cidadeAdmin = $_POST['txtCidadeAdmin'];
   $bairroAdmin = $_POST['txtBairroAdmin'];

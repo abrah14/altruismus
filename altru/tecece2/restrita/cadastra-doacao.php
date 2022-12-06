@@ -4,6 +4,7 @@
     require_once("../model/Ong.php");
     require_once("../model/Doacao.php");
     require_once("../model/ItensDoacao.php");
+    date_default_timezone_set('America/Sao_Paulo');
 
     $ong = new Ong();
     $doacao = new Doacao();

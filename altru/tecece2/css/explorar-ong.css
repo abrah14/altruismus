@@ -12,7 +12,7 @@
 body{
     display: grid;
     height: 100vh;
-    background-color: #e9ebf7;
+    
     
     grid-template-areas: 
 
@@ -113,12 +113,40 @@ nav div section{
 
 
 
+
+
+
+  .scroll-container {
+    display: block;
+    width: 350px;
+    height: 200px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .scroll-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 5em;
+  }
+
+
+
+
+.msgpost{
+    padding: 5px;
+
+}
+
 main{
    
     grid-area: main;
     padding: 0;
-    height: 100vh;
-    
+    height: 10vh;
+    padding-right: 100px;
+    margin-top: 20px;
+        
     margin-inline: 0;
   
 
@@ -450,12 +478,12 @@ main{
 
 
 
+.button-c{
+    background-color: white;
+    padding: 2px;
+    
 
-
-
-
-
-  
+}
 
 
 
@@ -471,8 +499,8 @@ main section{
   
     justify-content: left;
     margin-top: 0 !important;
-    padding-right: 100px;
-    margin-left: 70px;
+    padding-right: 200px;
+    margin-left: 150px;
 
 }
 
@@ -494,6 +522,177 @@ main section{
 
 
 
+
+
+
+
+@media only screen and (max-width: 1900px) {
+
+    .div{
+        width: 450px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 450px;
+    }
+    
+    .div-img{
+        width: 450px;
+    }
+
+  
+}
+
+
+
+
+@media only screen and (max-width: 50px) {
+
+    
+    .div-img-presta{
+        width: 400px;
+        border-radius: none;;
+    }
+
+  
+}
+
+
+
+@media only screen and (min-width: 1000px) {
+
+    .div-img-presta{
+        width:220px;
+        border-radius: none;
+        
+    
+    }
+  
+}
+.nome-ong {
+    font-size: clamp(0.5em, 0.5em + 1vw, 2em);
+    color: black;
+    font-weight: 600;
+
+  }
+.red{
+    border: 1px solid #5A56E9;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    align-items: center;
+    
+}
+
+.desc{
+    font-weight: 700;
+}
+
+.green{
+
+    border: 1px solid  #5A56E9;
+    border-radius: 0px 0px 10px 10px;;
+    justify-content: center;
+    display: flex;
+
+
+}
+
+
+
+.blue{
+
+    border: 2px solid #5A56E9;;
+
+}
+
+
+
+
+.frase{
+    padding: 2px;
+}
+
+
+#headerletter2 {
+    font-size: clamp(0.5em, 0.5em + 1vw, 2em);
+    color: black;
+    font-weight: 600;
+  }
+
+.headerletter {
+    font-size: clamp(0.1em, 0.1em + 1vw, 3em);
+    font-weight: 600;
+    padding: 3px;
+    color: #000000;
+  }
+
+
+
+@media only screen and (min-width: 1900px) {
+
+    .div{
+        width:800px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 800px;
+    }
+    
+    .div-img{
+        width: 800px;
+    }
+
+  
+}
+
+.conteudoFixo{
+    display: flex;
+    justify-content: center;
+
+}
+
+.divContainer {
+    width:240px;
+    position:left;
+    border: 1px solid #5A56E9;
+    position: fixed;
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+
+.conteudoNormal{
+    overflow:auto;
+    height:300px;
+}
+
+
+
+          .seguindo2 {
+           
+            color: #e9ebf7;
+         
+            border-radius: 5px;
+}
+
+
+
+
+
+
+.border-perfil{
+    border: 2px solid #5A56E9;
+
+}
+
+
+
+
+
 *{
     font-size: clamp(16em, 0.6em + 1vw, 1.0em);
     
@@ -503,7 +702,7 @@ main section{
 
 
 #cortalvez{
-    border: 1p solid #cac9eb;
+    border: 1px solid #cac9eb;
 
 }
 
@@ -533,6 +732,11 @@ section .busca-explorar{
     position: fixed;
  
 
+}
+
+
+.element-fixed{
+    margin-top: 50px;
 }
 
 .imagm{
@@ -637,7 +841,8 @@ background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas
 .aside-direito{
     background-color: white;
     grid-area: aside2;  
-    
+    margin-right: 120px;
+
 
 }
 
@@ -997,6 +1202,11 @@ width: 100px;
 
 .juncao{
     margin: 0;
+}
+
+.headerletter{
+    font-weight: 700;
+
 }
 
 .desc{

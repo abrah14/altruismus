@@ -12,6 +12,7 @@
     $msg = $_POST['txtprod'];
     $data = $_POST['txtDtDoacao'];
     $idOng = $_SESSION['idong'];
+    $data = date('Y-m-d H:i:s');
 
     $_SESSION['mensagem'] = $_POST['txtmsg'];
 
@@ -28,6 +29,8 @@
         
     }
 
+    var_dump($_FILES['imagem2']);
+
     if(isset($_FILES['imagem2'])){
 
         $extensao = strtolower(substr($_FILES['imagem2']['name'], -4)); //pega a extensao do arquivo
@@ -40,6 +43,7 @@
         
     }
 
+    $prestacaoContasOng->setDtPostagem($data);
     $prestacaoContasOng->setDescProdutosRecebidos($msg);
     $prestacaoContasOng->setDataRecebimento($data);
     $prestacaoContasOng->setIdOng($idOng);

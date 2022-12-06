@@ -389,14 +389,14 @@ try {
 
                 <!-- data-bs-toggle="modal" data-bs-target="#editar" -->
 
-                <td>
+                <!-- <td>
                   <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idRespostaUsuario ?>" class="btn btn-danger">EXCLUIR</button>
                 </td>
                 <td>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" data-whatever="<?php echo $idRespostaUsuario ?>" data-whatever01="<?php echo $simOuNao ?>" data-whatevernomedoador="<?php echo $nomeDoador ?>" data-whateverdesc="<?php echo $descItem ?>">
                     EDITAR
                   </button>
-                </td>
+                </td> -->
 
               </tr>
             <?php } ?>

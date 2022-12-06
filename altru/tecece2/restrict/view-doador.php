@@ -6,6 +6,7 @@ require_once("../model/Doador.php");
 require_once("../model/Post.php");
 require_once("../model/Seguindo.php");
 require_once("../model/Reacao.php");
+require_once("../model/ReacaoComent.php");
 
 include_once("valida-permanencia.php");
 
@@ -16,10 +17,10 @@ try {
   $ong = new Ong();
   $seguindo = new Seguindo();
   $reacao = new Reacao();
+  $reacaoComent = new ReacaoComent();
 
   $perfilDoador = $doador->getDoador($_POST['idDoador']);
-  
-
+  $quantReacoesComent = $reacaoComent->countReacaoComent($_POST['idDoador'], "doador");
 } catch (Exception $e) {
   echo $e->getMessage();
 }
@@ -75,6 +76,101 @@ try {
     }
   </style>
 
+  <div class="modal fade" id="pedido" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fazer pedido</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="./postar.php" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens que quer receber</label>
+              <input type="text" class="form-control" id="recipient-fundacao" name="txtQuantidade">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Produtos que quer receber</label>
+              <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-email" class="col-form-label">Foto</label>
+              <input type="file" class="form-control" id="recipient-email" name="imagem">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
+              <input type="textarea" class="form-control" id="recipient-fundacao" name="msg">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+          <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">SALVAR</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="prestacao" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Prestação de Contas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="./prestar.php" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens Recebidos</label>
+              <input type="text" class="form-control" id="recipient-fundacao" name="txtqtdItens">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
+              <input type="text" class="form-control" id="recipient-fundacao" name="txtprod">
+            </div>
+
+            <div class="input-group w50">
+              <label for="data" style="flex: 0.67;">Data que a doação foi feita</label>
+            </div>
+            <div class="input-group w50" style="flex-flow: row;">
+              <input type="date" id="txtDtDoacao" name="txtDtDoacao" style="  border-radius: 20px ;" required>
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-fundacao" class="col-form-label">Produtos Recebidos</label>
+              <input type="textarea" class="form-control" id="recipient-fundacao" name="txtmsg">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-email" class="col-form-label">Foto</label>
+              <input type="file" class="form-control" id="recipient-email" name="imagem">
+            </div>
+
+            <div class="form-group">
+              <label for="recipient-email" class="col-form-label">Foto do doador (opcional)</label>
+              <input type="file" class="form-control" id="recipient-email" name="imagem2">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+          <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">ENVIAR</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
 
   <header class="header1">
 
@@ -117,35 +213,35 @@ try {
     }
   </style>
 
-
-  <aside class="aside-esquerdo">
-
-
-    <section class="letras" style="display: flex; justify-content: center;">
-      <section class="itens-p">
-
-        <style>
+  <aside class="aside-esquerdo" style="justify-content: right;">
 
 
+    <section class="letras" style="justify-content: right;border-radius: 0;">
+      <section class="itens-p" style="justify-content: left;">
 
+        <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
 
-        </style>
-
-
-        <section class="letras-aside">
-          <section class="banana" id="home1" id="home1">
-
-
-
+          <section class="banana" id="home1" style="display: flex; justify-content: left; ">
+            <a class="home" href="./minhas-publicacoes.php">Minhas publicações</a>
           </section>
-          <section class="banana" id="home1">
+
+
+          <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left;">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacao150" style="background-color: #5A56E9;border: none;">
+              <section style="background-color: #5A56E9; color: #E6ECF0;">
+
+                Publicar
+
+              </section>
+          </section>
+          <section class="banana" id="home1" style="display: flex; justify-content: left; ">
 
             <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
             </a>
             <a class="home" href="./explorar.php">Explorar</a>
           </section>
 
-          <section class="banana" id="home1" id="home12">
+          <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
             <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
@@ -153,7 +249,7 @@ try {
             <a class="home" href="./perfil.php">Perfil</a>
           </section>
 
-          <section class="banana" id="home1" id="home12">
+          <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
             <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
@@ -161,7 +257,7 @@ try {
             <a class="home" href="./logout.php">Encerrar</a>
           </section>
 
-          <section class="banana" id="home18">
+          <section class="banana" id="home18" style="display: flex; justify-content: left;">
             <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
 
 
@@ -190,71 +286,22 @@ try {
           </section>
 
 
+
+
           <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
 
-
-            <!-- <section style="display: flex; flex-direction: column; border-radius: 10px;padding: 10px; border: 1px solid ; " class="rosa" id="rosa">
-
-              <script>
-                const rosa = document.getElementById('rosa')
-
-                rosa.style.marginBottom = '1000px'
-              </script> -->
-
-
-            <!-- <section class="seguir">
-                <p class="seguir" style="font-weight: 600; padding-left: 10px; font-size: 20px;">Seguir</p>
-              </section>
-
-              <section class="siga" id="cortalvez">
-                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                <section>
-
-                  <button class="seguindo2"> Seguir</button>
-                </section>
-
-
-              </section>
-              <section class="siga" id="cortalvez">
-                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                <section>
-
-                  <p class="seguidores"> alguma coisa</p>
-                  <button class="seguindo2"> Seguir</button>
-                </section>
-
-              </section> -->
-
-
-
-            <!-- </section> -->
-
-          </section>
-        </section>
-
-        <style>
-          .siga {
-            display: flex;
-          }
-        </style>
-
-      </section>
-
-      <!-- 
-                <section>
-  
-  
-                 Sugestões
-                </section> -->
-
-    </section>
 
 
 
   </aside>
 
+  <style>
+    .siga {
+      display: flex;
+    }
+  </style>
 
-  <main id="elemento-chave" style="margin-top: 15px; justify-content: center; border: 2pxm solid red;">
+  <main id="elemento-chave" style="margin-top: 15px; justify-content: center; border: 2pxm solid red;padding: 0;">
 
     <section class="issopq" style="border: 1px solid #5A56E9; border-radius: 10px;">
       <section id="teste" class="pai-titulo">
@@ -273,7 +320,7 @@ try {
       </section>
 
       <section class="capa" style="margin-bottom: 10px;">
-       
+
 
       </section>
 
@@ -293,7 +340,7 @@ try {
                   <img style="width: 300px; border-radius: 10px;border: 3px solid #a0a9fa;" id="teste30" src="./foto-perfil-doador/<?php echo $fotoDoador ?>" alt="">
                 </div>
 
-                
+
               </div>
 
 
@@ -322,14 +369,13 @@ try {
             ?>
 
             <p id="slamn" style="color: black;font-weight: 600; ">Seguindo: <?php echo $quantidade ?> </p>
-            <p id="slamn" style="color: black;font-weight: 600; ">Reações: <?php echo $quantidadeReacao ?> </p>
+            <p id="slamn" style="color: black;font-weight: 600; ">Reações: <?php echo ($quantidadeReacao + $quantReacoesComent) ?> </p>
           </section>
 
           <section style="padding: 10px;">
 
             <p id="slamn" style="color: black;font-weight: 600;" for=""><?php echo $telefoneDoador ?></p>
-            <p id="slamn" style="color: black;font-weight: 600;"> Data de entrada: <?php $inscricao = implode("/", array_reverse(explode("-", $entrada)));
-                                                                                    echo $inscricao ?> </p>
+            <p id="slamn" style="color: black;font-weight: 600;"> Data de entrada: <?php echo date('d/m/y H:i:s', strtotime($entrada)) ?> </p>
           </section>
 
           <style>
@@ -342,86 +388,86 @@ try {
         <!-- Button trigger modal -->
 
         <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDITAR INFORMAÇÕES</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="./editar-perfil-doador.php" method="post" enctype="multipart/form-data">
-
-                      <div class="input-group">
-                        <label for="email">Foto</label>
-                        <input style="border-radius: 20px;" type="file" id="imagem" name="imagem">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">NOME</label>
-                        <input type="text" class="form-control" id="recipient-name" name="nomeEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-email" class="col-form-label">EMAIL</label>
-                        <input type="text" class="form-control" id="recipient-email" name="emailEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-cpf" class="col-form-label">CPF</label>
-                        <input type="text" class="form-control" id="recipient-cpf" name="cpfEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-nasc" class="col-form-label">DT.NASCIMENTO</label>
-                        <input type="text" class="form-control" id="recipient-nasc" name="dtNasc">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-cep" class="col-form-label">CEP</label>
-                        <input type="text" class="form-control" id="recipient-cep" name="cepEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-estado" class="col-form-label">ESTADO</label>
-                        <input type="text" class="form-control" id="recipient-estado" name="estadoEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-cidade" class="col-form-label">CIDADE</label>
-                        <input type="text" class="form-control" id="recipient-cidade" name="cidadeEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-bairro" class="col-form-label">BAIRRO</label>
-                        <input type="text" class="form-control" id="recipient-bairro" name="bairroEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-rua" class="col-form-label">RUA</label>
-                        <input type="text" class="form-control" id="recipient-rua" name="ruaEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-complemento" class="col-form-label">COMPLEMENTO</label>
-                        <input type="text" class="form-control" id="recipient-complemento" name="complementoEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-logradouro" class="col-form-label">LOGRADOURO</label>
-                        <input type="text" class="form-control" id="recipient-logradouro" name="logradouroEditar">
-                      </div>
-                      <div class="form-group">
-                        <label for="recipient-senha" class="col-form-label">SENHA</label>
-                        <input type="text" class="form-control" id="recipient-senha" name="senhaEditar">
-                      </div>
-
-
-                      <div class="form-group">
-                        <label for="recipient-telefone" class="col-form-label">Telefone</label>
-                        <input type="text" class="form-control" id="recipient-telefone" name="telefoneEditar" readonly>
-                      </div>
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">CANCELAR</button>
-                    <button type="submit" class="btn btn-danger">SALVAR</button>
-                  </div>
-                  </form>
-                </div>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EDITAR INFORMAÇÕES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
+              <div class="modal-body">
+                <form action="./editar-perfil-doador.php" method="post" enctype="multipart/form-data">
+
+                  <div class="input-group">
+                    <label for="email">Foto</label>
+                    <input style="border-radius: 20px;" type="file" id="imagem" name="imagem">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">NOME</label>
+                    <input type="text" class="form-control" id="recipient-name" name="nomeEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-email" class="col-form-label">EMAIL</label>
+                    <input type="text" class="form-control" id="recipient-email" name="emailEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-cpf" class="col-form-label">CPF</label>
+                    <input type="text" class="form-control" id="recipient-cpf" name="cpfEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-nasc" class="col-form-label">DT.NASCIMENTO</label>
+                    <input type="text" class="form-control" id="recipient-nasc" name="dtNasc">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-cep" class="col-form-label">CEP</label>
+                    <input type="text" class="form-control" id="recipient-cep" name="cepEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-estado" class="col-form-label">ESTADO</label>
+                    <input type="text" class="form-control" id="recipient-estado" name="estadoEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-cidade" class="col-form-label">CIDADE</label>
+                    <input type="text" class="form-control" id="recipient-cidade" name="cidadeEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-bairro" class="col-form-label">BAIRRO</label>
+                    <input type="text" class="form-control" id="recipient-bairro" name="bairroEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-rua" class="col-form-label">RUA</label>
+                    <input type="text" class="form-control" id="recipient-rua" name="ruaEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-complemento" class="col-form-label">COMPLEMENTO</label>
+                    <input type="text" class="form-control" id="recipient-complemento" name="complementoEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-logradouro" class="col-form-label">LOGRADOURO</label>
+                    <input type="text" class="form-control" id="recipient-logradouro" name="logradouroEditar">
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-senha" class="col-form-label">SENHA</label>
+                    <input type="text" class="form-control" id="recipient-senha" name="senhaEditar">
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="recipient-telefone" class="col-form-label">Telefone</label>
+                    <input type="text" class="form-control" id="recipient-telefone" name="telefoneEditar" readonly>
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">CANCELAR</button>
+                <button type="submit" class="btn btn-danger">SALVAR</button>
+              </div>
+              </form>
+            </div>
           </div>
+        </div>
         </div>
 
         </div>
@@ -535,6 +581,31 @@ try {
 
   </main>
 
+  <div class="modal fade" id="publicacao150" tabindex="-1" role="dialog" aria-labelledby="editar2" aria-hidden="true">
+    <div class="modal-dialog" role="document2">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel5">Escolha uma das postagens</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pedido" style="background-color: #5A56E9;border: none;">
+            <section style="background-color: #5A56E9; color: #E6ECF0;">
+              Pedir
+            </section>
+          </button>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#prestacao" style="background-color: #5A56E9;border: none;">
+            <section style="background-color: #5A56E9; color: #E6ECF0;">
+              Prestar contas
+            </section>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7; ">
@@ -553,21 +624,21 @@ try {
           </button>
         </form>
 
-          <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+        <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
 
 
 
-          </section>
+        </section>
 
 
-          <style>
-            .seguindo2 {
-              background-color: #5A56E9;
-              color: #e9ebf7;
-              font-weight: 600;
-              border-radius: 10px;
-            }
-          </style>
+        <style>
+          .seguindo2 {
+            background-color: #5A56E9;
+            color: #e9ebf7;
+            font-weight: 600;
+            border-radius: 10px;
+          }
+        </style>
 
 
 
@@ -580,7 +651,7 @@ try {
 
     </form>
 
-    
+
     </section>
 
 

@@ -26,14 +26,6 @@ body{
 
 }
 
-.responsivo{
-    width: 200px;
-}
-
-
-
-
-
 
 
 .header1{
@@ -121,12 +113,36 @@ nav div section{
 
 
 
+
+
+
+  .scroll-container {
+    display: block;
+    width: 350px;
+    height: 200px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .scroll-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 5em;
+  }
+
+
+
+
+
+
 main{
    
     grid-area: main;
     padding: 0;
-    height: 100vh;
-    padding-left: 15px;
+    height: 10vh;
+    padding-right: 100px;
+    
     margin-inline: 0;
   
 
@@ -165,30 +181,11 @@ main{
 }
 
 
-
-@media only screen and (max-width: 1000px) {
-    .img-post {
-      width: 100%;
-    }
-  }
-
-
-  @media only screen and (min-width: 100px) {
-    .img-post {
-      width: 100%;
-    }
-  }
-
-
-
 @media only screen and (max-width: 200px) {
     img {
       width: 100%;
     }
   }
-
-
-
 
   @media only screen and (max-width: 100px) {
     img.img-agencia {
@@ -270,8 +267,6 @@ main{
 
   
 }
-
-
 
 
 
@@ -479,12 +474,12 @@ main{
 
 
 
+.button-c{
+    background-color: white;
+    padding: 2px;
+    
 
-
-
-
-
-  
+}
 
 
 
@@ -500,8 +495,8 @@ main section{
   
     justify-content: left;
     margin-top: 0 !important;
-    padding-right: 100px;
-    margin-left: 70px;
+    padding-right: 200px;
+    margin-left: 150px;
 
 }
 
@@ -518,6 +513,94 @@ main section{
   
 }
 
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1900px) {
+
+    .div{
+        width: 450px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 450px;
+    }
+    
+    .div-img{
+        width: 450px;
+    }
+
+  
+}
+
+
+
+@media only screen and (min-width: 1900px) {
+
+    .div{
+        width:800px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 800px;
+    }
+    
+    .div-img{
+        width: 800px;
+    }
+
+  
+}
+
+.conteudoFixo{
+    display: flex;
+    justify-content: center;
+
+}
+
+.divContainer {
+    width:240px;
+    position:left;
+    border: 1px solid #5A56E9;
+    position: fixed;
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+
+.conteudoNormal{
+    overflow:auto;
+    height:300px;
+}
+
+
+
+          .seguindo2 {
+           
+            color: #e9ebf7;
+         
+            border-radius: 5px;
+}
+
+
+
+
+
+
+.border-perfil{
+    border: 2px solid #5A56E9;
+
+}
 
 
 
@@ -562,6 +645,11 @@ section .busca-explorar{
     position: fixed;
  
 
+}
+
+
+.element-fixed{
+    margin-top: 50px;
 }
 
 .imagm{
@@ -666,7 +754,8 @@ background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas
 .aside-direito{
     background-color: white;
     grid-area: aside2;  
-    
+    margin-right: 120px;
+
 
 }
 
@@ -1143,6 +1232,7 @@ height: 10px;
 
 }
 
+
 .icones-side{
     padding-inline: 5px ;
 }
@@ -1172,10 +1262,4 @@ height: 10px;
     
    
 
-}
-
-
-#capa{
-    background-image: url('../image/rosa-roxao.png');
-    
 }

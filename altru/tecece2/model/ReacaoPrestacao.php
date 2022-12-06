@@ -34,7 +34,6 @@
             return $this->tipoPerfil;
         }
 
-
         public function setIdReacaoPrestacao($idReacaoPrestacao) {
             $this->idReacaoPrestacao = $idReacaoPrestacao;
         }
@@ -85,42 +84,29 @@
             $conexao = Conexao::conectar();
             
             $stmt = $conexao->prepare(
-                "SELECT idreacaoprestacao FROM tbreacaoprestacao
-                INNER JOIN tbprestacaocontasong
-                    ON tbprestacaocontasong.idprestacaocontasong = tbreacaoprestacao.idprestacaocontasong
-                 WHERE tbprestacaocontasong.idprestacaocontasong = ? AND tipoperfil = ? AND idperfil = ?"
+                "SELECT idreacaoprestacao FROM tbreacaoprestacao WHERE idperfil = ? AND tipoperfil = ? AND idprestacaocontasong = ?"
             );
 
-            $stmt->bindParam(1,$idPrestacaoContasOng);
+            $stmt->bindParam(1,$idPerfil);
             $stmt->bindParam(2,$tipoPerfil);
-            $stmt->bindParam(3,$idPerfil);
+            $stmt->bindParam(3,$idPrestacaoContasOng);
 
             $stmt->execute();
 
-            if($tipoPerfil == "ong") {
-
-                if($stmt->rowCount() > 0) {
-                    return "curtiu";
-                }
-                else {
-                    return false;
-                }
-
-            }
-            else if($tipoPerfil == "doador") {
-
-                if($stmt->rowCount() > 0) {
-                    return "curtiu";
-                }
-                else {
-                    return false;
-                }
-
-            }
-            else {
+            if($stmt->rowCount() > 0) {
+                return "curtiu";
+            } else {
                 return false;
             }
 
+        }
+
+        public function verificarQuantidade($idPrestacao) {
+            $conexao = Conexao::conectar();
+            $sql = "SELECT COUNT(idperfil) AS 'quantidade' FROM tbreacaoprestacao WHERE idprestacaocontasong = $idPrestacao";
+
+            $resultado = $conexao->query($sql);
+            return $resultado->fetch();
         }
 
     }

@@ -420,13 +420,13 @@ try {
                                 <div>
 
 
-                                    <td>
+                                    <!-- <td>
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" name="editar" id="editar" data-whatever="<?php echo $idTelefoneOng ?>" data-whatevertelefone="<?php echo $telefoneOng ?>" data-whateverong="<?php echo $nomeOng ?>">EDITAR</button>
                                     </td>
 
                                     <td>
                                         <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idTelefoneOng ?>" class="btn btn-danger">EXCLUIR</button>
-                                    </td>
+                                    </td> -->
                                 <?php } ?>
                                 </div>
 

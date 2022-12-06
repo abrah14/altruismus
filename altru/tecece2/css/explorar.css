@@ -12,22 +12,25 @@
 body{
     display: grid;
     height: 100vh;
-    background-color: #a0a9fa;
+    background-color: #e9ebf7;
+    
     grid-template-areas: 
+
     
 
     "header1 header2 header3"
     "aside1 main aside2";
     margin: 0px;
-    grid-template-columns:4f 400px; /* tamanho das colunas também*/
-    grid-template-rows: 50px 700px; /*tamnaho das colunas*/
+    grid-template-columns:4f 40px; /* tamanho das colunas também*/
+    grid-template-rows: 50px 880px; /*tamnaho das colunas*/
 
 }
 
 
+
 .header1{
     position: fixed;
-    padding-right: 1200px;
+    
     z-index: 10;
     background-color: #5A56E9;
     grid-area: header1;
@@ -39,7 +42,7 @@ body{
 
 .header2{
      position: fixed;
-     padding-right: 1200px;
+     
      width: 100vw;
 
     background-color: #5A56E9;
@@ -75,6 +78,61 @@ body{
   * Desktop Navigation 
   */
   
+  
+nav{
+    display: flex;
+    
+}
+
+nav div section{
+    display: flex;
+    align-items: center;
+    margin-left: 70px;
+    padding: 10px;
+}
+
+.img-logo{
+    width: 70px;
+
+}
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    nav div section{
+        display: flex;
+        align-items: center;
+        margin-left: -4px;
+        padding: 10px;
+    }
+  
+}
+
+
+
+
+
+
+  .scroll-container {
+    display: block;
+    width: 350px;
+    height: 200px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .scroll-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 5em;
+  }
+
+
+
 
 
 
@@ -82,8 +140,11 @@ main{
    
     grid-area: main;
     padding: 0;
-    height: 100vh;
- 
+    height: 10vh;
+    padding-right: 100px;
+    
+    margin-inline: 0;
+  
 
 }
 
@@ -222,28 +283,100 @@ main{
 
 
 
-@media only screen and (max-width: 800px) {
-
+@media only screen and (max-width: 1200px) {
 
   .aside-direito, .header3{
     display: none;
     opacity: 0;
 
   }
+
   
+  .member-img{
+    justify-content: center;
+  }
+  .testeSumi, .seguir, .seguidores, .seguir2, .rosa{
+    display: none;
+    opacity: 0;
+   
+    padding: 0;
+  }
+
+  .seguir2 button{
+  display: none;
+  opacity: 0;
+  }
+
+
+  .aside-esquerdo section{
+    padding-left: 0;
+    }
+
+
+    .aside-esquerdo{
+        background-color: white;
+    }
+
+    
+
+
     
 }
 
 
 
-@media only screen and (max-width: 2000px) {
+.member-im{
+    background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas-plana-dos-desenhos-animados-dao-coracoes-fazer-cari-removebg-preview.png');
+
+}
 
 
-    .seção3{
+.cortalvez{
+    background-color: #e9e9f8;
+    
+    border-bottom: 1px solid #a29ff2;
+    border-radius: 10px;
+    margin-top: 4px;
+    
+ 
+}
+
+
+#cortalvez{
+    background-color: #e9e9f8;
+    border-bottom: 1px solid #a29ff2;
+    border-radius: 10px;
+    margin-top: 4px;
+}
+
+
+.col-form-label{
+    color: black;
+    font-weight: 600;
+
+}
+
+
+.rosa{
+    background-color: #fbfafa;
+}
+
+
+.seguidores{
+        
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+
+
+@media only screen and (min-width: 600px) {
+
+
+    #home18{
         display: none;
         opacity: 0;
-        
-  
     }
       
       
@@ -341,12 +474,12 @@ main{
 
 
 
+.button-c{
+    background-color: white;
+    padding: 2px;
+    
 
-
-
-
-
-  
+}
 
 
 
@@ -357,33 +490,146 @@ main section{
 
 .aside-esquerdo{
     grid-area: aside1;
+    background-color: #e9ebf7;
     
   
     justify-content: left;
     margin-top: 0 !important;
-   
-
-    background-color: #a0a9fa !important;
-  
-    
+    padding-right: 200px;
+    margin-left: 150px;
 
 }
+
+
+
+@media only screen and (max-width: 600px) {
+    .aside-esquerdo{
+        margin-left: 10px;
+
+
+
+    }
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 1900px) {
+
+    .div{
+        width: 450px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 450px;
+    }
+    
+    .div-img{
+        width: 450px;
+    }
+
+  
+}
+
+
+
+@media only screen and (min-width: 1900px) {
+
+    .div{
+        width:800px;
+        background-color: white;
+    
+    }
+    
+    #div{
+        width: 800px;
+    }
+    
+    .div-img{
+        width: 800px;
+    }
+
+  
+}
+
+.conteudoFixo{
+    display: flex;
+    justify-content: center;
+
+}
+
+.divContainer {
+    width:240px;
+    position:left;
+    border: 1px solid #5A56E9;
+    position: fixed;
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+
+.conteudoNormal{
+    overflow:auto;
+    height:300px;
+}
+
+
+
+          .seguindo2 {
+           
+            color: #e9ebf7;
+         
+            border-radius: 5px;
+}
+
+
+
+
+
+
+.border-perfil{
+    border: 2px solid #5A56E9;
+
+}
+
 
 
 
 
 *{
     font-size: clamp(16em, 0.6em + 1vw, 1.0em);
+    
 }
 
+
+
+
+#cortalvez{
+    border: 1p solid #cac9eb;
+
+}
+
+
 .aside-esquerdo, .letras{
-    background-color: #a0a9fa;
+    
     grid-area: aside1;
+    
     
     display: flex;
     flex-flow: column;
-    align-items: center;
+    align-items: left;
     padding: 10px;
+    
     
 }
 
@@ -397,7 +643,13 @@ main section{
 
 section .busca-explorar{
     position: fixed;
+ 
 
+}
+
+
+.element-fixed{
+    margin-top: 50px;
 }
 
 .imagm{
@@ -435,8 +687,7 @@ background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas
   }
   
   .team .member .member-img {
-    position: relative;
-    overflow: hidden;
+   justify-content: left;
   }
   
   .team .member .social {
@@ -501,9 +752,10 @@ background-image: url('../image/doar-a-ilustracao-do-conceito-pessoas-minusculas
   
 
 .aside-direito{
-    background-color: #a0a9fa;
+    background-color: white;
     grid-area: aside2;  
-    
+    margin-right: 120px;
+
 
 }
 
@@ -975,10 +1227,11 @@ color: #3b4ef8;
 
 width: 10px;
 height: 10px;
-place-items: none;
+
 
 
 }
+
 
 .icones-side{
     padding-inline: 5px ;

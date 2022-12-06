@@ -58,7 +58,7 @@ if (isset($_SESSION['idong'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Altruismus</title>
-    <link rel="stylesheet" href="../css/social.css">
+
     <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -79,140 +79,247 @@ if (isset($_SESSION['idong'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <link rel="stylesheet" href="../css/social.css">
+    <link rel="stylesheet" href="../css/explorar-doador.css">
 
   </head>
 
   <body>
 
+    <div class="modal fade" id="pedido" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fazer pedido</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="./postar.php" method="post" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens que quer receber</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtQuantidade">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Produtos que quer receber</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Foto</label>
+                <input type="file" class="form-control" id="recipient-email" name="imagem">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
+                <input type="textarea" class="form-control" id="recipient-fundacao" name="msg">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">SALVAR</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="prestacao" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Prestação de Contas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="./prestar.php" method="post" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens Recebidos</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtqtdItens">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtprod">
+              </div>
+
+              <div class="input-group w50">
+                <label for="data" style="flex: 0.67;">Data que a doação foi feita</label>
+              </div>
+              <div class="input-group w50" style="flex-flow: row;">
+                <input type="date" id="txtDtDoacao" name="txtDtDoacao" style="  border-radius: 20px ;" required>
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Produtos Recebidos</label>
+                <input type="textarea" class="form-control" id="recipient-fundacao" name="txtmsg">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Foto</label>
+                <input type="file" class="form-control" id="recipient-email" name="imagem">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Foto do doador (opcional)</label>
+                <input type="file" class="form-control" id="recipient-email" name="imagem2">
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">ENVIAR</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <header class="header1">
+
+      <nav>
+        <div class="img-logo2">
+
+          <section>
+            <img class="img-logo" src="../../BizLand/assets/img/logo21.png" alt="">
+            <p id="headerletter" style="color: white;font-weight: 600; margin-top: 10px; margin-left: 10px; ">Altruismus</p>
+          </section>
+        </div>
+
+        <style>
+          #headerletter {
+            font-size: clamp(0.9em, 0.9em + 1vw, 3em);
+          }
+        </style>
+
+
+
+        <style>
+          #headerletter2 {
+            font-size: clamp(0.5em, 0.5em + 1vw, 2em);
+            color: black;
+            font-weight: 600;
+          }
+
+          .nome-ong {
+            font-size: clamp(0.5em, 0.5em + 1vw, 2em);
+            color: black;
+            font-weight: 600;
+
+          }
+        </style>
+      </nav>
+
+
+    </header>
+
+
     <style>
-      img.img-responsive {
-        max-width: 90%;
-        width: 1100px;
+      .home {
+        font-size: clamp(1em, 1em + 1vw, 1.0em);
+        color: #5A56E9;
+
+        -webkit-text-stroke-width: 1px;
+
       }
 
-      img.logo {
-        max-width: 100%;
-        width: 40px;
+      .home:hover {
+        color: #5A56E9;
+
       }
 
+      .letras-aside a {
+        align-items: center;
 
-      img .icones-side {
-        max-width: 100%;
-        width: 40px;
-      }
-
-      .img-violino {
-        min-width: 90%;
-        width: px;
       }
     </style>
 
 
-    <script>
-      const aside = document.getElementsByClassName('aside-esquerdo')
 
-      console.log(aside)
-    </script>
+    <aside class="aside-esquerdo" style="justify-content: right;">
 
 
-    <aside class="aside-esquerdo" style="border: none;" id="asideEsquerdo">
-      <section class="letras" style="border: none;">
-        <section class="itens-p">
-          <div class="section-logo" id="logo">
-            <img class="logo" src="../img/Altruismos-removebg-preview 1.png" alt="">
+      <section class="letras" style="justify-content: right;border-radius: 0;">
+        <section class="itens-p" style="justify-content: left;">
+
+          <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
+
+            <section class="banana" id="home1" style="display: flex; justify-content: left; ">
+              <a class="home" href="./minhas-publicacoes.php">Minhas publicações</a>
+            </section>
 
 
-          </div>
+            <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left;">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacao150" style="background-color: #5A56E9;border: none;">
+                <section style="background-color: #5A56E9; color: #E6ECF0;">
 
+                  Publicar
 
-          <section class="letras-aside" style="border: none;">
-            <!-- <section class="banana" id="home1" id="home1">
+                </section>
+            </section>
+            <section class="banana" id="home1" style="display: flex; justify-content: left; ">
 
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
-              </a>
-              <a class="home" onclick="teste()" href="./social2.php">Home</a>
-
-            </section> -->
-            <section class="banana" id="home1">
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
               </a>
               <a class="home" href="./explorar.php">Explorar</a>
             </section>
-            <!-- <section class="banana" id="home1">
-              <a href="">
 
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/notification.png" alt="">
-              </a>
-              <a href="" class="home">Notificações
-
-              </a>
+            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
-            </section> -->
-            <!-- <section class="banana" id="home1">
-              <a href="">
-                <img style="border-radius: none;" class="icones-side" src="../img/sidedbar/sidebar/menu/mensage.png" alt="">
-
-              </a>
-              <a class="home" href="">Mensagens</a>
-            </section> -->
-            <section class="banana" id="home1" id="home12">
-              <a href="">
-
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
               </a>
               <a class="home" href="./perfil.php">Perfil</a>
             </section>
 
-            <section class="banana" id="home12">
-              <a href="">
-                <img class="icones-side" src="../img/sidedbar/sidebar/menu/more.png" alt="">
+            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
+
+
+              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
               </a>
               <a class="home" href="./logout.php">Encerrar</a>
             </section>
 
-            <section class="banana-button">
-              <button style="border: 2px solid red;" class="doar home" id="doar" type="button">Doar</button>
+            <section class="banana" id="home18" style="display: flex; justify-content: left;">
+              <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
+
+
+                <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
+                  <i class="fa fa-search" style="color: white; padding: 10px;"></i>
+
+                  <style>
+                    input:focus {
+                      box-shadow: 0 0 0 0;
+                      outline: 0;
+
+                    }
+
+                    ::placeholder {
+                      font-weight: 700;
+                    }
+                  </style>
+
+
+                </button>
+
+
+              </form>
+
+
             </section>
 
-            <script>
-              //const h1 = document.getElementById('asideEsquerdo')
 
-              //console.log(h1)
-
-              // aq ele remove o elemento h1.innerHTML = ''
-
-              // const main = document.getElementById('elemento-chave')
-
-              // main.style.padding = 0
-              // console.log(main)
-
-              // const nav = document.getElementById('nav-mobile')
-
-
-              // nav.style.display = 'flex'                         
-            </script>
-
-          </section>
-
-
-        </section>
-
-
-
-      </section>
     </aside>
 
-    <main id="elemento-chave" style="border: none;">
+    <main id="elemento-chave"  >
+      <section class="issopq" style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;">
 
-      <section class="issopq" style="border: 1px solid #E6ECF0;">
-
-        <section id="teste" class="pai-titulo">
+        <section id="teste" class="pai-titulo"  style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;"> 
 
           <?php
 
@@ -224,6 +331,8 @@ if (isset($_SESSION['idong'])) {
             $idOng = $postagem['idong'];
             $fotoOng = $postagem['fotoong'];
             $idPost = $postagem['idpost'];
+            $telefone = $postagem['telefoneong'];
+            $email = $postagem['emailong'];
             if ($_SESSION['idong']) {
               $tipoPerfil = "ong";
               $idPerfil = $_SESSION['idong'];
@@ -232,40 +341,22 @@ if (isset($_SESSION['idong'])) {
 
           ?>
 
-          <style>
-            .img-agencio {
-              background-image: url('./foto-perfil-ong/<?php echo $fotoOng ?>');
-              border: 2px solid white;
-              border-radius: 1000px;
-              margin: 30px;
-              height: 250px;
-              width: 250px;
-            }
-          </style>
-
-
-          <div class="img-agencio" height="50px" width="50px" alt="">
-
-            <script>
-              const remove = document.getElementById('remove2')
-
-              console.lo(remove)
-            </script>
-
-          </div>
 
         </section>
 
 
-        <section class="issopq-2">
+        <section class="issopq-2"  style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;">
 
-          <section class="img-section">
+          <section class="img-section div"  style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;">
+            <section class="div" style="border: 2px solid red;display: flex;justify-content: center;">
 
-            <section class="agrvai">
+              <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="">
+            </section>
+
+            <section class="agrvai div" style="border: 2px solid #5A56E9;">
               <p class="titulo"><?php echo $nomeOng ?></p>
-
-
-              <br>
+              <p class="titulo">Telefone: <?php echo $telefone ?></p>
+              <p class="titulo">Email: <?php echo $email ?></p>
 
 
 
@@ -302,41 +393,13 @@ if (isset($_SESSION['idong'])) {
 
 
 
-              <!-- <p>
-                Design and development agency that promotes 
-                innovation through elevated websites, applications, 
-                and eCommerce solutions
-              </p> -->
-
-
-
-
-              <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" style="background-color: #5A56E9;border: none;">Publicar</button> -->
-
-
-
-
             </section>
 
           </section>
-          <section class="redonda">
-            <img class="img-top" src="img/img-social2/upwork-pp.png" alt="">
-          </section>
-
+       
         </section>
 
-        <script>
-          const teste = () => {
-            const imagem = document.getElementById('coracao-img')
-
-            const coracao = document.getElementById('coracao')
-
-
-
-          }
-        </script>
-
-
+        
         <style>
           li {
             list-style: none;
@@ -344,19 +407,20 @@ if (isset($_SESSION['idong'])) {
         </style>
 
       </section>
-      <section id="portfolio" class="portfolio">
+      <section id="portfolio"  class="portfolio div" style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;">
         <div class="container" style="justify-content: center;" data-aos="fade-up">
 
           <div class="row" data-aos="fade-low" data-aos-delay="100">
-            <div class="col-lg-12 ">
-              <ul id="portfolio-flters" id="tentando" style="display: flex; border: 1px solid; justify-content: space-around; ">
 
-                <!-- <li id="testando" data-filter=".filter-app" style="padding: 15px;">Pedidos</li> -->
-                <li id="testando" data-filter=".filter-web" style="padding: 15px;">Pedidos</li>
+            <ul id="portfolio-flters" id="tentando" style="display: flex;  justify-content: space-around;border: 2px solid red;">
 
+              <!-- <li id="testando" data-filter=".filter-app" style="padding: 15px;">Pedidos</li> -->
+              <li id="testando" data-filter=".filter-web" style="padding: 15px;">Pedidos</li>
+              <li id="testando" data-filter=".filter-card" style="padding: 15px;">Prestações</li>
+            
 
-              </ul>
-            </div>
+            </ul>
+
           </div>
 
 
@@ -370,7 +434,7 @@ if (isset($_SESSION['idong'])) {
 
           <!-- ======= Portfolio Section ======= -->
 
-          <section style="border: 2px solid #E6ECF0;">
+          <section style="border: 2px solid #E6ECF0;"  style="justify-content: center;border: 2px solid green;justify-content: center;align-items: center;flex-direction: column;display: flex;">
 
 
 
@@ -380,7 +444,7 @@ if (isset($_SESSION['idong'])) {
 
                 <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
 
-                  <div class="col-lg-4 col-md-6 portfolio-item filter-sla">
+                  <div class="portfolio-item filter-sla">
                     <div class="portfolio-wrap">
                       <img src="assets/img/Altruismus.png" class="img-fluid" alt="">
                       <div class="portfolio-info">
@@ -392,15 +456,15 @@ if (isset($_SESSION['idong'])) {
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                    <div class="portfolio-wrap">
+                  <div class="portfolio-item filter-web">
+                    <div>
 
                       <div class="portfolio-info">
 
                         <?php foreach ($listapost as $post) { ?>
 
 
-                          <div style="justify-content: center; border-bottom: #5A56E9 2px solid;">
+                          <div style="justify-content: center; border: 2px solid red;width: 300px;">
                             <section class="mensagens" style="display: flex;">
 
                               <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="">
@@ -425,7 +489,7 @@ if (isset($_SESSION['idong'])) {
                               }
                               ?>
 
-                              <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
+                              <img class="div" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
 
                               <form action="" method="" id="form-curtir">
                                 <?php
@@ -472,38 +536,121 @@ if (isset($_SESSION['idong'])) {
 
     </main>
 
-
-
-    <aside class="aside-direito">
-
-      <section class="aside-class" style="background-color: white; border: none;">
-
-
-        <section style="background-color: white;border: none; ">
-          <form action="./pesquisa-altruismus.php" method="post">
-
-            <input type="search" style="border: 1px solid #5A56E9;" class="busca" id="busca" placeholder="Busque por Ongs" name="buscar">
-            <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px;">
-              <i class="fa fa-search" style="color: white; padding: 10px;"></i>
-
-              <style>
-                input:focus {
-                  box-shadow: 0 0 0 0;
-                  outline: 0;
-
-                }
-              </style>
-
-
+    <div class="modal fade" id="publicacao150" tabindex="-1" role="dialog" aria-labelledby="editar2" aria-hidden="true">
+      <div class="modal-dialog" role="document2">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel5">Escolha uma das postagens</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
             </button>
+          </div>
+          <div class="modal-body">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pedido" style="background-color: #5A56E9;border: none;">
+              <section style="background-color: #5A56E9; color: #E6ECF0;">
+                Pedir
+              </section>
+            </button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#prestacao" style="background-color: #5A56E9;border: none;">
+              <section style="background-color: #5A56E9; color: #E6ECF0;">
+                Prestar contas
+              </section>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-          </form>
-        </section>
+
+    <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7;">
+  
+
+  <section class="aside-class1">
+ 
+    <section style=" border: none; display: flex;" class="seção2">
+    
+    
+      <form action="./pesquisa-altruismus.php" class="busca-explorar" method="post" style="padding: 0;">
+
+        <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+        <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
+
+          <i class="fa fa-search" style="color: white; padding: 5px;"></i>
+
+        </button>
+      </form>
+
+      <form action="" class="element-fixed" method="post" style="display: flex;flex-direction: column;position: fixed;">
+    
+      <select name="tipo_publicacao" id="tipo_publicacao">
+
+        <option value="1" selected>Pedido</option>
+        <option value="2" >Prestação de contas</option>
+
+      </select>
+      </form>
+      
+    
 
 
       </section>
 
-    </aside>
+
+      <style>
+
+
+
+
+      </style>
+
+
+
+
+
+
+
+
+      </section>
+
+
+      <style>
+        .seguindo2 {
+          background-color: #5A56E9;
+          color: #e9ebf7;
+          font-weight: 600;
+          border-radius: 10px;
+        }
+      </style>
+
+
+
+
+    </section>
+
+
+
+  </section>
+
+  </form>
+
+  </section>
+  
+
+
+
+
+  </section>
+
+
+
+
+
+
+</aside>
+
+
+
+
 
     <script type="text/javascript">
       var posicao = localStorage.getItem('posicaoScroll');

@@ -1,8 +1,11 @@
 <?php
     header("Location: ../restrict/perfil.php");
+    
     session_start();
+
     require_once("../model/PostPrestacao.php");
     require_once("../model/PrestacaoContasOng.php");
+    date_default_timezone_set('America/Sao_Paulo');
 
     $prestacaoContasOng = new PrestacaoContasOng();
     $postPrestacao = new PostPrestacao();

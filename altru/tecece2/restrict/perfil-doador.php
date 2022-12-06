@@ -5,6 +5,7 @@ require_once("../model/Doador.php");
 require_once("../model/Post.php");
 require_once("../model/Seguindo.php");
 require_once("../model/Reacao.php");
+require_once("../model/ReacaoComent.php");
 
 include_once("valida-permanencia.php");
 
@@ -15,6 +16,7 @@ try {
   $ong = new Ong();
   $seguindo = new Seguindo();
   $reacao = new Reacao();
+  $reacaoComent = new ReacaoComent();
 
   if (isset($_SESSION['iddoador'])) {
     $perfilDoador = $doador->getDoador($_SESSION['iddoador']);
@@ -34,6 +36,9 @@ try {
   echo $e->getMessage();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,10 +73,7 @@ try {
 
 <body>
 
-  <style>
-
-  </style>
-
+ 
 
   <script>
     const aside = document.getElementsByClassName('aside-esquerdo')
@@ -256,9 +258,9 @@ try {
   </aside>
 
 
-  <main id="elemento-chave" style="margin-top: 15px; justify-content: center; border: 2pxm solid red;">
+  <main id="elemento-chave" style=" justify-content: center; border: 2pxm solid red;">
 
-    <section class="issopq" style="border: 1px solid #5A56E9; border-radius: 10px;">
+    <section class="div" style="border: 1px solid #5A56E9; border-radius: 10px;">
       <section id="teste" class="pai-titulo">
         <?php
         foreach ($perfilDoador as $perfil) {
@@ -274,10 +276,7 @@ try {
 
       </section>
 
-      <section class="capa" style="margin-bottom: 10px;">
-       
-
-      </section>
+      
 
       <!-- ======= Team Section ======= -->
       <section id="tea" class="team section-bg">
@@ -285,9 +284,7 @@ try {
           <div data-aos="fade-up" data-aos-delay="200">
 
             <div class="membr" id="nseidizer">
-              <script>
-                const teste = document.getElementById('nseidizer')
-              </script>
+           
 
               <div class="member-im" id="fullFoto" style="display: flex;flex-direction: column;border-radius: 10px;">
                 <div style="display: flex; justify-content: center;border-radius: 10000px; padding: 10px;">
@@ -309,7 +306,7 @@ try {
               <p>
               </p>
       </section>
-      <section class="agrvai" style="background-color: #e9ebf7;">
+      <section class="agrvai" style="background-color: #e9ebf7;justify-content: center;display: flex;">
 
         <section style="display: flex; padding-top: 10px; padding: 5px; border: 5px solid #5A56E9;border-radius: 10px; ">
 
@@ -317,6 +314,11 @@ try {
 
             <p id="slamn" style="color: black;font-weight: 600;"><?php echo $nomeDoador ?></p>
             <p id="slamn" style="color: black;font-weight: 600; "> <?php echo $emailDoador ?></p>
+            <?php
+            $quantidade = $seguindo->countSeguindo($_SESSION['iddoador']);
+        
+            ?>
+            <p id="slamn" style="color: black;font-weight: 600; ">Seguindo: <?php echo $quantidade ?> </p>
 
 
 
@@ -328,22 +330,20 @@ try {
             <?php
             $quantidade = $seguindo->countSeguindo($_SESSION['iddoador']);
             $quantidadeReacao = $reacao->countReacao($_SESSION['iddoador'], 'doador');
+            $quantReacoesComent = $reacaoComent->countReacaoComent($_SESSION['iddoador'],"doador");
             ?>
 
-            <p id="slamn" style="color: black;font-weight: 600; ">Seguindo: <?php echo $quantidade ?> </p>
-            <p id="slamn" style="color: black;font-weight: 600; ">Reações: <?php echo $quantidadeReacao ?> </p>
-          </section>
+</section>
 
-          <section style="padding: 10px;">
-
+<section style="padding: 10px;">
+  <p id="slamn" style="color: black;font-weight: 600; ">Reações: <?php echo ($quantidadeReacao + $quantReacoesComent) ?> </p>
             <p id="slamn" style="color: black;font-weight: 600;" for=""><?php echo $telefoneDoador ?></p>
-            <p id="slamn" style="color: black;font-weight: 600;"> Data de entrada: <?php $inscricao = implode("/", array_reverse(explode("-", $entrada)));
-                                                                                    echo $inscricao ?> </p>
+            <p id="slamn" style="color: black;font-weight: 600;">Entrada: <?php echo date('d/m/y H:i:s', strtotime($entrada)) ?> </p>
           </section>
 
           <style>
             #slamn {
-              font-size: clamp(0.5em, 0.5em + 1vw, 3em);
+              font-size: clamp(0.3em, 0.3em + 1vw, 3em);
             }
           </style>
 
@@ -546,12 +546,15 @@ try {
 
 
 
-  <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7; ">
+  <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7;">
+  
 
     <section class="aside-class1">
+      
 
-
-      <section style=" border: none; display: flex;margin-top: 18px;" class="seção2">
+      <section style=" border: none; display: flex;" class="seção2">
+      
+      
         <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
 
           <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
@@ -562,60 +565,68 @@ try {
           </button>
         </form>
 
-          <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+       
+        
+        <div class="divContainer" style="margin-top: 100px;">
+    <div class="conteudoFixo">
+        <h3 style="font-weight: 900px;">Seguindo</h3>
+    </div>
+    <div class="conteudoNormal">
+        <ul style="display: flex;justify-content: center;flex-direction: column;margin-right: 30px;">
+            
+        <?php
 
+            foreach ($listarSeguindo as $listar) {
+              $idOng = $listar['idong'];
+            ?>
 
-            <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;padding: 10px;">
-              <section style="display: flex; justify-content: center; padding: 10px;">
-
-
-
-                <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
-
-                <style>
-                  .maior {
-
-                    font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                  }
-                </style>
-              </section>
-
-              <?php
-
-              foreach ($listarSeguindo as $listar) {
-                $idOng = $listar['idong'];
-              ?>
-
-                <section style="display: flex;padding: 0;margin-top: 5px;border: 1px solid #a0a9fa;" class="cortalvez">
-                  <img style="width: 50px; height: 50px; border-radius: 100px;border: 2px solid #5A56E9;" src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
-                  <section style="display: flex; flex-direction: column;margin: 5px;">
-                    <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
-                    <form action="./social-doador.php" method="post">
-                      <button style="padding: 3px;" name="idOng" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
-                    </form>
-
-                  </section>
+              <section style="display: flex;padding: 3px;margin-top: 10px;border: 1px solid #5A56E9;background-color: white;" class="cortalvez">
+                <img style="width: 50px; height: 50px; border-radius: 100px;" class="border-perfil"  src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
+                <section style="display: flex; flex-direction: column;">
+                  <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
+                  <form action="./social-doador.php" method="post">
+                    <button name="idOng" style="padding: 2px;" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
+                  </form>
 
                 </section>
 
-              <?php } ?>
+              </section>
 
-            </section>
+            <?php } ?>
 
-          </section>
+        </ul>
+    </div>
+</div>
 
 
-          <style>
-            .seguindo2 {
-              background-color: #5A56E9;
-              color: #e9ebf7;
-              font-weight: 600;
-              border-radius: 10px;
-            }
-          </style>
+        </section>
+
+
+        <style>
 
 
 
+
+        </style>
+
+
+
+
+
+
+
+
+        </section>
+
+
+        <style>
+          .seguindo2 {
+            background-color: #5A56E9;
+            color: #e9ebf7;
+            font-weight: 600;
+            border-radius: 10px;
+          }
+        </style>
 
       </section>
 
@@ -624,9 +635,9 @@ try {
     </section>
 
     </form>
-
-    
+ 
     </section>
+    
 
 
 

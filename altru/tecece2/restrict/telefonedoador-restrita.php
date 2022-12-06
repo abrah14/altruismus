@@ -417,7 +417,7 @@ try {
                 <div>
 
 
-                  <td>
+                  <!-- <td>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" name="editar" id="editar" data-whatever="<?php echo $idTelefonedoador ?>" data-whatevertelefone="<?php echo $telefonedoador ?>" data-whateverdoador="<?php echo $nomeDoador ?>">
                       EDITAR
                     </button>
@@ -425,7 +425,8 @@ try {
 
                   <td>
                     <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idTelefonedoador ?>" class="btn btn-danger">EXCLUIR</button>
-                  </td>
+                  </td> -->
+                  
                   <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">

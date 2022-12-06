@@ -30,7 +30,7 @@ if ($quantidadeOng <= 0) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Altruismus</title>
-  <link rel="stylesheet" href="../css/social2.css">
+  <link rel="stylesheet" href="../css/explorar-ong.css">
   <link id="size-stylesheet" rel="stylesheet" type="text/css" href="" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -94,68 +94,117 @@ align-items: center;
 </style>
 
 
-    <aside class="aside-esquerdo" style="justify-content: right;">
-
-      <section class="letras" style="justify-content: right;border-radius: 0;">
-        <section class="itens-p" style="justify-content: left;">
-
-          <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
-            <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left; margin-top: 50px;">
-
-              
-
-            </section>
-            <section class="banana" id="home1" style="display: flex; justify-content: left; ">
-
-              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
-              </a>
-                <a class="home" href="./explorar.php">Explorar</a>
-            </section>
-
-            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
-              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
-              </a>
-                <a class="home" href="./perfil.php">Perfil</a>
-            </section>
-
-            <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
+<aside class="aside-esquerdo" style="justify-content: right;">
 
 
-              <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
-              </a>
-              <a class="home" href="./logout.php">Encerrar</a>
-            </section>
+<section class="letras" style="justify-content: right;border-radius: 0;">
+  <section class="itens-p" style="justify-content: left;">
 
-            <section class="banana" id="home18" style="display: flex; justify-content: left;">
-              <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
+    <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
 
-
-                <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
-                  <i class="fa fa-search" style="color: white; padding: 10px;"></i>
-
-                  <style>
-                    input:focus {
-                      box-shadow: 0 0 0 0;
-                      outline: 0;
-
-                    }
-
-                    ::placeholder {
-                      font-weight: 700;
-                    }
-                  </style>
+      <section class="banana" id="home1" style="display: flex; justify-content: left; ">
+        <!-- <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+          </a> -->
+        <a class="home" href="./minhas-publicacoes.php">Minhas publicações</a>
+      </section>
 
 
-                </button>
+      <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left;">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacao150" style="background-color: #5A56E9;border: none;">
+          <section style="background-color: #5A56E9; color: #E6ECF0;">
+
+            Publicar
+
+          </section>
+      </section>
+      <section class="banana" id="home1" style="display: flex; justify-content: left; ">
+
+        <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+        </a>
+        <a class="home" href="./explorar.php">Explorar</a>
+      </section>
+
+      <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
-              </form>
+        <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
+        </a>
+        <a class="home" href="./perfil.php">Perfil</a>
+      </section>
+
+      <section class="banana" id="home1" id="home12" style="display: flex; justify-content: left;">
 
 
-            </section>
+        <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
+        </a>
+        <a class="home" href="./logout.php">Encerrar</a>
+      </section>
+
+      <section class="banana" id="home18" style="display: flex; justify-content: left;">
+        <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
 
 
-    </aside>
+          <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
+            <i class="fa fa-search" style="color: white; padding: 10px;"></i>
+
+            <style>
+              input:focus {
+                box-shadow: 0 0 0 0;
+                outline: 0;
+
+              }
+
+              ::placeholder {
+                font-weight: 700;
+              }
+            </style>
+
+
+          </button>
+
+        </form>
+
+
+      </section>
+
+
+
+
+      <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
+
+
+
+
+</aside>
+
+
+
+</header>
+
+<style>
+.home {
+  font-size: clamp(1em, 1em + 1vw, 1.0em);
+  color: #5A56E9;
+
+  -webkit-text-stroke-width: 1px;
+
+
+}
+
+.home:hover {
+  color: #5A56E9;
+
+}
+
+.letras-aside a {
+  align-items: center;
+
+}
+</style>
+
+
+
+
 
 
 
@@ -185,36 +234,41 @@ align-items: center;
 
 
 
-  <main id="elemento-chave" style="border: none;margin-top: 13px;margin-left: 120px;margin-right: 120px;">
+  <main id="elemento-chave" style="background-color: #e9ebf7;display: flex;justify-content: center; " >
 
-    <section style="border: 1px solid #E6ECF0;">
+    <section class="div" >
 
      
 
       <?php foreach ($pesquisar as $pesquisa) { ?>
 
-        <section class="frase-do-img">
+        <section class="frase-do-img red"  style="padding: 5px;"  >
 
           <img width="100px" src="./foto-perfil-ong/<?php echo $pesquisa['fotoong'] ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-          <p class="nome-ong"><?php echo $pesquisa['nomeong'] ?></p>
-          <!-- <p> @ADB</p> -->
-          <img class="img-pub-v" src="../img-social/tweet/Vector (1).png" alt="">
-          <p><?php echo $pesquisa['dtpost'] ?></p>
+
+
+          <section style="padding: 5px;">
+            <p class="nome-ong"><?php echo $pesquisa['nomeong'] ?></p>
+            <!-- <p> @ADB</p> -->
+            
+            <p style="font-weight: 700;"><?php echo $pesquisa['dtpost'] ?></p>
+
+
+          </section>
         </section>
 
-        <section class="">
-          <section class="frase">
+        <section class="" style="border: 2px solid #5A56E9;background-color: white;border-radius: 0;">
+       
             <section class="juncao">
-              <p class="desc">
+              <p class="headerletter">
                 <?php echo $pesquisa['msgpost'] ?>
               </p>
             </section>
 
-            <section>
-              <img style="width: 100px;" class="img-responsive" src="./social-img/<?php echo $pesquisa['imagempost'] ?>" alt="">
-            </section>
+              <img  class="div-img" style="border-radius: 0;" src="./social-img/<?php echo $pesquisa['imagempost'] ?>" alt="">
+           
 
-          </section>
+          
         </section>
 
         <?php
@@ -229,18 +283,18 @@ align-items: center;
         }
         ?>
 
-        <section style="display: flex;align-items: center;justify-content: center;justify-content: space-around;">
+        <section class="green" style="display: flex;align-items: center;justify-content: center;justify-content: space-around;background-color: white;">
 
           <form action="" method="" id="form-curtir">
             <?php
             if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
             ?>
-              <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+              <button class="button-c" type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
   
                 <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
               <?php } else { ?>
   
-                <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+                <button type="submit" class="button-c" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
   
                   <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
                 <?php } ?>
@@ -254,14 +308,14 @@ align-items: center;
   
   
           <form action="./tela-comentario.php" method="post">
-            <button type="submit" value="<?php echo $pesquisa['idpost'] ?>" name="btnComentar">COMENTAR</button>
+            <button type="submit" class="button-c" style="font-weight: 800;" value="<?php echo $pesquisa['idpost'] ?>" name="btnComentar">Ver Comentários</button>
           </form>
 
 
 
         </section>
 
-
+                <br>
       <?php } ?>
 
 
@@ -269,7 +323,7 @@ align-items: center;
 
   </main>
 
-  <aside class="aside-direito" style="padding: 0; justify-content: right;">
+  <aside class="aside-direito" style="padding: 0; justify-content: right;background-color: #E6ECF0;">
 
 
 

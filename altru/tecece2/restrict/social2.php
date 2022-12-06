@@ -32,7 +32,7 @@ try {
   unset($_SESSION['idOngListar']);
   $listarSeguindo = $seguindo->listarSeguindo($_SESSION['iddoador']);
 
-  $listapost = $post->listarTd();
+  $listapost = $post->listarDeSeguidores($_SESSION['iddoador']);
 } catch (Exception $e) {
   echo $e->getMessage();
 }
@@ -64,7 +64,7 @@ try {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
+<body style="background-color: #e9ebf7;">
 
   <header class="header1">
 
@@ -265,69 +265,96 @@ try {
 
   </aside>
 
-  <main id="elemento-chave" style="border: none; margin-top: 13px;order: 1; ">
+  <main id="elemento-chave" >
+
+    <script type="text/javascript">
+      $(function() {
+        $('.carregando').hide();
+        $('#tipo_publicacao').change(function() {
+
+
+          if ($('#tipo_publicacao').val() == 2) {
+            window.location.href = "http://localhost:8080/altruismus/altru/tecece2/restrict/prestacoes.php";
+          }
+
+        })
+      })
+
+      // document.location.reload(false);
+    </script>
 
     <?php
+
     foreach ($listapost as $post) {
 
       $idOng = $post['idong'];
       $idPost = $post['idpost'];
+      $quantidadeReacoesLista = $reacao->verificarQuantidade($idPost);
+      $quantidadeReacoes = $quantidadeReacoesLista['quantidade'];
+
     ?>
 
-      <section style="display: flex;justify-content: center; flex-direction: column-reverse;">
+<section style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+          <section>
 
-        <section style="border: 1px solid #E6ECF0; ">
-
-
-          <section class="frase-do-img" style=" padding: 5px;border-left: 2px solid #5A56E9; border-top: 2px solid #5A56E9;border-right: 2px solid #5A56E9;">
-            <form action="./social-doador.php" method="post">
-              <button type="submit" name="idOng" value="<?php echo $idOng ?>" style="border-radius: 50%; border: 2px solid #5A56E9;">
-                <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px; " alt="">
-              </button>
-            </form>
-
-            <section style="display: flex; flex-direction: column; padding: 10px;">
-
-              <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
-              <!-- <p> @ADB</p> -->
-
-              <style>
+            <form action="./social-doador.php" method="post" class="div" style="align-items: center;border:1px solid #5A56E9;border-radius: 10px 10px 0px 0px;border-bottom: none;background-color:white ;" >
+                  <button type="submit" name="idOng" value="<?php echo $idOng ?>" style="padding: 5px;display: flex;background-color: white;">
+                    <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%;border: 2px solid #5A56E9; width: 50px; height: 50px; " alt="">
 
 
+                    <section style="display: flex;flex-direction: column;">
+                      <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
+  
+                      
+      
+                      <p style="font-weight: 600;"><?php echo $post['dtpost'] ?></p>
+  
+                      </section>
+                  </button>
+    
+             
+                <section class="msgpost" style="border: 1px solid #5A56E9;border-left: none;border-right: none;">
 
-              </style>
 
-              <p style="font-weight: 600;"><?php echo $post['dtpost'] ?></p>
+                  <p id="headerletter2"><?php echo $post['msgpost'] ?></p>
+                </section>
+          
 
-            </section>
 
-
-          </section>
-
-          <section class="" style="border-top: #5A56E9 2px solid; ">
-            <section class="frase" style="border: 2px solid #5A56E9;border-top: none;">
-              <section class="juncao" style="display: flex; justify-content: center;">
-                <p id="headerletter2"><?php echo $post['msgpost'] ?></p>
-              </section>
+                  </section>
+                </form>
+  
               
-              <section style="display: flex; justify-content: center;">
-                <img style="width: 300px;" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
-              </section>
+  
+              <section class="div" style="display: flex;justify-content: center;">
+  
+  
+                <img class="div-img" style="border: 2px solid #5A56E9;border-radius: 0;" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">   
 
-            </section>
           </section>
+            </section>
 
-          <section style="display: flex; justify-content: center; justify-content: space-around; align-items: center;border: 2px solid #5A56E9; border-top: none;border-bottom: none;">
+      
+
+
+
+            <section   style="display: flex; justify-content: center;justify-content: space-around;">
+
+            <section class="div" style="border: 1px solid #5A56E9;display: flex;align-items: center;justify-content: center;justify-content: space-around;border-radius: 0px 0px 10px 10px;background-color: white;">
 
 
             <form action="" method="" id="form-curtir">
               <?php
               if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
               ?>
+
+                <label for=""><?php echo ($quantidadeReacoes); ?></label>
                 <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
 
                   <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
                 <?php } else { ?>
+
+                  <label for=""><?php echo ($quantidadeReacoes); ?></label>
 
                   <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
 
@@ -340,17 +367,48 @@ try {
             <?php
             $dataCurtida = date('Y-m-d H:i:s');
             ?>
+    
+    
+                <form action="./tela-comentario-doador.php" method="post">
+                  <button style="font-weight: 800;background-color: white;"  type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
+                </form>
 
-            <form action="./tela-comentario-doador.php" method="post">
-              <button type="submit" value="<?php echo $idPost ?>" style="font-weight: 800;" name="btnComentar">COMENTAR</button>
-            </form>
+            </section>
+ 
+
+              
+            </section>
 
 
+           
+
+
+           
+            <section>
+
+
+
+
+            </section>
           </section>
+      
+              <br>
+              
 
 
 
-        <?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+              <?php } ?>
 
 
         </section>
@@ -361,74 +419,81 @@ try {
   </main>
 
 
-
-
   <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7;">
+  
 
-    <section class="aside-class1">
+  <section class="aside-class1">
+ 
+    
 
+    <section style=" border: none; display: flex;" class="seção2">
+    
+    
+      <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
 
-      <section style=" border: none; display: flex;" class="seção2">
-        <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
+        <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+        <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
 
-          <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
-          <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
+          <i class="fa fa-search" style="color: white; padding: 5px;"></i>
 
-            <i class="fa fa-search" style="color: white; padding: 5px;"></i>
+        </button>
+      </form>
 
-          </button>
-        </form>
+      <form action="" class="element-fixed" method="post" style="display: flex;flex-direction: column;position: fixed;">
+    
+      <select name="tipo_publicacao" id="tipo_publicacao">
 
-        <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+        <option value="1"  selected >Pedido</option>
+        <option value="2">Prestação de contas</option>
 
+      </select>
+      </form>
+      
+      <div class="divContainer" style="margin-top: 100px;">
+  <div class="conteudoFixo">
+      <h3 style="font-weight: 900px;">Seguindo</h3>
+  </div>
+  <div class="conteudoNormal">
+      <ul style="display: flex;justify-content: center;flex-direction: column;margin-right: 30px;">
+          
+      <?php
 
-          <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
-            <section style="display: flex; justify-content: left; ">
+          foreach ($listarSeguindo as $listar) {
+            $idOng = $listar['idong'];
+          ?>
 
-
-
-              <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
-
-              <style>
-                .maior {
-
-                  font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                }
-              </style>
-            </section>
-
-            <?php
-
-            foreach ($listarSeguindo as $listar) {
-              $idOng = $listar['idong'];
-            ?>
-
-              <section style="display: flex;padding: 0;margin-top: 10px;" class="cortalvez">
-                <img style="width: 50px; height: 50px; border-radius: 100px;" src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
-                <section style="display: flex; flex-direction: column;">
-                  <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
-                  <form action="./social-doador.php" method="post">
-                    <button name="idOng" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
-                  </form>
-
-                </section>
+            <section style="display: flex;padding: 3px;margin-top: 10px;border: 1px solid #5A56E9;background-color: white;" class="cortalvez">
+              <img style="width: 50px; height: 50px; border-radius: 100px;" class="border-perfil"  src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
+              <section style="display: flex; flex-direction: column;">
+                <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
+                <form action="./social-doador.php" method="post">
+                  <button name="idOng" style="padding: 2px;" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
+                </form>
 
               </section>
 
-            <?php } ?>
-          </section>
+            </section>
 
-        </section>
+          <?php } ?>
+
+      </ul>
+  </div>
+</div>
 
 
-        <style>
-          .seguindo2 {
-            background-color: #5A56E9;
-            color: #e9ebf7;
-            font-weight: 600;
-            border-radius: 10px;
-          }
-        </style>
+      </section>
+
+
+      <style>
+
+
+
+
+      </style>
+
+
+
+
 
 
 
@@ -436,25 +501,14 @@ try {
       </section>
 
 
-
-    </section>
-
-    </form>
-
-    <script>
-      function historico() {
-
-        const historico = document.getElementById('busca2').value
-
-
-        const busca = document.getElementById('buscaRecente')
-
-        busca.innerHTML = historico
-
-
-      }
-    </script>
-    </section>
+      <style>
+        .seguindo2 {
+          background-color: #5A56E9;
+          color: #e9ebf7;
+          font-weight: 600;
+          border-radius: 10px;
+        }
+      </style>
 
 
 
@@ -463,10 +517,24 @@ try {
 
 
 
+  </section>
+
+  </form>
+
+  </section>
+  
 
 
 
-  </aside>
+
+  </section>
+
+
+
+
+
+
+</aside>
 
 
   <script type="text/javascript">

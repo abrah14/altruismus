@@ -1,6 +1,6 @@
 <?php
-
 use FontLib\Table\Type\head;
+
 
 session_start();
 
@@ -10,7 +10,9 @@ require_once("../model/Reacao.php");
 include_once("valida-permanencia.php");
 require_once("../model/Seguindo.php");
 require_once("../model/PrestacaoContasOng.php");
-require_once("../model/ReacaoPrestacao.php");;
+require_once("../model/ReacaoPrestacao.php");
+
+
 
 try {
   $ong = new Ong();
@@ -22,6 +24,7 @@ try {
 
   if (isset($_SESSION['idOngListar'])) {
     $listapost = $post->listar($_SESSION['idOngListar']);
+    $listaPresta = $presta->listar($_SESSION['idOngListar']);
     $verificacao = $seguindo->verificarSeguir($_SESSION['iddoador'], $_SESSION['idOngListar']);
     if ($verificacao[0] <= 0) {
       unset($_SESSION['seguindo']);
@@ -37,10 +40,12 @@ try {
       $_SESSION['seguindo'] = true;
     }
     $listapost = $post->listar($idListar);
+    $listaPresta = $presta->listar($idListar);
   }
 
   foreach ($listapost as $postagem) {
     $nomeOng = $postagem['nomeong'];
+    
     $msg = $postagem['msgpost'];
     $dtPost = $postagem['dtpost'];
     $idOng = $postagem['idong'];
@@ -49,6 +54,9 @@ try {
     $tipoPerfil = "doador";
     $idPerfil = $_SESSION['iddoador'];
   }
+
+
+  
 
   // $verificacao = $seguindo->verificarSeguir($_SESSION['iddoador'],$idOng);
   // if($verificacao <= 0) {
@@ -204,11 +212,11 @@ if (isset($_SESSION['iddoador'])) {
             </section>
 
             <section class="banana" id="home18">
-              <form action="./pesquisa-altruismus-doador.php" class="form-busca" method="post">
+              <form action="./pesquisa-altruismus.php" class="form-busca" method="post">
 
 
                 <button type="submit" style="background-color: #5A56E9; color: #E6ECF0; border-radius: 100px; padding: 0; background-color: #5A56E9;">
-                  <i class="fa fa-search" style="color: white; padding: 10px;"></i>
+                  <i class="fa fa-search" style="color: white;"></i>
 
                   <style>
                     input:focus {
@@ -231,45 +239,7 @@ if (isset($_SESSION['iddoador'])) {
 
             </section>
 
-            <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
-
-              <section style="display: flex; flex-direction: column; border-radius: 10px;padding: 10px; border: 1px solid ; " class="rosa" id="rosa">
-
-                <script>
-                  const rosa = document.getElementById('rosa')
-
-                  rosa.style.marginBottom = '1000px'
-                </script>
-
-
-                <section class="seguir">
-                  <p class="seguir" style="font-weight: 600; padding-left: 10px; font-size: 20px;">Seguir</p>
-                </section>
-
-                <section class="siga" id="cortalvez">
-                  <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                  <section>
-
-                    <p class="seguidores"> alguma coisa</p>
-                    <button class="seguindo2"> Seguir</button>
-                  </section>
-
-
-                </section>
-                <section class="siga" id="cortalvez">
-                  <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                  <section>
-
-                    <p class="seguidores"> alguma coisa</p>
-                    <button class="seguindo2"> Seguir</button>
-                  </section>
-
-                </section>
-
-
-
-              </section>
-
+          
             </section>
           </section>
 
@@ -292,25 +262,26 @@ if (isset($_SESSION['iddoador'])) {
 
 
     </aside>
+    
 
 
-    <main id="elemento-chave" style="margin-top: 13px; justify-content: center; ">
+    <main id="elemento-chave">
 
       <section class="issopq">
         <section id="teste" class="pai-titulo">
-
-
 
 
         </section>
 
         <section class="issopq-2">
 
-          <section class="img-section" id="capa" style="border: 2px solid #5A56E9;">
+          <section class="img-section" id="capa" style="border: 2px solid #5A56E9; border-bottom: none;padding: 20px;">
 
 
             <section>
-              <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 300px; height: 300px; border: 2px solid #5A56E9;">
+              <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 300px; height: 310px; border: 2px solid #5A56E9;">
+
+              
 
             </section>
 
@@ -425,7 +396,7 @@ if (isset($_SESSION['iddoador'])) {
 
 
 
-      <section style="border: 2px solid #5A56E9; ">
+      <section style="border: none; ">
 
 
         <section style="display: flex; flex-direction: column; justify-content: center;">
@@ -447,34 +418,65 @@ if (isset($_SESSION['iddoador'])) {
 
             </section>
 
-            <section style="display: flex;">
-
-              <section style="display: flex; flex-direction: column;padding: 10px;">
-
-                <p id="slamn">
-
-                </p>
-
-                <p for="" id="slamn">Email</p>
-                <form action="./seguir.php" method="post">
-                  <button class="btn btn-primary" type="submit" name="ong" value="<?php echo $idOng ?>"><?php if ((isset($_SESSION['seguindo'])) && ($_SESSION['seguindo'] == true)) {
+            <section style="display: flex; border: 2px solid #5A56E9;border-bottom: none;background-color: #5A56E9; flex-direction: column;">
+                <form action="./seguir.php" method="post" style="display: flex;justify-content: center;align-items: center;margin-top: 10px;margin-bottom: 10px;">
+                  <button style="background-color: #5A56E9;color: white;font-weight: 700;" type="submit" name="ong" value="<?php echo $idOng ?>"><?php if ((isset($_SESSION['seguindo'])) && ($_SESSION['seguindo'] == true)) {
                                                                                                           echo "SEGUINDO";
-                                                                                                        } else {
+                                                                                                        }                                                                               
+                                                                                                                                                                                   
+                                                                                                        else {
                                                                                                           echo "SEGUIR";
-                                                                                                        } ?></button>
-                </form>
-
-              </section>
-
-              <section style="display: flex;flex-direction: column; padding: 10px;">
-
-                <p for="" id="slamn">Seguidores: 0</p>
-
-                <p for="" id="slamn">Reações: 0</p>
-              </section>
+                                                                                                        } ?>
 
 
-            </section>
+</form>
+
+</button>
+</section>
+<section style="display: flex; padding: 10px;border: 2px solid #5A56E9;border-bottom: none;">
+
+<p id="slamn"><?php echo $nomeOng ?></p>
+
+<style>
+                  .prest {
+                    font-weight: 600;
+                    font-size: clamp(0.4em, 0.4em + 1vw, 3em);
+  
+  
+                  }
+  
+  
+                  .nome-ong1 {
+  
+                    color: #5A56E9;
+                    font-weight: 600;
+  
+  
+                  }
+  
+  
+                  .nome-ong {
+                    font-size: clamp(0.5em, 0.5em + 1vw, 3em);
+                    color: #5A56E9;
+                    font-weight: 800;
+                    padding: 0;
+                    margin-top: 10px;
+  
+  
+  
+                  }
+                </style>
+  
+                                                                                          
+                                                                                        
+                                                                            
+  
+  
+</section>
+             
+
+
+            
             <section>
 
 
@@ -482,209 +484,272 @@ if (isset($_SESSION['iddoador'])) {
             </section>
 
           </section>
-
-          <section id="portfoio" class="row" style=" display: flex;">
-            <div class="row1" style="justify-content: center;" data-aos="fade-up">
-
-              <div data-aos="fade-low">
-                <div id="testando" class="testando12" style="border: 2px solid #5A56E9; justify-content: center; ">
-                  <ul id="portfolio-flters" style="display: flex; justify-content: center; justify-content: space-between;">
-                    <button style="background-color: #e9ebf7;">
-
-                      <li data-filter=".filter-app" class="prest" style="padding: 15px;" class="filter-active">Prestações</li>
-
-                    </button>
-
-                    <button style="background-color: #e9ebf7;">
-                      <li data-filter=".filter-card" class="prest" onclick="adiciona()" style="padding: 15px;">Pedidos</li>
-
-                    </button>
-                    <button style="background-color: #e9ebf7;">
-
-                      <li onclick="adiciona2()" class="prest" data-filter=".filter-web" style="padding: 15px;">Fotos</li>
-                    </button>
+          <section>
 
 
-                  </ul>
-                </div>
-              </div>
+            <section id="portfolio" class="portfolio">
+            <div class="container" style="justify-content: center;" data-aos="fade-up">
 
-              <style>
-                .prest {
-                  font-weight: 600;
-                  font-size: clamp(0.4em, 0.4em + 1vw, 3em);
+<div class="row" data-aos="fade-low" data-aos-delay="100">
+  <div >
+  <ul id="portfolio-flters" style="display: flex; justify-content: center;justify-content: space-around; padding: 20px;margin: 0;">
+          <button style="background-color: #e9ebf7;">
 
+            <li data-filter=".filter-app" onclick="mostrarprestacao()" class="prest" class="filter-active">Prestações</li>
 
-                }
+          </button>
 
+          <button style="background-color: #e9ebf7;">
+            <li data-filter=".filter-card"  onclick="pedido()" class="prest" >Pedidos</li>
 
-                .nome-ong1 {
+          </button>
+       
 
-                  color: #5A56E9;
-                  font-weight: 600;
+        </ul>
+  </div>
+</div>
+  
+                
+  
+  
+                <div class="portfolio-container" id="remove13" style="display: flex; ">
+  
+                  <?php 
+                    foreach ($listapost as $post) { 
+                      $idPost = $post['idpost']
+                      
+                  ?>
 
-
-                }
-
-
-                .nome-ong {
-                  font-size: clamp(0.5em, 0.5em + 1vw, 3em);
-                  color: #5A56E9;
-                  font-weight: 800;
-                  padding: 0;
-                  margin-top: 10px;
-
-
-
-                }
-              </style>
-
-
-              <div class="portfolio-container" data-aos="fade-up" data-aos-delay="200" style="display: flex; flex-direction: column; ">
-
-                <?php 
-                  foreach ($listapost as $post) { 
-                    $idPost = $post['idpost']
-                ?>
-
-                  <div class="portfolio-item filter-app" style="border: 2px solid #5A56E9;">
-                    <section class="mensagens" style="border-bottom: 2px solid #5A56E9; display: flex; justify-content: left;align-items: center;padding: 30px; order: 1;">
-                      <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" style="border-radius: 50%; width: 50px; height: 50px; border: 2px solid #5A56E9;" alt="">
-
-                      <section style="display: flex; flex-direction: column; align-items: center;justify-content: center;">
-                        <section style="margin: 0;padding: 0;">
-                          <p class="nome-ong"><?php echo $post['nomeong'] ?></p>
-
+  
+  
+                    <div class="portfolio-item filter-card" id="teste12" style="border: 2px solid #5A56E9;;">
+  
+                    
+                      <section class="mensagens" style="border-bottom: 2px solid #5A56E9; display: flex; justify-content: left;align-items: center; ">
+                        <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" style="border-radius: 50%; width: 50px; height: 50px; border: 2px solid #5A56E9;margin: 10px;" alt="">
+  
+                        <section style="display: flex; flex-direction: column; align-items: center;justify-content: center;">
+                          <section style="margin: 0;padding: 0;">
+                            <p class="nome-ong"><?php echo $post['nomeong'] ?></p>
+  
+                          </section>
+                          <p class="nome-ong1"><?php echo $post['dtpost'] ?></p>
+  
                         </section>
-                        <p class="nome-ong1"><?php echo $post['dtpost'] ?></p>
-
                       </section>
-                    </section>
-
-
-                    <section class="nsei">
-                      <p style="font-weight: 600; color: black;"><?php echo $post['msgpost'] ?></p>
-
-                      <section>
-                        <img src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
-
-
+  
+  
+                      <section class="nsei">
+                        <p style="font-weight: 600; color: black;"><?php echo $post['msgpost'] ?></p>
+  
+  
+                        <script>
+  
+                          const post = document.getElementById('elemento-chave')
+                          console.log(post)
+  
+  
+  
+                        </script>
+  
+                        <section>
+                          <img style="width: 299px;"  src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
+  
+                        </section>
                       </section>
-                    </section>
-
-                    <section style="border-top: 2px solid #5A56E9; padding-left: 30%; " class="hover">
-                      <form action="" method="" id="form-curtir">
-                        <?php
-                        if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
-                        ?>
-                          <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
-
-                            <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
-                          <?php } else { ?>
-
-                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
-
-                              <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
-                            <?php } ?>
-                            </button>
-
-                      </form>
-
-                    </section>
-
-                  </div>
-
-
-
-                <?php } ?>
-
-
-
-                <div class="portfolio-item filter-web" id="divsla" style="display: flex; justify-content: center;">
-
-                  <div class="portfolio-info" style="display: flex; justify-content: center; margin: 0;">
-                    <?php foreach ($listapost as $post) { ?>
-
-                      <section style="display: flex; justify-content: center; justify-content: space-around; border: 1px solid #5A56E9;">
-
-                        <img id="ola" src="./social-img/<?php echo $post['imagempost'] ?>" style="width: 275px;" alt="">
-
+  
+                      <section style="border-top: 2px solid #5A56E9; padding-left: 30%; " class="hover">
+                        <form action="" method="" id="form-curtir">
+                          <?php
+                          if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
+                          ?>
+                            <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+  
+                              <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
+                            <?php } else { ?>
+  
+                              <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+  
+                                <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
+                              <?php } ?>
+                              </button>
+  
+                        </form>
+  
                       </section>
+  
+                    </div>
+  
+  
+                  <?php } ?>
+                  
+  
+  
+                  
+                  <div class="portfolio-container" id="prest"  data-aos="fade-up" data-aos-delay="200" style="display: flex; flex-direction: column; ">
+  
+  <?php foreach ($listaPresta as $presta) { ?>
+    <div class="portfolio-item filter-app" style="border: 2px solid #5A56E9;">
+  
+  
+                              <div style="justify-content: center;">
+                                <section class="mensagens" style="display: flex;justify-content: left;padding: 10px;">
+                                  <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;border: 2px solid #5A56E9;">
+                                  <p  class="nome-ong" style="font-weight: 700;"><?php echo $presta['nomeong'] ?></p>
+  
+                                </section>
+                                <section style="display: flex;padding: 10px;padding: 10px;">
+                                  <p  class="nome-ong" >Data de recebimento :</p>
+                                  <span>
+                                    <?php echo $presta['dataRecebimento'] ?></p>
+
+                                  </span>
+                                </section>
+  
+                                <section class="mensagens2">
+                                  <section style="display: flex;justify-content: left;">
+
+                                    <p style="font-weight: 900;">Quantidade de itens recebidos</p>
+                                    <span>
+                                      <?php echo $presta['quantidadeItensRecebido'] ?></p>
+
+                                    </span>
+
+                                    <section>
+
+                                  
+
+                                    </section>
+                                  </section>
+
+  
+    
+
+                                <section style="display: flex;">
 
 
+                                  <img class="img-violino"style="width: 100px;" src="./social-img/<?php echo $presta['fotoOng'] ?>" alt="">
+  
+                                  <img class="img-violino" style="width: 100px;" src="./social-img/<?php echo $presta['fotoDoador'] ?>" alt="">
 
-                    <?php }  ?>
-
-                    <style>
-                      #ola:hover {
-                        border: 1px solid #5A56E9;
-                        -webkit-transform: scale(1.8);
-                        -ms-transform: scale(1.8);
-                        transform: scale(1.8);
-                        z-index: 100;
-                        transition: 1s;
-                      }
-                    </style>
-
-
-
-
-                  </div>
-                </div>
-
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-
-                  <div class="portfolio-info">
-
-                    <h1 id="remove12">Algo Novo</h1>
-
-                    <a href="../../BizLand/assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-                    <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-                  </div>
-                </div>
-
-
-
+                                </section>
+  
+                                </section>
+  
+                              </div>
+                          </div>
+                          
+                          <?php } ?>
+    
+  
+    </div>
+  
               </div>
+  
+  
+  
+              <div class="portfolio-container"  data-aos="fade-up" data-aos-delay="200" style="display: flex; flex-direction: column; ">
+  
+  
+                                       
+    <div class="portfolio-item filter-web" id="fotos" style="border: 2px solid #5A56E9;">
+  
+  
+                              <div style="justify-content: center;">
+                              
+  
+  
+                             
+                                
+                                
+                                
+                              
 
-            </div>
-          </section><!-- End Portfolio Section -->
+
+                                <script>
+                                  var data = document.getElementById('post601')
+                                  var tipo  = document.getElementById('post600')
+
+                                  data.hidden = true
+
+                                  tipo.hidden = true
+
+                                  function  mostrar() {
+
+                                    data.hidden = false
+
+                                    tipo.hidden = false
+
+
+
+                                    
+
+
+
+                                  }
+
+
+                                  function fechar(){
+
+                                    data.hidden = true
+
+                                    tipo.hidden = true
+
+                                  }
+
+
+
+                              
+
+                                  
+
+
+                                </script>
+    
+  
+    </div>
+  
+  
+              </div>
+            </section><!-- End Portfolio Section -->
+
+
+
+
+          </section>
+
 
           <!-- ======= Team Section ======= -->
 
 
 
           <script>
-            var element = document.getElementById('remove12')
 
-            var element2 = document.getElementById('ola')
+            var prestacao = document.getElementById('prest').hidden = true;
 
-
-            const ola = document.getElementById('divsla').hidden = true;
+            var fotos = document.getElementById('fotos').hidden = true;
 
 
-            element.innerHTML = ''
+            function mostrarprestacao(){
+              fotos = document.getElementById('fotos').hidden = true;
 
-            element2.innerHTML = ''
-
-            function adiciona() {
-
-              element.innerHTML = 'Olá de novo'
-
+              prestacao = document.getElementById('prest').hidden = false;
 
             }
 
-
-            function adiciona2() {
-              const ola = document.getElementById('divsla').hidden = false;
-
-              element2.innerHTML = 'Olá novamente'
-
+            function mostrarfotos(){
+              fotos = document.getElementById('fotos').hidden = false;
 
             }
-          </script>
 
+            function pedido(){
+              var fotos = document.getElementById('fotos').hidden = true;
+
+            }
+
+          
+              
+            </script>
 
 
 
@@ -707,51 +772,7 @@ if (isset($_SESSION['iddoador'])) {
 
             </button>
 
-            <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
-
-
-              <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
-                <section style="display: flex; justify-content: left; ">
-
-
-
-                  <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
-
-                  <style>
-                    .maior {
-
-                      font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                    }
-                  </style>
-                </section>
-
-                <section style="display: flex;padding: 0;margin-top: 10px;" class="cortalvez">
-                  <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
-                  <section style="display: flex; flex-direction: column;">
-                    <p style="font-weight: 600;">Fuladno</p>
-                    <button class="seguindo2"> Seguindo</button>
-
-                  </section>
-                </section>
-
-                <section style="display: flex; padding: 0;" class="cortalvez">
-                  <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
-                  <section style="display: flex; flex-direction: column;">
-                    <p style="font-weight: 600;">Fuladno</p>
-                    <button class="seguindo2"> Seguindo</button>
-
-                  </section>
-                </section>
-                <section style="display: flex; padding: 0;" class="cortalvez">
-                  <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
-                  <section style="display: flex; flex-direction: column;">
-                    <p style="font-weight: 600;">Fuladno</p>
-                    <button class="seguindo2"> Seguindo</button>
-
-                  </section>
-                </section>
-              </section>
-
+            
             </section>
 
 
@@ -775,20 +796,6 @@ if (isset($_SESSION['iddoador'])) {
 
       </form>
 
-      <script>
-        function historico() {
-
-          const historico = document.getElementById('busca2').value
-
-
-          const busca = document.getElementById('buscaRecente')
-
-          busca.innerHTML = historico
-
-
-
-        }
-      </script>
       </section>
 
 

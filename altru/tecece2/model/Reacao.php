@@ -132,6 +132,14 @@
             return $lista[0];
         }
 
+        public function verificarQuantidade($idPost) {
+            $conexao = Conexao::conectar();
+            $sql = "SELECT COUNT(idperfil) AS 'quantidade' FROM tbreacao WHERE idpost = $idPost";
+
+            $resultado = $conexao->query($sql);
+            return $resultado->fetch();
+        }
+
     }
 
 ?>

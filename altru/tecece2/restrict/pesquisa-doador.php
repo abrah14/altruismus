@@ -402,8 +402,8 @@ try {
                             <th>Senha</th>
                             <th>Entrada</th>
                             <th>Telefone</th>
-                            <th>Editar</th>
-                            <th>Excluir</th>
+                            <!-- <th>Editar</th>
+                            <th>Excluir</th> -->
                         </tr>
                     </thead>
 
@@ -430,17 +430,17 @@ try {
 
                                 <div class="">
 
-                                    <td>
+                                    <!-- <td>
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" name="editar" id="editar" data-whatever="<?php echo $idDoador ?>" data-whatevernome="<?php echo $nomeDoador ?>" data-whateveremail="<?php echo $emailDoador ?>" data-whatevercpf="<?php echo $cpfDoador ?>" data-whatevernasc="<?php echo $dataNascDoador ?>" data-whatevercidade="<?php echo $cidadeDoador ?>" data-whateverestado="<?php echo $estadoDoador ?>" data-whateverbairro="<?php echo $bairroDoador ?>" data-whateverrua="<?php echo $ruaDoador ?>" data-whatevercep="<?php echo $cepDoador ?>" data-whatevercomplemento="<?php echo $complementoDoador ?>" data-whateverlogradouro="<?php echo $lugradouroDoador ?>" data-whateversenha="<?php echo $senhaDoador ?>" data-whateverinscricao="<?php echo $inscricaoDoador ?>" data-whatevertel="<?php echo $telDoador ?>">
                                             EDITAR
                                         </button>
-                                    </td>
+                                    </td> -->
 
                                 </div>
 
-                                <td>
+                                <!-- <td>
                                     <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idDoador ?>" class="btn btn-danger">EXCLUIR</button>
-                                </td>
+                                </td> -->
 
                                 <div class="modal fade" id="excluir" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                                     <div class="modal-dialog" role="document">

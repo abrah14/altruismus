@@ -1,6 +1,6 @@
 <?php
 
-session_start(); //tem precedência de cabeçalho, deve ser a 1ª linha do seu bloco
+//tem precedência de cabeçalho, deve ser a 1ª linha do seu bloco
 require_once("../../model/Ong.php");
 
 // require_once("../model/Doacao.php");

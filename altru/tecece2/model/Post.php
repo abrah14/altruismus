@@ -71,7 +71,8 @@
                             FROM tbpost
                             INNER JOIN tbong
                             ON tbong.idong = tbpost.idong
-                            WHERE tbpost.idpost = $idPost";
+                            WHERE tbpost.idpost = $idPost
+                            ORDER BY dtpost DESC";
                 
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
@@ -81,11 +82,14 @@
         public function listar($id){
             $conexao = Conexao::conectar();
             $querySelect = "SELECT 
-                            tbpost.idpost,msgpost,dtpost,imagempost,tbong.nomeong, tbong.idong,fotoong
+                            tbpost.idpost,msgpost,dtpost,imagempost,tbong.nomeong, tbong.idong,fotoong,emailong,telefoneong
                             FROM tbpost
                             INNER JOIN tbong
                             ON tbong.idong = tbpost.idong
-                            WHERE tbong.idong = $id AND tbong.atividade <> 0 AND tbpost.atividade <> 0";
+                            INNER JOIN tbtelefoneong
+                            ON tbtelefoneong.idong = tbong.idong
+                            WHERE tbong.idong = $id AND tbong.atividade <> 0 AND tbpost.atividade <> 0
+                            ORDER BY dtpost DESC";
                 
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
@@ -100,7 +104,7 @@
                             INNER JOIN tbong
                             ON tbong.idong = tbpost.idong
                             WHERE tbong.atividade <> 0 AND tbpost.atividade <> 0 AND tbpost.atividade <> 0
-                            ORDER BY dtpost";
+                            ORDER BY dtpost DESC";
                 
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
@@ -117,7 +121,7 @@
                                 INNER JOIN tbseguindo
                                     ON tbseguindo.idong = tbong.idOng
                             WHERE tbseguindo.iddoador = $seguidor AND tbpost.atividade <> 0 AND tbpost.atividade <> 0
-                            ORDER BY dtpost";
+                            ORDER BY dtpost DESC";
                 
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
@@ -144,12 +148,28 @@
             FROM tbpost 
             INNER JOIN tbong
             ON tbpost.idong = tbong.idong
-            WHERE msgpost LIKE '%$texto%' AND tbpost.atividade <> 0 AND tbong.atividade <> 0";
+            WHERE msgpost LIKE '%$texto%' AND tbpost.atividade <> 0 AND tbong.atividade <> 0
+            ORDER BY dtpost DESC";
             
 
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;
+        }
+
+        public function getMyPost($id) {
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT 
+                                tbpost.idpost,msgpost,dtpost,imagempost,nomeong,tbong.idong,fotoong
+                            FROM tbpost
+                            INNER JOIN tbong
+                            ON tbong.idong = tbpost.idong
+                            WHERE tbong.atividade <> 0 AND tbpost.atividade <> 0 AND tbong.idong = $id
+                            ORDER BY dtpost DESC";
+                
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista; 
         }
 
     }

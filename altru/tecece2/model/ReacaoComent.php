@@ -61,6 +61,19 @@
 
         }
 
+        public function countReacaoComent($id, $tipo) {
+            $conexao = Conexao::conectar();
+            $query = 
+                "SELECT
+                    COUNT(idreacaocoment)
+                FROM tbreacaocoment
+                WHERE idperfilcurtiu = $id AND tipoperfil = '$tipo'";
+
+            $resultado = $conexao->query($query);
+            $lista = $resultado->fetch();
+            return $lista[0];
+        }
+
     }
 
 ?>

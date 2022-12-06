@@ -4,13 +4,17 @@ session_start();
 require_once("../model/Post.php");
 require_once("../model/Comentario.php");
 require_once("../model/Reacao.php");
+require_once("../model/Seguindo.php");
 require_once("../model/ReacaoComent.php");
+
+include_once("valida-permanencia.php");
 
 require_once("../model/Doador.php");
 
 $postagem = new Post();
 $coment = new Comentario();
 $reacao = new Reacao();
+$seguindo = new Seguindo();
 $reacaoComent = new ReacaoComent();
 
 if (isset($_POST['btnComentar'])) {
@@ -22,6 +26,8 @@ if (isset($_POST['btnComentar'])) {
     $listarcomentario = $coment->listar($_SESSION['post']);
     $listarpostagem = $postagem->listarPostId($_SESSION['post']);
 }
+
+$listarSeguindo = $seguindo->listarSeguindo($_SESSION['iddoador']);
 
 ?>
 
@@ -35,7 +41,7 @@ if (isset($_POST['btnComentar'])) {
     <title>Altruismus</title>
 
     <link class="logo1" href="../../BizLand/assets/img/logo21.png" rel="icon">
-    <link rel="stylesheet" href="../css/tela-comentario.css">
+    <link rel="stylesheet" href="../css/explorar-doador.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -105,7 +111,7 @@ if (isset($_POST['btnComentar'])) {
                         <section class="banana" id="home1" id="home1">
 
 
-                            <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
+                        <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/casa.png" alt="">
                             </a>
                             <a class="home" onclick="teste()" href="./social2.php">Home</a>
 
@@ -113,7 +119,7 @@ if (isset($_POST['btnComentar'])) {
                     <?php } ?>
                     <section class="banana" id="home1">
                         <a href="">
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+                        <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
                         </a>
                         <?php
                         if (isset($_SESSION['iddoador'])) {
@@ -123,16 +129,16 @@ if (isset($_POST['btnComentar'])) {
                             <a class="home" href="./explorar-doador.php">Explorar</a>
                         <?php
                         }
-                        
+
                         ?>
-                            
+
                     </section>
 
 
                     <section class="banana" id="home1" id="home12">
                         <a href="">
 
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
+                            <img class="icones-side"  style="width: 40px;" src="../img/sidedbar/sidebar/menu/pessoa.png" alt="">
                         </a>
                         <?php if (isset($_SESSION['iddoador'])) { ?>
                             <a class="home" href="./perfil-doador.php">Perfil</a>
@@ -143,7 +149,7 @@ if (isset($_POST['btnComentar'])) {
 
                     <section class="banana" id="home12">
                         <a href="">
-                            <img class="icones-side" src="../img/sidedbar/sidebar/menu/more.png" alt="">
+                            <img class="icones-side"   style="width: 40px;" src="../img/sidedbar/sidebar/menu/more.png" alt="">
                         </a>
                         <a class="home" href="./logout.php">Encerrar</a>
                     </section>
@@ -156,9 +162,9 @@ if (isset($_POST['btnComentar'])) {
         </section>
     </aside>
 
-    <main id="elemento-chave" style="margin-top: 10px;">
+    <main id="elemento-chave" >
 
-        <section style="border: 1px solid #E6ECF0;">
+        <section style="display: flex;justify-content: center; flex-direction: column;align-items: center;">
 
 
             <?php
@@ -168,15 +174,15 @@ if (isset($_POST['btnComentar'])) {
                 $idPost = $post['idpost'];
             ?>
 
-                <section class="frase-do-img" style="padding: 10px;border: 2px solid #5A56E9; border-bottom: none;">
+                <section class="div red" style=" border-bottom: none;">
                     <form action="./social-doador.php" method="post">
-                        <button type="submit" name="idOng" value="<?php echo $idOng ?>" style="display: flex;padding: 10px;">
+                        <button class="button-c" type="submit" name="idOng" value="<?php echo $idOng ?>" style="display: flex;">
                             <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px; border: 2px solid #5A56E9;" alt="">
 
 
                             <section style="display: flex;flex-direction: column;padding: 5px;">
 
-                                <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
+                                <p class="nome-ong button-c"><?php echo $nomeOng = $post['nomeong'] ?></p>
                                 <!-- <p> @ADB</p> -->
 
                                 <p style="font-weight: 800;"><?php echo $post['dtpost'] ?></p>
@@ -188,14 +194,14 @@ if (isset($_POST['btnComentar'])) {
 
                 </section>
 
-                <section class="" style="border: 2px solid #5A56E9;">
+                <section class="div" style="border: 2px solid #5A56E9;border-top: 1px solid #5A56E9;border-radius: none;">
                     <section class="frase">
-                        <section class="juncao" style="display: flex; justify-content: left;margin-left: 20%;">
-                            <p class="desc" style="font-weight: 800;"><?php echo $post['msgpost'] ?></p>
+                        <section class="juncao" style="display: flex; justify-content: left;padding: 3px;">
+                            <p id="headerletter2" style="font-weight: 800;"><?php echo $post['msgpost'] ?></p>
                         </section>
 
-                        <section style="display: flex; justify-content: center;">
-                            <img class="img-responsive" src="./social-img/<?php echo $post['imagempost'] ?>" style="width: 400px;" alt="">
+                        <section style="display: flex; justify-content: center;border-radius: none;">
+                            <img  class="div-img" style="border: 2px solid #5A56E9;border-radius: none;border-bottom: none;border-radius: 0;" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
                         </section>
 
                     </section>
@@ -214,7 +220,7 @@ if (isset($_POST['btnComentar'])) {
                 </style>
 
 
-                <section style="display: flex;justify-content: center;justify-content: space-around;align-items: center;border: 2px solid #5A56E9;">
+                <section class="div" style="display: flex;justify-content: center;justify-content: space-around;align-items: center;border: 2px solid #5A56E9;">
 
 
 
@@ -242,7 +248,7 @@ if (isset($_POST['btnComentar'])) {
 
                                 <section style="display: flex;">
 
-                                    <input class="input2" type="text" name="txtComentario" id="form12" style="border-radius: 10px;padding: 10px;border: 2px solid #5A56E9; font-weight: 800;" placeholder="Comente">
+                                    <input class="input2" type="text" name="txtComentario" id="form12" style="border-radius: 10px;padding: 10px; font-weight: 800;" placeholder="Comente">
 
                                     <img src="../img-social/tweet/enviar.png" id="form13" style="width: 30px;margin-left: 5px;" alt="">
 
@@ -273,7 +279,7 @@ if (isset($_POST['btnComentar'])) {
                                     <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
                                 <?php } else { ?>
 
-                                    <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+                                    <button class="button-c" type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','<?php echo $tipoPerfil ?>','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
 
                                         <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
                                     <?php } ?>
@@ -286,7 +292,7 @@ if (isset($_POST['btnComentar'])) {
 
             <?php } ?>
 
-            <section id="superteste" style="border: 2px solid #5A56E9;justify-content: center;  border: 2px solid #5A56E9;padding: 10px;">
+            <section class="div" id="superteste" style="border: 2px solid #5A56E9;justify-content: center;  border: 2px solid #5A56E9;padding: 10px;border: 2px solid #5A56E9;">
                 <style>
 
 
@@ -355,7 +361,7 @@ if (isset($_POST['btnComentar'])) {
 
 
 
-
+        <br>
 
                 <?php } ?>
 
@@ -428,65 +434,61 @@ if (isset($_POST['btnComentar'])) {
 
                         </button>
 
-                        <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+                        <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
+                            <section style="display: flex; justify-content: left; ">
 
 
-                            <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
-                                <section style="display: flex; justify-content: left; ">
 
-                                    <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
+                                <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
 
-                                    <style>
-                                        .maior {
+                                <style>
+                                    .maior {
 
-                                            font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                                        }
-                                    </style>
-                                </section>
+                                        font-size: clamp(0.7em, 0.7em + 1vw, 3em);
+                                    }
+                                </style>
+                            </section>
+
+                            <?php
+
+                            foreach ($listarSeguindo as $listar) {
+                                $idOng = $listar['idong'];
+                            ?>
 
                                 <section style="display: flex;padding: 0;margin-top: 10px;" class="cortalvez">
-                                    <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
+                                    <img style="width: 50px; height: 50px; border-radius: 100px;" src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
                                     <section style="display: flex; flex-direction: column;">
-                                        <p style="font-weight: 600;">Fuladno</p>
-                                        <button class="seguindo2"> Seguindo</button>
+                                        <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
+                                        <form action="./social-doador.php" method="post">
+                                            <button name="idOng" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
+                                        </form>
 
                                     </section>
+
                                 </section>
 
-                                <section style="display: flex; padding: 0;" class="cortalvez">
-                                    <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
-                                    <section style="display: flex; flex-direction: column;">
-                                        <p style="font-weight: 600;">Fuladno</p>
-                                        <button class="seguindo2"> Seguindo</button>
+                            <?php } ?>
 
-                                    </section>
-                                </section>
-                                <section style="display: flex; padding: 0;" class="cortalvez">
-                                    <img style="width: 50px; height: 50px; border-radius: 100px;" src="../img/631b7543a5d0d.jpg" alt="">
-                                    <section style="display: flex; flex-direction: column;">
-                                        <p style="font-weight: 600;">Fuladno</p>
-                                        <button class="seguindo2"> Seguindo</button>
 
-                                    </section>
-                                </section>
-                            </section>
 
                         </section>
 
-
-                        <style>
-                            .seguindo2 {
-                                background-color: #5A56E9;
-                                color: #e9ebf7;
-                                font-weight: 600;
-                                border-radius: 10px;
-                            }
-                        </style>
-
-
-
-
             </section>
+
+
+            <style>
+                .seguindo2 {
+                    background-color: #5A56E9;
+                    color: #e9ebf7;
+                    font-weight: 600;
+                    border-radius: 10px;
+                }
+            </style>
+
+
+
+
+        </section>
 
 
 
@@ -511,18 +513,9 @@ if (isset($_POST['btnComentar'])) {
         </section>
 
 
-
-
         </section>
 
-
-
-
-
-
     </aside>
-
-
 
     <script type="text/javascript">
         var posicao = localStorage.getItem('posicaoScroll');

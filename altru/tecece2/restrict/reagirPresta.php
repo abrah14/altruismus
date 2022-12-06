@@ -1,52 +1,46 @@
 <?php
 
-use FontLib\Table\Type\head;
-
-    session_start();
-
-    if($_SESSION['explorar-doador'] == true) {
-        header("Location: explorar-doador.php");
-    } else if($_SESSION['explorar'] == true) {
-        header("Location: explorar.php");
-    } else if($_SESSION['social2.php'] == true) {
-        header("Location: social2.php");
-    } else if($_SESSION['social'] == true) {
-        header("Location: social.php");
-    } else if($_SESSION['social-doador'] == true) {
-        header("Location: social-doador.php");
-    }
-
-    
-    session_start();
     require_once("../model/ReacaoPrestacao.php");
+    require_once("../model/Conexao.php");
+    date_default_timezone_set('America/Sao_Paulo');
 
-    $reacaoPresta = new ReacaoPrestacao();
+    $conexao = Conexao::conectar();
+    $reacao = new ReacaoPrestacao();
 
-    $tipo = "curtida";
-    $idPresta = $_POST['idPrestacao'];
+    $data = [
+        'idperfil' => $_POST['idperfil'],
+        'typeperfil' => $_POST['typeperfil'],
+        'idprestacao' => $_POST['idprestacao'],
+        'tiporeacao' => $_POST['tiporeacao']
+    ];
 
-    if(isset($_SESSION['iddoador'])) {
-        $idPerfil = $_SESSION['iddoador'];
-        $tipoPerfil = "doador";
-    }
-    else if(isset($_SESSION['idong'])) {
-        $idPerfil = $_SESSION['idong'];
-        $tipoPerfil = "ong";
-    }
+    if($reacao->verificar($_POST['idprestacao'],$_POST['typeperfil'],$_POST['idperfil']) == "curtiu") {
 
-    if($reacaoPresta->verificar($idPresta,$tipoPerfil,$idPerfil) == "curtiu") {
-        $reacaoPresta->deletar($idPresta,$idPerfil,$tipoPerfil);
-    }
-    else {
-        $reacaoPresta->setTipoReacao($tipo);
-        $reacaoPresta->setIdPrestacaoContasOng($idPresta);
-        $reacaoPresta->setIdPost(1);
+        $reacao->deletar($_POST['idprestacao'],$_POST['idperfil'],$_POST['typeperfil']);
+        // $stmt = $conexao->prepare("DELETE FROM tbreacaoprestacao WHERE idperfil = :idperfil AND tipoperfil = :typeperfil AND idprestacaocontasong = :idprestacao");
+
+        // try{
+        //     $conexao->beginTransaction();
+        //     $stmt->execute($data);
+        //     $conexao->commit();
+        // }catch (Exception $e) {
+        //     $conexao->rollBack();
+        //     throw $e;
+        // }
+
+    }else {
+        $stmt = $conexao->prepare("INSERT INTO tbreacaoprestacao(tiporeacao,idprestacaocontasong,idperfil,tipoperfil) VALUES(:tiporeacao,:idprestacao,:idperfil,:typeperfil)");
     
-        $reacaoPresta->setTipoPerfil($tipoPerfil);
-        $reacaoPresta->setIdPerfil($idPerfil);
-    
-        $reacaoPresta->reagirPresta($reacaoPresta);
+        try{
+            $conexao->beginTransaction();
+            $stmt->execute($data);
+            $conexao->commit();
+        }catch (Exception $e) {
+            $conexao->rollBack();
+            throw $e;
+        }
     }
+
 
 
 ?>

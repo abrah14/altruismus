@@ -401,13 +401,13 @@ try {
 
                 <!-- data-bs-toggle="modal" data-bs-target="#editar" -->
 
-                <td>
+                <!-- <td>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editar" name="editar" id="editar" data-whateverong="<?php echo $nomeOng ?>" data-whatever="<?php echo $idItensDoacao ?>" data-whateverdata="<?php echo $data ?>" data-whateverquant="<?php echo $quantItens ?>" data-whateveritem="<?php echo $item ?>">EDITAR</button>
                 </td>
 
                 <td>
                   <button data-bs-toggle="modal" data-bs-target="#excluir" data-whatever="<?php echo $idItensDoacao ?>" class="btn btn-danger">EXCLUIR</button>
-                </td>
+                </td> -->
 
                 <div class="modal fade" id="editar" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
                   <div class="modal-dialog" role="document">

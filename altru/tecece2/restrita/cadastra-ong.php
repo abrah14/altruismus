@@ -4,6 +4,7 @@
   session_start();
 
   require_once("../model/Ong.php");
+  date_default_timezone_set('America/Sao_Paulo');
 
     $cepOng = $_POST['txtCepOng'];
     $cidadeOng = $_POST['txtCidadeOng'];

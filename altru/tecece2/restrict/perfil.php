@@ -6,6 +6,7 @@ require_once("../model/Post.php");
 require_once("../model/ItensDoacao.php");
 require_once("../model/Seguindo.php");
 require_once("../model/Reacao.php");
+require_once("../model/ReacaoComent.php");
 require_once("../model/PrestacaoContasOng.php");
 
 include_once("valida-permanencia.php");
@@ -18,11 +19,12 @@ try {
   $doacao = new ItensDoacao();
   $seguindo = new Seguindo();
   $reacao = new Reacao();
+  $reacaoComent = new ReacaoComent();
   $prestacao = new PrestacaoContasOng();
 
-
   $quantidade = $seguindo->countSeguidores($_SESSION['idong']);
-  $countReacao = $reacao->countReacao($_SESSION['idong'], 'ong');
+  $quantReacoesComent = $reacaoComent->countReacaoComent($_SESSION['idong'], "ong");
+  $countReacao = $reacao->countReacao($_SESSION['idong'], "ong");
 
   if (isset($_SESSION['iddoador'])) {
     header("Location: ../../BizLand/index.php");
@@ -70,7 +72,7 @@ if (isset($_SESSION['idong'])) {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script src="../JS/social.js"></script>
+    
     <link href="https://fonts.googleapis.com/css?family=Bungee+Inline" rel="stylesheet">
 
     <meta content="" name="description">
@@ -81,16 +83,54 @@ if (isset($_SESSION['idong'])) {
 
     <!-- Favicons -->
     <link class="logo1" href="../../BizLand/assets/img/logo21.png" rel="icon">
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-    <link rel="stylesheet" href="../css/perfilOng.css">
+    <link rel="stylesheet" href="../css/perfilDoadorNovo.css">
 
   </head>
 
   <body>
+
+    <div class="modal fade" id="pedido" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fazer pedido</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="./postar.php" method="post" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens que quer receber</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtQuantidade">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Produtos que quer receber</label>
+                <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Foto</label>
+                <input type="file" class="form-control" id="recipient-email" name="imagem">
+              </div>
+
+              <div class="form-group">
+                <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
+                <input type="textarea" class="form-control" id="recipient-fundacao" name="msg">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+            <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">SALVAR</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 
     <div class="modal fade" id="prestacao" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -148,54 +188,43 @@ if (isset($_SESSION['idong'])) {
 
 
 
+    <script>
+      const aside = document.getElementsByClassName('aside-esquerdo')
+
+      console.log(aside)
+    </script>
+    <style>
+
+    </style>
+
 
     <script>
       const aside = document.getElementsByClassName('aside-esquerdo')
 
       console.log(aside)
     </script>
+
+    <style>
+      #headerletter {
+        font-size: clamp(0.9em, 0.9em + 1vw, 3em);
+      }
+    </style>
+
+
     <header class="header1">
 
 
-      <nav style="display: flex;  justify-content: left; ">
-        <div class="img-logo2" style="display: flex; flex: 1; align-items: center; justify-content: left; padding: 10px; ">
 
-          <section style="display: flex; align-items: center; margin-left: 5px;">
-            <img class="img-logo" style="width: 60px; display: flex; margin-right: 8px;" src="../../BizLand/assets/img/logo21.png" alt="">
+      <nav>
+        <div class="img-logo2">
+
+          <section>
+            <img class="img-logo" src="../../BizLand/assets/img/logo21.png" alt="">
             <p id="headerletter" style="color: white;font-weight: 600; margin-top: 10px; margin-left: 10px; ">Altruismus</p>
           </section>
         </div>
 
-
       </nav>
-
-
-    </header>
-
-
-
-    <header class="header2">
-
-
-      <nav>
-
-
-      </nav>
-
-
-    </header>
-
-
-    <header class="header3">
-
-
-
-
-      <nav>
-
-
-      </nav>
-
 
     </header>
 
@@ -221,16 +250,29 @@ if (isset($_SESSION['idong'])) {
     </style>
 
 
+
     <aside class="aside-esquerdo" style="justify-content: right;">
 
 
       <section class="letras" style="justify-content: right;border-radius: 0;">
         <section class="itens-p" style="justify-content: left;">
 
-
           <section class="letras-aside" style=" border-radius: 10px; text-align: center; justify-content: left;  align-items: left;">
-            <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left;">
 
+            <section class="banana" id="home1" style="display: flex; justify-content: left; ">
+              <!-- <img class="icones-side" style="width: 40px;" src="../img/sidedbar/sidebar/menu/Vector.png" alt="">
+              </a> -->
+              <a class="home" href="./minhas-publicacoes.php">Minhas publicações</a>
+            </section>
+
+
+            <section class="banana" id="home1" id="home1" style="display: flex; justify-content: left;">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacao150" style="background-color: #5A56E9;border: none;">
+                <section style="background-color: #5A56E9; color: #E6ECF0;">
+
+                  Publicar
+
+                </section>
             </section>
             <section class="banana" id="home1" style="display: flex; justify-content: left; ">
 
@@ -286,34 +328,21 @@ if (isset($_SESSION['idong'])) {
 
 
 
-
-
-
-
-
-
             <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
-
-
-
-
-
-
-
 
 
 
 
     </aside>
 
-    <main id="elemento-chave" style="margin-top: 15px; justify-content: center; border: 1px solid #5A56E9; border-radius: 10px;">
+    <main id="elemento-chave" style="margin-top: 15px; justify-content: center;">
 
-      <section class="issopq" style="border: 1px solid #E6ECF0;">
+      <section class="issopq div" style="border: 1px solid #E6ECF0;">
 
-        <section id="teste" class="pai-titulo">
+        <section id="teste" class="pai-titulo" style="border: 2px solid #5A56E9;">
           <?php
           foreach ($perfilOng as $perfil) {
-            $nomeOng = $perfilOng['nomeong'];
+        
             $telefoneOng = $perfilOng['telefoneong'];
             $emailOng = $perfilOng['emailong'];
             $fotoOng = $perfilOng['fotoong'];
@@ -332,17 +361,9 @@ if (isset($_SESSION['idong'])) {
             $dtFundacao = implode("/", array_reverse(explode("-", $dtNasc)));
           }
 
-          // $verificacao = $seguindo->verificarSeguir($_SESSION['iddoador'],$idOng);
-          // if($verificacao <= 0) {
-          //   unset($_SESSION['seguindo']);
-          // }
-
-          // foreach($listaid as $id) {
-          //   $idOng = $id['idong'];
-          // }
           ?>
-          <section class="capa" style="margin-bottom: 10px;">
-            <img width="300px" style="border: 2px solid;" src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="">
+          <section class="capa" >
+            <img class="div" style="border-radius: 300px;" src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="">
 
           </section>
 
@@ -353,7 +374,6 @@ if (isset($_SESSION['idong'])) {
 
 
             <p id="slamn">
-
 
               <?php echo $nomeOng ?>
             </p>
@@ -374,12 +394,25 @@ if (isset($_SESSION['idong'])) {
 
             <section style="display: flex; ">
 
-              <p for="" id="slamn" style="margin-right:15px;">Seguidores <?php echo $quantidade ?></p>
+              <p for="" id="slamn" style="margin-right:15px;">Seguidores: <?php echo $quantidade ?></p>
 
-              <p for="" id="slamn">Reações: <?php echo $countReacao ?></p>
+              <p for="" id="slamn">Reações: <?php echo ($countReacao + $quantReacoesComent) ?></p>
             </section>
 
+            <section style="display: flex; justify-content: center; border: 1px solid #5A56E9; background-color: #5A56E9;">
 
+       
+
+<button data-bs-toggle="modal" style="background-color: #5A56E9; color: #E6ECF0;" data-bs-target="#editarOng" name="linha" id="linha" data-whatever="<?php echo $_SESSION['idong'] ?>" data-whatevernome="<?php echo $nomeOng ?>" data-whatevertelefone="<?php echo $telefone ?>" data-whateveremail="<?php echo $emailOng ?>" data-whatevercep="<?php echo $cepOng ?>" data-whateverestado="<?php echo $estadoOng ?>" data-whatevercidade="<?php echo $cidadeOng ?>" data-whateverbairro="<?php echo $bairroOng ?>" data-whateverrua="<?php echo $ruaOng ?>" data-whatevercomplemento="<?php echo $complementoOng ?>" data-whateverlogradouro="<?php echo $logradouroOng ?>" data-whateversenha="<?php echo $senhaOng ?>" data-whateverfundacao="<?php echo $dtNasc ?>">
+
+  Editar Perfil
+</button>
+</section>
+
+
+
+
+<section>
           </section>
 
         </section>
@@ -394,15 +427,7 @@ if (isset($_SESSION['idong'])) {
         }
       </style>
 
-      <section class="issopq-2" style=" display: flex; justify-content: center;">
-
-        <section class="img-section">
-
-
-
-          <section style="display: flex; justify-content: center;">
-
-
+     
 
 
 
@@ -499,8 +524,7 @@ if (isset($_SESSION['idong'])) {
               </div>
             </div>
 
-          </section>
-
+        
 
 
           <div class="modal fade" id="publicacao150" tabindex="-1" role="dialog" aria-labelledby="editar2" aria-hidden="true">
@@ -515,449 +539,414 @@ if (isset($_SESSION['idong'])) {
                 <div class="modal-body">
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pedido" style="background-color: #5A56E9;border: none;">
                     <section style="background-color: #5A56E9; color: #E6ECF0;">
-                      Postagem
+                      Pedir
                     </section>
                   </button>
                   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#prestacao" style="background-color: #5A56E9;border: none;">
                     <section style="background-color: #5A56E9; color: #E6ECF0;">
-                      Prestação
+                      Prestar contas
                     </section>
                   </button>
                 </div>
               </div>
             </div>
+          </div>
 
-        </section>
-        <section class="redonda">
-          <img class="img-top" src="img/img-social2/upwork-pp.png" alt="">
-        </section>
+    
+   
+   
+       
+    
+ 
 
-      </section>
+     
 
-      <script>
-        const teste = () => {
-          const imagem = document.getElementById('coracao-img')
-
-          const coracao = document.getElementById('coracao')
-
-
-
-        }
-      </script>
-
-
-      <style>
-        li {
-          list-style: none;
-        }
-      </style>
-
-      </section>
-      <section style="display: flex; justify-content: center; justify-content: space-evenly; border-top: 1px solid #5A56E9;">
-
-      </section>
+      
 
 
 
-      <section style="display: flex; justify-content: center; justify-content: space-evenly; border-top: 1px solid #5A56E9;">
+    
 
-        <div class="modal fade" id="pedido" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fazer pedido</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="./postar.php" method="post" enctype="multipart/form-data">
 
-                  <div class="form-group">
-                    <label for="recipient-fundacao" class="col-form-label">Quantidade de Itens que quer receber</label>
-                    <input type="text" class="form-control" id="recipient-fundacao" name="txtQuantidade">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="recipient-fundacao" class="col-form-label">Produtos que quer receber</label>
-                    <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="recipient-email" class="col-form-label">Foto</label>
-                    <input type="file" class="form-control" id="recipient-email" name="imagem">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="recipient-fundacao" class="col-form-label">Mensagem</label>
-                    <input type="textarea" class="form-control" id="recipient-fundacao" name="msg">
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
-                <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">SALVAR</button>
-              </div>
-              </form>
+      <div class="modal fade" id="doacao" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Itens da Doação</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="../restrita/cadastra-itensdoacao.php" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="recipient-fundacao" class="col-form-label">Qtd. Itens da Doação</label>
+                  <input type="number" class="form-control" id="recipient-fundacao" name="txtQuantidade">
+                </div>
+                <div class="form-group">
+                  <label for="recipient-fundacao" class="col-form-label">Descrição</label>
+                  <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+              <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">ENVIAR</button>
             </div>
           </div>
+          </form>
         </div>
+      </div>
+      </div>
+
+      </section>
 
 
-        <section style="display: flex; justify-content: center; border: 1px solid #5A56E9; background-color: #5A56E9;">
+      </section>
 
-          <section style="margin-top: 3px;">
 
-            <button data-bs-toggle="modal" style="background-color: #5A56E9; color: #E6ECF0;" data-bs-target="#editarOng" name="linha" id="linha" data-whatever="<?php echo $_SESSION['idong'] ?>" data-whatevernome="<?php echo $nomeOng ?>" data-whatevertelefone="<?php echo $telefone ?>" data-whateveremail="<?php echo $emailOng ?>" data-whatevercep="<?php echo $cepOng ?>" data-whateverestado="<?php echo $estadoOng ?>" data-whatevercidade="<?php echo $cidadeOng ?>" data-whateverbairro="<?php echo $bairroOng ?>" data-whateverrua="<?php echo $ruaOng ?>" data-whatevercomplemento="<?php echo $complementoOng ?>" data-whateverlogradouro="<?php echo $logradouroOng ?>" data-whateversenha="<?php echo $senhaOng ?>" data-whateverfundacao="<?php echo $dtNasc ?>">
 
-              Editar Perfil
-            </button>
+      <section id="portfolio" class="portfolio div" style="border: 2px solid blue;" >
+            <div class="container" style="justify-content: center;" data-aos="fade-up">
+
+<div class="row" data-aos="fade-low" data-aos-delay="100" style="border-bottom: 2px solid #5A56E9;">
+  <div >
+  <ul  id="portfolio-flters" style="display: flex; justify-content: center;justify-content: space-around; padding: 20px;margin: 0;list-style: none;">
+          <button style="background-color: white;">
+
+            <li data-filter=".filter-app" onclick="mostrarprestacao()" style="font-weight: 700;color: #5A56E9;" class="prest" class="filter-active">Prestações</li>
+
+          </button>
+
+          <button style="background-color: white;">
+            <li data-filter=".filter-card" style="font-weight: 700;color: #5A56E9;"  onclick="pedido()" class="prest" >Pedidos</li>
+
+          </button>
+       
+
+        </ul>
+  </div>
+</div>
+  
+                
+  
+  
+                <div class="portfolio-container" id="remove13" style="display: flex; ">
+  
+                  <?php 
+                    foreach ($listapost as $post) { 
+                      $idPost = $post['idpost']
+                      
+                  ?>
+
+  
+  
+                    <div class="portfolio-item filter-card" id="teste12" >
+  
+                    
+                      <section class="mensagens" style=" display: flex; justify-content: left;align-items: center; ">
+                        <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" style="border-radius: 50%; width: 50px; height: 50px; margin: 10px;" alt="">
+  
+                        <section style="display: flex; flex-direction: column; align-items: center;justify-content: center;">
+                          
+                            <p class="nome-ong"><?php echo $post['nomeong'] ?></p>
+  
+                          </section>
+                          <p class="nome-ong1"><?php echo $post['dtpost'] ?></p>
+  
+                      </section>
+  
+  
+                      <section class="nsei">
+                        <p style="font-weight: 600; color: black;"><?php echo $post['msgpost'] ?></p>
+  
+  
+                        <script>
+  
+                          const post = document.getElementById('elemento-chave')
+                          console.log(post)
+  
+  
+  
+                        </script>
+  
+                        <section>
+                          <img style="width: 299px;"  src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
+  
+                        </section>
+                      </section>
+  
+                    
+  
+                    </div>
+  
+  
+                  <?php } ?>
+                  
+  
+  
+                  
+                  <div class="portfolio-container" id="prest"  data-aos="fade-up" data-aos-delay="200" style="display: flex; flex-direction: column; ">
+  
+  <?php foreach ($listapresta as $presta) { ?>
+    <div class="portfolio-item filter-app" >
+  
+  
+                              <div style="justify-content: center;">
+                                <section class="mensagens" style="display: flex;justify-content: center;padding: 10px;">
+                                  <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                                  <p  class="nome-ong" style="font-weight: 700;"><?php echo $presta['nomeong'] ?></p>
+  
+                                </section>
+                                <section style="display: flex;padding: 10px;padding: 10px;">
+                                  <p  class="nome-ong" >Data de recebimento :</p>
+                                  <span>
+                                    <?php echo $presta['dataRecebimento'] ?></p>
+
+                                  </span>
+                                </section>
+  
+                                <section class="mensagens2">
+                                  <section style="display: flex;justify-content: left;">
+
+                                    <p style="font-weight: 900;">Quantidade de itens recebidos</p>
+                                    <span>
+                                      <?php echo $presta['quantidadeItensRecebido'] ?></p>
+
+                                    </span>
+
+                                    <section>
+
+                                  
+
+                                    </section>
+                                  </section>
+
+  
+    
+
+                                <section style="display: flex;">
+
+
+                                  <img class="img-violino"style="width: 100px;" src="./social-img/<?php echo $presta['fotoOng'] ?>" alt="">
+  
+                                  <img class="img-violino" style="width: 100px;" src="./social-img/<?php echo $presta['fotoDoador'] ?>" alt="">
+
+                                </section>
+  
+                                </section>
+  
+                              </div>
+                          </div>
+                          
+                          <?php } ?>
+    
+  
+    </div>
+  
+              </div>
+  
+  
+  
+              <div class="portfolio-container"  data-aos="fade-up" data-aos-delay="200" style="display: flex; flex-direction: column; ">
+  
+  
+                                       
+    <div class="portfolio-item filter-web" id="fotos" >
+  
+  
+                              <div style="justify-content: center;">
+                              
+  
+  
+                             
+                                
+                                
+                                
+                              
+
+
+                                <script>
+                                  var data = document.getElementById('post601')
+                                  var tipo  = document.getElementById('post600')
+
+                                  data.hidden = true
+
+                                  tipo.hidden = true
+
+                                  function  mostrar() {
+
+                                    data.hidden = false
+
+                                    tipo.hidden = false
+
+
+
+                                    
+
+
+
+                                  }
+
+
+                                  function fechar(){
+
+                                    data.hidden = true
+
+                                    tipo.hidden = true
+
+                                  }
+
+
+
+                              
+
+                                  
+
+
+                                </script>
+    
+  
+    </div>
+  
+  
+              </div>
+            </section><!-- End Portfolio Section -->
+
+
+
+
           </section>
 
-        </section>
 
+          <!-- ======= Team Section ======= -->
 
-      </section>
 
-      <section>
 
+          <script>
 
+            var prestacao = document.getElementById('prest').hidden = true;
 
+            var fotos = document.getElementById('fotos').hidden = true;
 
-      </section>
 
+            function mostrarprestacao(){
+              fotos = document.getElementById('fotos').hidden = true;
 
+              prestacao = document.getElementById('prest').hidden = false;
 
-      </section>
+            }
 
+            function mostrarfotos(){
+              fotos = document.getElementById('fotos').hidden = false;
 
-      <section>
+            }
 
+            function pedido(){
+              var fotos = document.getElementById('fotos').hidden = true;
 
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#publicacao150" style="background-color: #5A56E9;border: none;">
-          <section style="background-color: #5A56E9; color: #E6ECF0;">
+            }
 
-            Publicar
+          
+              
+            </script>
 
-          </section>
 
 
-        </button>
-
-
-
-        </button>
-
-        <div class="modal fade" id="doacao" tabindex="-1" role="dialog" aria-labelledby="editar" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Itens da Doação</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form action="../restrita/cadastra-itensdoacao.php" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="recipient-fundacao" class="col-form-label">Qtd. Itens da Doação</label>
-                    <input type="number" class="form-control" id="recipient-fundacao" name="txtQuantidade">
-                  </div>
-                  <div class="form-group">
-                    <label for="recipient-fundacao" class="col-form-label">Descrição</label>
-                    <input type="text" class="form-control" id="recipient-fundacao" name="txtDescItem">
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
-                <button type="submit" class="btn btn-danger" style="background-color: #5A56E9;border: none;">ENVIAR</button>
-              </div>
-            </div>
-            </form>
-          </div>
-        </div>
-        </div>
-
-
-
-
-
-      </section>
-
-      </section>
-
-
-
-
-
-
-
-      <section style="border: 2px solid #E6ECF0;">
-
-
-
-
-        <section id="portfolio" class="portfolio">
-          <div class="container" style="justify-content: center;" data-aos="fade-up" style="">
-
-            <div class="row" data-aos="fade-low" data-aos-delay="100">
-              <div class="col-lg-12 ">
-                <ul id="portfolio-flters" id="tentando" style="display: flex; border: 1px solid; justify-content: space-around; ">
-
-                  <!-- <li id="testando" data-filter=".filter-app" style="padding: 15px;">Pedidos</li> -->
-                  <li id="" data-filter=".filter-web" style="padding: 15px;">Pedidos</li>
-                  <li id="testando" data-filter=".filter-app" style="padding: 15px;">Prestações</li>
-
-
-
-                </ul>
-              </div>
-            </div>
-
-
-
-            <style>
-              #testando:hover {
-                border-bottom: #5A56E9 solid 5px;
-
-              }
-            </style>
-
-            <!-- ======= Portfolio Section ======= -->
-
-            <section>
-
-
-
-
-              <section id="portfolio" class="portfolio">
-                <div class="container" data-aos="fade-up">
-
-                  <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="300">
-
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-sla">
-                      <div class="portfolio-wrap">
-                        <div class="portfolio-info">
-                          <?php
-                          foreach ($listapresta as $presta) { ?>
-
-                            <div style="justify-content: center;">
-                              <section class="mensagens" style="display: flex;">
-                                <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-                                <p><?php echo $presta['nomeong'] ?></p>
-
-                              </section>
-                              <section>
-                                <p>Data que foi recebido</p>
-                                <p><?php echo $presta['dataRecebimento'] ?></p>
-                              </section>
-
-                              <section class="mensagens2">
-
-                                <p><?php echo $presta['descProdutosRecebidos'] ?></p>
-
-
-                                <p>Quantidade de itens recebidos</p>
-                                <p><?php echo $presta['quantidadeItensRecebido'] ?></p>
-
-                                <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $presta['fotoOng'] ?>" alt="">
-
-                                <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $presta['fotoDoador'] ?>" alt="">
-
-                              </section>
-
-                            </div>
-                        </div>
-                      </div>
-
-                    <?php } ?>
-
-                    <div class="portfolio-links">
-                    </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                  <div class="portfolio-wrap">
-
-                    <div class="portfolio-info">
-                      <?php
-                      foreach ($listapost as $post) { ?>
-
-
-
-                        <div style="justify-content: center;">
-                          <section class="mensagens" style="display: flex;">
-                            <img src="./foto-perfil-ong/<?php echo $fotoOng ?>" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
-                            <p><?php echo $post['nomeong'] ?></p>
-
-                          </section>
-                          <section>
-                            <p><?php echo $post['dtpost'] ?></p>
-                          </section>
-
-                          <section class="mensagens2">
-
-                            <p><?php echo $post['msgpost'] ?></p>
-
-
-                            <img class="img-violino" style="height: 400px; width: 400px; " src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
-
-
-                          </section>
-
-                        </div>
-                    </div>
-                  </div>
-
-                <?php } ?>
-                </div>
-
-                <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-                  <div class="portfolio-wrap">
-
-                    <div class="portfolio-info">
-                      <?php
-                      foreach ($listdoacao as $doacao) { ?>
-
-
-
-                        <div style="justify-content: center;">
-                          <section class="mensagens" style="display: flex;">
-                            <p><?php echo $doacao['quantidadeitensdoacao'] ?></p>
-
-                          </section>
-                          <p><?php echo $doacao['datadoacao'] ?></p>
-                          <p><?php echo $doacao['descitem'] ?></p>
-
-                        </div>
-                    </div>
-                  </div>
-
-                <?php } ?>
-                </div>
-
-          </div>
-          </div>
-        </section><!-- End Portfolio Section -->
-      </section>
-
-
-
-      <!-- ======= Team Section ======= -->
 
     </main>
 
 
 
-    <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7;">
+    <aside class="aside-direito" style="padding: 0; justify-content: right;background-color: #E6ECF0;">
 
 
 
 
-      <section class="aside-class1">
+<section class="aside-class1">
 
+  <section style=" border: none; display: flex;" class="seção2">
+  <form action="./pesquisa-altruismus.php" class="busca-explorar" method="post" style="padding: 0;">
 
-        <section style=" border: none; display: flex;" class="seção2">
-          <form action="./pesquisa-altruismus.php" class="busca-explorar" method="post" style="padding: 0;">
+<input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+<button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
 
-            <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
-            <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
+  <i class="fa fa-search" style="color: white; padding: 5px;"></i>
 
-              <i class="fa fa-search" style="color: white; padding: 5px;"></i>
+</button>
 
-            </button>
-
-            <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
-
-
-              <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
-                <section style="display: flex; justify-content: left; ">
+</form>
 
 
 
-                  <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguidores</p>
+</section>
 
-                  <style>
-                    .maior {
-
-                      font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                    }
-                  </style>
-                </section>
-
-                <?php
-                $listarSeguidores = $seguindo->listarSeguidores($_SESSION['idong']);
-
-                foreach ($listarSeguidores as $listaSeguidores) {
-                ?>
-
-
-                  <section style="display: flex; padding: 0;" class="cortalvez">
-                    <img style="width: 50px; height: 50px; border-radius: 100px;" src="./foto-perfil-doador/<?php echo $listaSeguidores['fotodoador'] ?>" alt="">
-                    <section style="display: flex; flex-direction: column;">
-                      <p style="font-weight: 600;"><?php echo $listaSeguidores['nomedoador'] ?></p>
-                      <button class="seguindo2" style="background-color: #e9ebf7; color: black;"><?php echo $listaSeguidores['emaildoador'] ?></button>
-
-                    </section>
-                  </section>
-
-                <?php } ?>
-
-              </section>
-
-            </section>
-
-
-            <style>
-              .seguindo2 {
-                background-color: #5A56E9;
-                color: #e9ebf7;
-                font-weight: 600;
-                border-radius: 10px;
-              }
-            </style>
+</form>
+</section>
 
 
 
 
-        </section>
+</section>
 
 
 
-      </section>
-
-      </form>
-
-      <script>
-        function historico() {
-
-          const historico = document.getElementById('busca2').value
-
-
-          const busca = document.getElementById('buscaRecente')
-
-          busca.innerHTML = historico
 
 
 
+</aside>
+
+    <script type="text/javascript">
+      var posicao = localStorage.getItem('posicaoScroll');
+
+      if (posicao) {
+        /* Timeout necessário para funcionar no Chrome */
+        setTimeout(function() {
+          window.scrollTo(0, posicao);
+        }, 1);
+      }
+
+      window.onscroll = function(e) {
+        posicao = window.scrollY;
+        localStorage.setItem('posicaoScroll', JSON.stringify(posicao));
+      }
+
+      function valorBotao(postagem, reacao, perfil, iddoador, imagem) {
+
+        idPost = postagem;
+        tipoReacao = reacao;
+        tipoPerfil = perfil;
+        idDoador = iddoador;
+
+        var img = imagem;
+
+        if (img == 0) {
+          img = img + 1;
+          document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
+          document.location.reload(true);
+        } else if (img > 0) {
+          document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
+          document.location.reload(true);
         }
-      </script>
-      </section>
 
+        event.preventDefault();
 
+        $.ajax({
+          type: "POST",
+          url: "reagir.php",
+          data: {
+            tipo: tipoReacao,
+            tipoperfil: tipoPerfil,
+            idperfil: idDoador,
+            idpost: idPost
+          },
+          success: function(data) {
+            console.log("curtiu");
+          }
+        });
 
+      }
+    </script>
 
-      </section>
-
-
-
-
-
-
-    </aside>
-
-    </aside>
     <script src="../../BizLand/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="../../BizLand/assets/vendor/aos/aos.js"></script>
     <script src="../../BizLand/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

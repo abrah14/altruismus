@@ -10,6 +10,7 @@
         private $fotoOng;
         private $fotoDoador;
         private $idOng;
+        private $dtPostagem;
 
         public function getIdPrestacaoContasOng(){
             return $this->idPrestacaoContasOng;
@@ -31,6 +32,13 @@
         }
         public function getIdOng(){
             return $this->idOng;
+        }
+        public function getDtPostagem() {
+            return $this->dtPostagem;
+        }
+
+        public function setDtPostagem($dtPostagem) {
+            $this->dtPostagem = $dtPostagem;
         }
 
         public function setIdPrestacaoContasOng($idPrestacaoContasOng){
@@ -59,8 +67,8 @@
             $conexao = Conexao::conectar();
 
             $stmt = $conexao->prepare("INSERT INTO tbprestacaocontasong(idprestacaocontasong,quantidadeitensrecebido,
-            descprodutosrecebidos,datarecebimento,fotoong,fotodoador,idong) 
-            VALUES(?,?,?,?,?,?,?)");
+            descprodutosrecebidos,datarecebimento,fotoong,fotodoador,idong,dtpostagem) 
+            VALUES(?,?,?,?,?,?,?,?)");
 
             $stmt->bindValue(1, $prestacaoContasOng->getIdPrestacaoContasOng());
             $stmt->bindValue(2, $prestacaoContasOng->getQuantidadeItensRecebido());
@@ -69,29 +77,49 @@
             $stmt->bindValue(5, $prestacaoContasOng->getFotoOng());
             $stmt->bindValue(6, $prestacaoContasOng->getFotoDoador());
             $stmt->bindValue(7, $prestacaoContasOng->getIdOng());
+            $stmt->bindValue(8, $prestacaoContasOng->getDtPostagem());
             
             $stmt->execute();
         }
 
         public function listarTD(){
             $conexao = Conexao::conectar();
-            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,tbong.idong
+            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotodoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,tbong.idong,dtpostagem
                             FROM tbprestacaocontasong
                             INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idong
-                            ORDER BY idPrestacaoContasOng DESC";
+                            ORDER BY dtpostagem DESC";
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;   
         }
 
+        public function listarDosSeguidores($idDoador) {
+            $conexao = Conexao::conectar();
+            $query = 
+                "SELECT 
+                    idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,
+                    tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,tbong.idong,dtpostagem
+                FROM tbprestacaocontasong
+                INNER JOIN tbong 
+                    ON tbong.idong = tbprestacaocontasong.idong
+                    INNER JOIN tbseguindo
+                        ON tbseguindo.idong = tbong.idong
+                WHERE tbseguindo.iddoador = $idDoador  
+                ORDER BY dtpostagem DESC";
+            
+            $resultado = $conexao->query($query);
+            return $resultado->fetchAll();
+        }
+
         public function listar($id){
             $conexao = Conexao::conectar();
-            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng
+            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotoDoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,dtpostagem
                             FROM tbprestacaocontasong
                             INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idong
-                            WHERE tbong.idong = $id";
+                            WHERE tbong.idong = $id
+                            ORDER BY dtpostagem DESC";
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;   
@@ -128,35 +156,36 @@
                 if(($dtInicio == null) || ($dtTermino == null)) {
                     $querySelect = "SELECT 
                                         idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                                        datarecebimento,nomeong
+                                        datarecebimento,nomeong,dtpostagem
                                     FROM tbprestacaocontasong
                                     INNER JOIN tbong 
                                         ON tbong.idong = tbprestacaocontasong.idOng
-                                    WHERE tbprestacaocontasong.idprestacaocontasong = $nomeOng";
+                                    WHERE tbprestacaocontasong.idprestacaocontasong = $nomeOng
+                                    ORDER BY dtpostagem DESC";
                 }
                 else{
                     if($nomeOng == null) {
                         $querySelect=
                         "SELECT 
                             idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                            datarecebimento,nomeong
+                            datarecebimento,nomeong,dtpostagem
                         FROM tbprestacaocontasong
                         INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idOng
                         WHERE datarecebimento BETWEEN '$dtInicio' AND '$dtTermino'
-                        ";
+                        ORDER BY dtpostagem DESC";
                     }
                     else{
                         $querySelect=
                         "SELECT 
                             idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                            datarecebimento,nomeong
+                            datarecebimento,nomeong,dtpostagem
                         FROM tbprestacaocontasong
                         INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idOng
                         WHERE tbprestacaocontasong.idprestacaocontasong = $nomeOng
                         AND datarecebimento BETWEEN '$dtInicio' AND '$dtTermino'
-                        ";
+                        ORDER BY dtpostagem DESC";
                     }
                 }
             }
@@ -164,35 +193,36 @@
                 if(($dtInicio == null) || ($dtTermino == null)) {
                     $querySelect = "SELECT 
                                         idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                                        datarecebimento,nomeong
+                                        datarecebimento,nomeong,dtpostagem
                                     FROM tbprestacaocontasong
                                     INNER JOIN tbong 
                                         ON tbong.idong = tbprestacaocontasong.idOng
-                                    WHERE nomeong LIKE '%$nomeOng%'";
+                                    WHERE nomeong LIKE '%$nomeOng%'
+                                    ORDER BY dtpostagem DESC";
                 }
                 else{
                     if($nomeOng == null) {
                         $querySelect=
                         "SELECT 
                             idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                            datarecebimento,nomeong
+                            datarecebimento,nomeong,dtpostagem
                         FROM tbprestacaocontasong
                         INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idOng
                         WHERE datarecebimento BETWEEN '$dtInicio' AND '$dtTermino'
-                        ";
+                        ORDER BY dtpostagem DESC";
                     }
                     else{
                         $querySelect=
                         "SELECT 
                             idprestacaocontasong,quantidadeitensrecebido,descprodutosrecebidos,
-                            datarecebimento,nomeong
+                            datarecebimento,nomeong,dtpostagem
                         FROM tbprestacaocontasong
                         INNER JOIN tbong 
                             ON tbong.idong = tbprestacaocontasong.idOng
                         WHERE nomeong LIKE '%$nomeOng%'
                         AND datarecebimento BETWEEN '$dtInicio' AND '$dtTermino'
-                        ";
+                        ORDER BY dtpostagem DESC";
                     }
                 }
             }
@@ -200,6 +230,19 @@
             $resultado = $conexao->query($querySelect);
             $lista = $resultado->fetchAll();
             return $lista;
+        }
+
+        public function getMyPrestacao($id){
+            $conexao = Conexao::conectar();
+            $querySelect = "SELECT idPrestacaoContasOng,quantidadeItensRecebido,descProdutosRecebidos,fotodoador,dataRecebimento,tbong.fotoong,tbong.nomeong,tbprestacaocontasong.fotoOng,tbong.idong,dtpostagem
+                            FROM tbprestacaocontasong
+                            INNER JOIN tbong 
+                            ON tbong.idong = tbprestacaocontasong.idong
+                            WHERE tbong.idong = $id
+                            ORDER BY dtpostagem DESC";
+            $resultado = $conexao->query($querySelect);
+            $lista = $resultado->fetchAll();
+            return $lista;   
         }
 
 }

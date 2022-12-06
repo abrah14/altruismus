@@ -1,8 +1,10 @@
 <?php
 
   header("Location: cadastra-telefonedoador.php");
+
   require_once("../model/Doador.php");
   require_once("../model/TelefoneDoador.php");
+  date_default_timezone_set('America/Sao_Paulo');
 
   session_start();
 
@@ -26,7 +28,7 @@
   $senhaDoador = $_POST['txtSenhaDoador'];
   $cpfDoador = $_POST['txtCpfDoador'];
   // $dataInscricao = date('Y-m-d H:i:s');
-  $dataInscricao = date('Y-m-d');
+  $dataInscricao = date('Y-m-d H:i:s');
 
   $_SESSION['telefone'] = $_POST['txtTelDoador'];
 

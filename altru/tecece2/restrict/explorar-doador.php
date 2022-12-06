@@ -45,6 +45,7 @@ try {
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -199,49 +200,7 @@ try {
           </section>
 
 
-          <section class="banana" id="home14" style="padding-top: 20px; justify-content: left;align-items: center; display: flex; flex-direction: column; " style="display: flex; justify-content: center;">
-
-
-            <!-- <section style="display: flex; flex-direction: column; border-radius: 10px;padding: 10px; border: 1px solid ; " class="rosa" id="rosa"> -->
-
-
-
-
-            <!-- <script>
-                const rosa = document.getElementById('rosa')
-
-                rosa.style.marginBottom = '1000px'
-              </script> -->
-
-
-            <!-- <section class="seguir">
-                <p class="seguir" style="font-weight: 600; padding-left: 10px; font-size: 20px;">Seguir</p>
-              </section>
-
-              <section class="siga" id="cortalvez">
-                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                <section>
-
-                  <p class="seguidores"> alguma coisa</p>
-                  <button class="seguindo2"> Seguir</button>
-                </section>
-
-
-              </section>
-              <section class="siga" id="cortalvez">
-                <img width="50px" height="50px" style="border-radius: 100px;" class="testeSumi" style="border: 2px solid #5A56E9;" src="../img/631b7543a5d0d.jpg" alt="">
-                <section>
-
-                  <p class="seguidores"> alguma coisa</p>
-                  <button class="seguindo2"> Seguir</button>
-                </section>
-
-              </section> -->
-
-
-
-          </section>
-
+          
         </section>
       </section>
 
@@ -264,219 +223,158 @@ try {
 
   </aside>
 
-  <main id="elemento-chave" style="border: none; margin-top: 13px;order: 1; ">
-    <section style="display: flex;justify-content: center; flex-direction: column-reverse; border: 2px solid #5A56E9;">
+  <main id="elemento-chave" style="border: none; margin-top: 15px; ">
+
+    <script type="text/javascript">
+      $(function() {
+        $('.carregando').hide();
+        $('#tipo_publicacao').change(function() {
 
 
-      <?php
-      foreach ($listapost as $post) {
+          if ($('#tipo_publicacao').val() == 2) {
+            window.location.href = "http://localhost:8080/altruismus/altru/tecece2/restrict/prestacoes-explorar-doador.php";
+          }
 
-        $idOng = $post['idong'];
-        $idPost = $post['idpost'];
-      ?>
+        })
+      })
 
-
-        <section style="border-left: none; border-right: none; border-top: 1px solid #5A56E9; ">
-
-
-          <section class="frase-do-img" style=" padding: 5px;">
-            <form action="./social-doador.php" method="post">
-              <button type="submit" name="idOng" value="<?php echo $idOng ?>" style="border-radius: 50%; border: 2px outset #5A56E9;">
-                <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px; " alt="">
-              </button>
-            </form>
-
-            <section style="display: flex; flex-direction: column; padding: 10px;">
-
-              <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
-              <!-- <p> @ADB</p> -->
-
-              <style>
+      // document.location.reload(false);
+    </script>
 
 
 
-              </style>
 
-              <p style="font-weight: 600;"><?php echo $post['dtpost'] ?></p>
 
-            </section>
+<?php
+      if (isset($listapost)) {
+        foreach ($listapost as $post) {
 
+          $idOng = $post['idong'];
+          $idPost = $post['idpost'];
+          $quantidadeReacoesLista = $reacao->verificarQuantidade($idPost);
+          $quantidadeReacoes = $quantidadeReacoesLista['quantidade'];
+          
+          ?>
+
+<section style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+          <section>
+
+            <form action="./social-doador.php" method="post" class="div" style="align-items: center;border:1px solid #5A56E9;border-radius: 10px 10px 0px 0px;border-bottom: none;background-color:white ;" >
+                  <button type="submit" name="idOng" value="<?php echo $idOng ?>" style="padding: 5px;display: flex;background-color: white;">
+                    <img src="./foto-perfil-ong/<?php echo $post['fotoong'] ?>" style="border-radius: 50%;border: 2px solid #5A56E9; width: 50px; height: 50px; " alt="">
+
+
+                    <section style="display: flex;flex-direction: column;">
+                      <p class="nome-ong"><?php echo $nomeOng = $post['nomeong'] ?></p>
+  
+                      
+      
+                      <p style="font-weight: 600;"><?php echo $post['dtpost'] ?></p>
+  
+                      </section>
+                  </button>
+    
+             
+                <section class="msgpost" style="border: 1px solid #5A56E9;border-left: none;border-right: none;">
+
+
+                  <p id="headerletter2"><?php echo $post['msgpost'] ?></p>
+                </section>
+          
+
+
+                  </section>
+                </form>
+  
+              
+  
+              <section style="display: flex;justify-content: center;">
+  
+  
+                <img class="div-img" style="border: 2px solid #5A56E9;border-radius: 0;" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">   
 
           </section>
-
-          <section class="" style="border-top: #5A56E9 2px solid; border-bottom: #5A56E9 2px solid #5A56E9;">
-            <section class="frase">
-              <section class="juncao">
-                <p id="headerletter2"><?php echo $post['msgpost'] ?></p>
-              </section>
-
-
-              <section>
-                <img style="width: 300px;" src="./social-img/<?php echo $post['imagempost'] ?>" alt="">
-              </section>
-
             </section>
-          </section>
 
-          <section id="cobaia" style="display: flex; justify-content: center; justify-content: space-around; border-top: 2px solid #5A56E9; align-items: center;">
+      
 
-            <form action="" method="" id="form-curtir">
+
+
+            <section  style="display: flex; justify-content: center;justify-content: space-around;">
+
+            <section class="div" style="border: 1px solid #5A56E9;display: flex;align-items: center;justify-content: center;justify-content: space-around;border-radius: 0px 0px 10px 10px;background-color: white;">
+
+            <form  action="" method="" id=" form-curtir" style="display: flex; justify-content: space-around;">
               <?php
               if ($reacao->verificar($idPost, $tipoPerfil, $idPerfil) == "curtiu") {
               ?>
-                <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
+
+                <label for=""><?php echo ($quantidadeReacoes); ?></label>
+
+                <button style="background-color: white;" type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',1);" name="idPost" value="<?php echo $idPost ?>">
 
                   <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao-vermelho">
                 <?php } else { ?>
 
-                  <button type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
+                  <label for=""><?php echo ($quantidadeReacoes); ?></label>
+
+                  <button style="background-color: white;" type="submit" id="idPost" onclick="valorBotao(<?php echo $idPost ?>,'curtida','doador','<?php echo $idPerfil ?>',0);" name="idPost" value="<?php echo $idPost ?>">
 
                     <img src="./coracao.png" alt="" style="width: 50px; height: 50px;" id="imagem-coracao">
                   <?php } ?>
                   </button>
 
-            </form>
-
-            <?php
-            $dataCurtida = date('Y-m-d H:i:s');
-            ?>
-
-
-            <form action="./tela-comentario-doador.php" method="post">
-              <button type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
-            </form>
-
-
-            <!-- <section id="beleza" >
-
-                        <h3  onclick="comentar();" >Comentar</h3>
-
-                        <input type="text">
-
-                        <div id="mostrar" onclick="menos()"></div>
-                        <div id="comentarios" onclick="mais()"></div>
+                  </form>
                       
-                </section>        -->
-
-
-          </section>
-
-          <?php
-           }foreach ($listaPresta as $presta) {
-            $idOng = $presta['idong'];
-            $idPresta = $presta['idPrestacaoContasOng'];
-          ?>
-
-            <section class="frase-do-img">
-              <form action="./social-doador.php" method="post">
-                <button type="submit" name="idOng" value="<?php echo $idOng ?>">
-                  <img src="./foto-perfil-ong/<?php echo $presta['fotoong'] ?>" style="border-radius: 50%; width: 50px; height: 50px;" alt="">
-                </button>
-              </form>
-              <p class="nome-ong"><?php echo $nomeOng = $presta['nomeong'] ?></p>
-              <!-- <p> @ADB</p> -->
-          
-              <p><?php echo $presta['dataRecebimento'] ?></p>
-            </section>
-
-            <section class="">
-              <section class="frase">
-                <section class="juncao">
-                  <p class="desc"><?php echo $presta['descProdutosRecebidos'] ?></p>
-                </section>
-
-                <section>
-                  <p class="desc"> Quantidades de Itens recebidos <?php echo $presta['quantidadeItensRecebido'] ?></p>
-
-                </section>
-
-                <section style="display: flex;">
-
-
-                  <section>
-                    <img class="img-responsive" width="50px" src="./social-img/<?php echo $presta['fotoOng'] ?>" alt="">
-                  </section>
-  
-                  <section>
-                    <img class="img-responsive" width="50px" src="./social-img/<?php echo $presta['fotoDoador'] ?>" alt="">
-                  </section>
-
-                </section>
-
-
-              </section>
-            </section>
-
-            <form action="./reagirPresta.php" method="post">
-
-              <button type="submit" name="idPrestacao" value="<?php echo $idPresta ?>">
-
-                <?php
-                if ($reacaoPresta->verificar($idPresta, $tipoPerfil, $idPerfil) == "curtiu") {
+                      <?php
+                $dataCurtida = date('Y-m-d H:i:s');
                 ?>
-                  <img src="./coracao-vermelho.png" alt="" style="width: 50px; height: 50px;">
-                <?php } else { ?>
-                  <img src="./coracao.png" alt="" style="width: 50px; height: 50px;">
-                <?php } ?>
-              </button>
+    
+    
+                <form action="./tela-comentario-doador.php" method="post">
+                  <button style="font-weight: 800;background-color: white;"  type="submit" value="<?php echo $idPost ?>" name="btnComentar">COMENTAR</button>
+                </form>
 
-            </form>
+            </section>
+ 
 
-          <?php } ?>
-
-
-
-          <?php
+              
+            </section>
 
 
-          $var25 = $nomeOng;
+           
 
 
-          ?>
-          <script>
-            <?php
+           
+            <section>
 
 
-            //  echo "var jsvar ='$var';";
-
-            //  echo "var jsvar2 ='$var2';";
 
 
-            echo "var jsvar25 ='$var25';";
-
-            //  echo "var jsvar3 ='$var3';";
-            ?>
-
-            //graficos de pizza
-
-            // por mes
-            var mostrar = document.getElementById('mostrar')
+            </section>
+          </section>
+          
+  
 
 
-            mostrar.innerText = ''
-
-            function menos() {
-              mostrar.innerText = ''
-            }
-
-            function comentar() {
-              mostrar.innerText = jsvar25
-              var menos = document.getElementById('comentarios')
-              menos.innerText = 'mostrar menos'
-
-            }
-
-            function mais() {
-              menos.innerHTML = ''
-              mostrar.innerHTML = ''
-
-            }
-          </script>
 
 
-        </section>
 
-    </section>
+
+
+          
+         
+                      <br>
+              
+        <?php
+        }
+      }
+        ?>
+
+
+
+    
+
 
 
   </main>
@@ -485,97 +383,108 @@ try {
 
 
   <aside class="aside-direito" style="display: flex; flex-direction: column; background-color: #e9ebf7;">
+  
 
-    <section class="aside-class1">
+  <section class="aside-class1">
+ 
+    
 
-      <section style=" border: none; display: flex;" class="seção2">
-        <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
+    <section style=" border: none; display: flex;" class="seção2">
+    
+    
+      <form action="./pesquisa-altruismus-doador.php" class="busca-explorar" method="post" style="padding: 0;">
 
-          <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
-          <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
+        <input type="search" style="border: 1px solid #5A56E9; border-radius: 40px 0 0 40px ; height: 40px;" class="busca" id="busca2" placeholder="Busque por Ongs" name="buscar">
+        <button type="submit" onclick="historico()" style=" color: #E6ECF0; border-radius: 0px 10px 10px 0px ; padding: 7px; background-color: #5A56E9;">
 
-            <i class="fa fa-search" style="color: white; padding: 5px;"></i>
+          <i class="fa fa-search" style="color: white; padding: 5px;"></i>
 
-          </button>
-        </form>
+        </button>
+      </form>
 
-        <section style="height: 200px; margin-top: 65px; display: flex; flex-direction: column;">
+      <form action="" class="element-fixed" method="post" style="display: flex;flex-direction: column;position: fixed;">
+    
+      <select name="tipo_publicacao" id="tipo_publicacao">
 
+        <option value="1" selected>Pedido</option>
+        <option value="2">Prestação de contas</option>
 
-          <section class="rosa" style=" display: flex; flex-direction: column; border-radius: 10px; border: 1px solid #5A56E9;">
-            <section style="display: flex; justify-content: left; ">
+      </select>
+      </form>
+      
+      <div class="divContainer" style="margin-top: 100px;">
+  <div class="conteudoFixo">
+      <h3 style="font-weight: 900px;">Seguindo</h3>
+  </div>
+  <div class="conteudoNormal">
+      <ul style="display: flex;justify-content: center;flex-direction: column;margin-right: 30px;">
+          
+      <?php
 
+          foreach ($listarSeguindo as $listar) {
+            $idOng = $listar['idong'];
+          ?>
 
-
-              <p style="color: #5A56E9; font-weight: 600;" class="maior">Seguindo</p>
-
-              <style>
-                .maior {
-
-                  font-size: clamp(0.7em, 0.7em + 1vw, 3em);
-                }
-              </style>
-            </section>
-
-            <?php
-
-            foreach ($listarSeguindo as $listar) {
-              $idOng = $listar['idong'];
-            ?>
-
-              <section style="display: flex;padding: 0;margin-top: 10px;" class="cortalvez">
-                <img style="width: 50px; height: 50px; border-radius: 100px;" src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
-                <section style="display: flex; flex-direction: column;">
-                  <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
-                  <form action="./social-doador.php" method="post">
-                    <button name="idOng" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
-                  </form>
-
-                </section>
+            <section style="display: flex;padding: 3px;margin-top: 10px;border: 1px solid #5A56E9;background-color: white;" class="cortalvez">
+              <img style="width: 50px; height: 50px; border-radius: 100px;" class="border-perfil"  src="./foto-perfil-ong/<?php echo $listar['fotoong'] ?>" alt="">
+              <section style="display: flex; flex-direction: column;">
+                <p style="font-weight: 600;"><?php echo $listar['nomeong'] ?></p>
+                <form action="./social-doador.php" method="post">
+                  <button name="idOng" style="padding: 2px;background-color: #5A56E9;font-weight: 800;" class="seguindo2" value="<?php echo $idOng ?>">Seguindo</button>
+                </form>
 
               </section>
 
-            <?php } ?>
+            </section>
+
+          <?php } ?>
+
+      </ul>
+  </div>
+</div>
+
+
+      </section>
+
+
+      <style>
 
 
 
-          </section>
 
-        </section>
+      </style>
 
 
-        <style>
-          .seguindo2 {
-            background-color: #5A56E9;
-            color: #e9ebf7;
-            font-weight: 600;
-            border-radius: 10px;
-          }
-        </style>
+
+
 
 
 
 
       </section>
 
-
-
-    </section>
-
-    </form>
     </section>
 
 
 
+  </section>
 
-    </section>
+  </form>
+
+  </section>
+  
+
+
+
+
+  </section>
 
 
 
 
 
 
-  </aside>
+</aside>
 
 
 
@@ -587,14 +496,14 @@ try {
       tipoReacao = reacao;
       tipoPerfil = perfil;
       idDoador = iddoador;
-   
+
       var img = imagem;
 
       if (img == 0) {
         img = img + 1;
         document.getElementById("imagem-coracao").src = "./coracao-vermelho.png";
-        
-   
+
+
         document.location.reload(false);
       } else if (img > 0) {
         document.getElementById("imagem-coracao-vermelho").src = "./coracao.png";
